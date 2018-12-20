@@ -6,18 +6,24 @@ public class Configuracao {
 	private double preco;
 	private double desconto;
 
+	private static int nextId = 1;
+
 	public Configuracao() {
 		this.componentes = new HashMap<>();
-	//	this.id = id;
+		this.id = Configuracao.getNextId();
 		this.preco = 0;
 		this.desconto = 0;
 	}
 
-	public Configuracao(Map<Integer, Componente> componentes, int id, double preco, double desconto) {
+	public Configuracao(Map<Integer, Componente> componentes, double preco, double desconto) {
 		this.componentes = componentes;
-		this.id = id;
+		this.id = Configuracao.getNextId();
 		this.preco = preco;
 		this.desconto = desconto;
+	}
+
+	public static int getNextId() {
+		return nextId++;
 	}
 
 	public int getId() {

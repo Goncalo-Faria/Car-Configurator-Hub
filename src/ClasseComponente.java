@@ -4,12 +4,18 @@ public class ClasseComponente {
 	private boolean eObrigatorio;
 	private String nome;
 
-	public ClasseComponente(TipoComponente tipoComponente, int id,
+	private static int nextId = 1;
+
+	public ClasseComponente(TipoComponente tipoComponente,
 							boolean eObrigatorio, String nome) {
 		this.tipoComponente = tipoComponente;
-		this.id = id;
+		this.id = ClasseComponente.getNextId();
 		this.eObrigatorio = eObrigatorio;
 		this.nome = nome;
+	}
+
+	public static int getNextId() {
+		return nextId++;
 	}
 
 	public int getId() {
@@ -20,7 +26,7 @@ public class ClasseComponente {
 		this.id = id;
 	}
 
-	public boolean isEObrigatorio() {
+	public boolean getEObrigatorio() {
 		return this.eObrigatorio;
 	}
 

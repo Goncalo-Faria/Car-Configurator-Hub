@@ -9,6 +9,24 @@ public class Componente {
 	private double preco;
 	private String nome;
 
+	private static int nextId = 1;
+
+	public Componente(ClasseComponente classeComponente, List<Integer> requeridos,
+					  List<Integer> incompativeis, int stock,
+					  double preco, String nome) {
+		this.classeComponente = classeComponente;
+		this.requeridos = requeridos;
+		this.incompativeis = incompativeis;
+		this.id = Componente.getNextId();
+		this.stock = stock;
+		this.preco = preco;
+		this.nome = nome;
+	}
+
+	public static int getNextId() {
+		return nextId++;
+	}
+
 	public int getId() {
 		return this.id;
 	}

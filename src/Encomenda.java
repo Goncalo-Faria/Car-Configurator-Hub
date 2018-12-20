@@ -1,9 +1,20 @@
+import java.util.Map;
+
 public class Encomenda extends Configuracao {
 	private String nomeCliente;
 	private String numeroDeIdentificacaoCliente;
 	private String moradaCliente;
 	private String paisCliente;
 	private String emailCliente;
+
+	public Encomenda(Map<Integer, Componente> componentes, double preco, double desconto, String nomeCliente, String numeroDeIdentificacaoCliente, String moradaCliente, String paisCliente, String emailCliente) {
+		super(componentes, preco, desconto);
+		this.nomeCliente = nomeCliente;
+		this.numeroDeIdentificacaoCliente = numeroDeIdentificacaoCliente;
+		this.moradaCliente = moradaCliente;
+		this.paisCliente = paisCliente;
+		this.emailCliente = emailCliente;
+	}
 
 	public String getNomeCliente() {
 		return this.nomeCliente;

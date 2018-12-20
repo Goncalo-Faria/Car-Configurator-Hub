@@ -4,7 +4,10 @@ public class OperacaoFabril {
 	private Encomenda encomendas;
 
 	public OperacaoFabril() {
-		throw new UnsupportedOperationException();
+	}
+
+	public OperacaoFabril(Encomenda encomendas) {
+		this.encomendas = encomendas;
 	}
 
 	public List<Componente> consultarComponentes() {

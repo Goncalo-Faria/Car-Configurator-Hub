@@ -1,16 +1,18 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GestaoDeConfiguracao {
-
-	private Collection<Configuracao> configuracoes;
+	private Map<Integer,Configuracao> configuracoes;
 
 	public GestaoDeConfiguracao() {
-		// TODO - implement GestaoDeConfiguracao.GestaoDeConfiguracao
-		throw new UnsupportedOperationException();
+		this.configuracoes = new HashMap<>();
+	}
+
+	public GestaoDeConfiguracao(Map<Integer, Configuracao> configuracoes) {
+		this.configuracoes = configuracoes;
 	}
 
 	public Configuracao criarConfiguracao() {
-		// TODO - implement GestaoDeConfiguracao.criarConfiguracao
 		throw new UnsupportedOperationException();
 	}
 
@@ -19,7 +21,6 @@ public class GestaoDeConfiguracao {
 	 * @param configuracaoId
 	 */
 	public void removerConfiguracao(int configuracaoId) {
-		// TODO - implement GestaoDeConfiguracao.removerConfiguracao
 		throw new UnsupportedOperationException();
 	}
 
