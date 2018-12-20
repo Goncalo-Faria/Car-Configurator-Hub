@@ -82,9 +82,10 @@ public class CCH {
 
 	/**
 	 * 
+	 * @param pacote
 	 * @param desconto
 	 */
-	public Pacote criarPacote(Double desconto) {
+	public boolean criarPacote(Pacote pacote, Double desconto) {
 		throw new UnsupportedOperationException();
 	}
 
