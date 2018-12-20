@@ -1,3 +1,5 @@
+package business;
+
 public class Utilizador {
 	private TipoUtilizador tipoUtilizador;
 	private int id;

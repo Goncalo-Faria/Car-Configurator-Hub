@@ -1,3 +1,5 @@
+package business;
+
 public class ClasseComponente {
 	private TipoComponente tipoComponente;
 	private int id;

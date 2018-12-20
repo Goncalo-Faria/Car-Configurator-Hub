@@ -1,3 +1,5 @@
+package business;
+
 public enum TipoComponente {
 	Pintura,
 	JantesEPneus,
