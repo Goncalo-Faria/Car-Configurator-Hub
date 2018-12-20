@@ -1,14 +1,15 @@
 package business;
 
 import java.util.List;
+import java.util.Map;
 
 public class OperacaoFabril {
-	private Encomenda encomendas;
+	private Map<Integer,Encomenda> encomendas;
 
 	public OperacaoFabril() {
 	}
 
-	public OperacaoFabril(Encomenda encomendas) {
+	public OperacaoFabril(Map<Integer,Encomenda> encomendas) {
 		this.encomendas = encomendas;
 	}
 
@@ -20,7 +21,7 @@ public class OperacaoFabril {
 		throw new UnsupportedOperationException();
 	}
 
-	public Encomenda adiconarEncomenda() {
+	public void adiconarEncomenda(Encomenda encomenda) {
 		throw new UnsupportedOperationException();
 	}
 

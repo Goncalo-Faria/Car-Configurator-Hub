@@ -8,21 +8,25 @@ public class CCH {
 	private GestaoDeConfiguracao gestaoDeConfiguracao;
 	private Map<Integer,Componente> componentes;
 	private Map<Integer,Utilizador> utilizadores;
+	private Map<Integer,Pacote> pacotes;
 	private OperacaoFabril operacaoFabril;
 
 	public CCH() {
 		this.gestaoDeConfiguracao = new GestaoDeConfiguracao();
 		this.componentes = new HashMap<>();
 		this.utilizadores = new HashMap<>();
+		this.pacotes = new HashMap<>();
 		this.operacaoFabril = new OperacaoFabril();
 	}
 
 	public CCH(GestaoDeConfiguracao gestaoDeConfiguracao, Map<Integer,
 			   Componente> componentes, Map<Integer, Utilizador> utilizadores,
+			   Map<Integer, Pacote> pacotes,
 			   OperacaoFabril operacaoFabril) {
 		this.gestaoDeConfiguracao = gestaoDeConfiguracao;
 		this.componentes = componentes;
 		this.utilizadores = utilizadores;
+		this.pacotes = pacotes;
 		this.operacaoFabril = operacaoFabril;
 	}
 
@@ -41,6 +45,15 @@ public class CCH {
 	public void setComponentes(Map<Integer, Componente> componentes) {
 		this.componentes = componentes;
 	}
+
+	public Map<Integer, Pacote> getPacotes() {
+		return this.pacotes;
+	}
+
+	public void setPacotes(Map<Integer, Pacote> pacotes) {
+		this.pacotes = pacotes;
+	}
+
 
 	public Map<Integer, Utilizador> getUtilizadores() {
 		return this.utilizadores;
