@@ -81,7 +81,7 @@ public class CCH {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param pacote
 	 * @param desconto
 	 */
@@ -116,6 +116,14 @@ public class CCH {
 	 * @param utilizadorId
 	 */
 	public void removerFuncionario(int utilizadorId) {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 *
+	 * @param componenteId
+	 */
+	public void atualizarStock(int componenteId, int nrComponentes) {
 		throw new UnsupportedOperationException();
 	}
 

@@ -25,12 +25,4 @@ public class OperacaoFabril {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param componenteId
-	 */
-	public void atualizarStock(int componenteId) {
-		throw new UnsupportedOperationException();
-	}
-
 }
