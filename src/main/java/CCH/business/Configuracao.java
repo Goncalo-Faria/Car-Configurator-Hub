@@ -17,6 +17,20 @@ public class Configuracao {
 		this.desconto = 0;
 	}
 
+	public Configuracao(Configuracao configuracao) {
+		this.componentes = configuracao.getComponentes();
+		this.id = configuracao.getId();
+		this.preco = configuracao.getPreco();
+		this.desconto = configuracao.getDesconto();
+	}
+
+	public Configuracao(int id, double preco, double desconto) {
+		this.componentes = null;
+		this.id = id;
+		this.preco = preco;
+		this.desconto = desconto;
+	}
+
 	public Configuracao(Map<Integer, Componente> componentes, double preco, double desconto) {
 		this.componentes = componentes;
 		this.id = Configuracao.getNextId();
@@ -50,6 +64,14 @@ public class Configuracao {
 
 	public void setDesconto(double desconto) {
 		this.desconto = desconto;
+	}
+
+	public Map<Integer, Componente> getComponentes() {
+		return componentes;
+	}
+
+	public void setComponentes(Map<Integer, Componente> componentes) {
+		this.componentes = componentes;
 	}
 
 	/**

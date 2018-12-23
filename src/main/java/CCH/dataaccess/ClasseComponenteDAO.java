@@ -1,40 +1,43 @@
 package CCH.dataaccess;
 
-import CCH.business.*;
+import CCH.business.ClasseComponente;
+import CCH.business.TipoComponente;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.*;
-import java.sql.*;
 
-public class UtilizadorDAO implements Map<Integer, Utilizador> {
+public class ClasseComponenteDAO implements Map<Integer, ClasseComponente> {
 
     public Connection conn;
 
-    private TipoUtilizadorDAO tipoUtilizadorDAO = new TipoUtilizadorDAO();
+    private TipoComponenteDAO tipoClasseComponenteDAO = new TipoComponenteDAO();
 
-    public UtilizadorDAO () {
+    public ClasseComponenteDAO () {
         conn = CCHConnection.getConnection();
     }
 
     public boolean containsKey(Object key) throws NullPointerException {
         try {
             Statement stm = conn.createStatement();
-            String sql = "SELECT id FROM Utilizador WHERE ID = " + key;
+            String sql = "SELECT id FROM ClasseComponente WHERE ID = " + key;
             ResultSet rs = stm.executeQuery(sql);
             return rs.next();
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
-    public Utilizador get(Object key) {
+    public ClasseComponente get(Object key) {
         try {
-            Utilizador al = null;
+            ClasseComponente al = null;
             Statement stm = conn.createStatement();
-            String sql = "SELECT * FROM Utilizador WHERE id=" + key;
+            String sql = "SELECT * FROM ClasseComponente WHERE id=" + key;
             ResultSet rs = stm.executeQuery(sql);
 
             if (rs.next()) {
-                TipoUtilizador tipoUtilizador =tipoUtilizadorDAO.get(rs.getInt(4));
-                al = new Utilizador(rs.getInt(1),rs.getString(2),rs.getString(3), tipoUtilizador);
+                TipoComponente tipoComponente = tipoClasseComponenteDAO.get(rs.getInt(4));
+                al = new ClasseComponente(rs.getInt(1),rs.getBoolean(2),rs.getString(3), tipoComponente);
             }
 
             return al;
@@ -44,14 +47,14 @@ public class UtilizadorDAO implements Map<Integer, Utilizador> {
         }
     }
 
-    public Utilizador put(Integer key, Utilizador value) {
+    public ClasseComponente put(Integer key, ClasseComponente value) {
         try {
             Statement stm = conn.createStatement();
 
-            stm.executeUpdate("DELETE FROM Utilizador WHERE id='"+key+"'");
-            String sql = "INSERT INTO Utilizador VALUES ('" +
-                    value.getId() + "','" + value.getNome() + "','" + value.getPassword() +
-                    "','" + value.getTipoUtilizador().getId() +"');";
+            stm.executeUpdate("DELETE FROM ClasseComponente WHERE id='"+key+"'");
+            String sql = "INSERT INTO ClasseComponente VALUES ('" +
+                    value.getId() + "','" + value.getEObrigatorio() + "','" + value.getNome() +
+                    "','" + value.getTipoComponente().getId() +"');";
 
             int i  = stm.executeUpdate(sql);
 
@@ -60,11 +63,11 @@ public class UtilizadorDAO implements Map<Integer, Utilizador> {
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
-    public Utilizador remove(Object key) {
+    public ClasseComponente remove(Object key) {
         try {
-            Utilizador al = this.get(key);
+            ClasseComponente al = this.get(key);
             Statement stm = conn.createStatement();
-            String sql = "DELETE " + key + " FROM Utilizador";
+            String sql = "DELETE " + key + " FROM ClasseComponente";
             int i  = stm.executeUpdate(sql);
             return al;
         }
@@ -75,7 +78,7 @@ public class UtilizadorDAO implements Map<Integer, Utilizador> {
         try {
             int i = 0;
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT id FROM Utilizador");
+            ResultSet rs = stm.executeQuery("SELECT id FROM ClasseComponente");
 
             while (rs.next()) {
                 i++;
@@ -86,15 +89,14 @@ public class UtilizadorDAO implements Map<Integer, Utilizador> {
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
-    public Collection<Utilizador> values() {
+    public Collection<ClasseComponente> values() {
         try {
-            Collection<Utilizador> col = new HashSet<>();
+            Collection<ClasseComponente> col = new HashSet<>();
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT * FROM Utilizador");
+            ResultSet rs = stm.executeQuery("SELECT * FROM ClasseComponente");
 
-            while (rs.next()) {
-                TipoUtilizador tipoUtilizador = tipoUtilizadorDAO.get(rs.getInt(4));
-                Utilizador al = new Utilizador(rs.getInt(1),rs.getString(2),rs.getString(3), tipoUtilizador);
+            while (rs.next()) { TipoComponente tipoComponente = tipoClasseComponenteDAO.get(rs.getInt(4));
+                ClasseComponente al = new ClasseComponente(rs.getInt(1),rs.getBoolean(2),rs.getString(3), tipoComponente);
                 col.add(al);
             }
 
@@ -103,9 +105,9 @@ public class UtilizadorDAO implements Map<Integer, Utilizador> {
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
-    public Map<Integer, Utilizador> getAll() {
-        Map<Integer, Utilizador> hashmap = new HashMap<>();
-        Collection<Utilizador> collection = values();
+    public Map<Integer, ClasseComponente> getAll() {
+        Map<Integer, ClasseComponente> hashmap = new HashMap<>();
+        Collection<ClasseComponente> collection = values();
 
         collection.forEach(u -> hashmap.put(u.getId(), u));
 
@@ -120,13 +122,13 @@ public class UtilizadorDAO implements Map<Integer, Utilizador> {
         throw new NullPointerException("Not implemented!");
     }
 
-    public Set<Map.Entry<Integer, Utilizador>> entrySet() {
+    public Set<Map.Entry<Integer, ClasseComponente>> entrySet() {
         throw new NullPointerException("Not implemented!");    }
 
     public boolean equals(Object o) {
         throw new NullPointerException("Not implemented!");    }
 
-    public void putAll(Map<? extends Integer,? extends Utilizador> t) {
+    public void putAll(Map<? extends Integer,? extends ClasseComponente> t) {
         throw new NullPointerException("Not implemented!");
     }
 
@@ -142,4 +144,3 @@ public class UtilizadorDAO implements Map<Integer, Utilizador> {
         throw new NullPointerException("Not implemented!");
     }
 }
-

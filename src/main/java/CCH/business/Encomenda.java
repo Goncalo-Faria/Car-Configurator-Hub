@@ -18,6 +18,15 @@ public class Encomenda extends Configuracao {
 		this.emailCliente = emailCliente;
 	}
 
+	public Encomenda(Configuracao configuracao, String nomeCliente, String numeroDeIdentificacaoCliente, String moradaCliente, String paisCliente, String emailCliente) {
+		super(configuracao);
+		this.nomeCliente = nomeCliente;
+		this.numeroDeIdentificacaoCliente = numeroDeIdentificacaoCliente;
+		this.moradaCliente = moradaCliente;
+		this.paisCliente = paisCliente;
+		this.emailCliente = emailCliente;
+	}
+
 	public String getNomeCliente() {
 		return this.nomeCliente;
 	}
@@ -56,21 +65,6 @@ public class Encomenda extends Configuracao {
 
 	public void setEmailCliente(String emailCliente) {
 		this.emailCliente = emailCliente;
-	}
-
-	/**
-	 * 
-	 * @param configuracao
-	 * @param nomeCliente
-	 * @param numeroDeIdentificacaoCliente
-	 * @param moradaCliente
-	 * @param paisCliente
-	 * @param emailCliente
-	 */
-	public Encomenda(Configuracao configuracao, String nomeCliente,
-					 String numeroDeIdentificacaoCliente, String moradaCliente,
-					 String paisCliente, String emailCliente) {
-		throw new UnsupportedOperationException();
 	}
 
 }

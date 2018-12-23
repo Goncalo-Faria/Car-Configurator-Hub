@@ -25,6 +25,17 @@ public class Componente {
 		this.nome = nome;
 	}
 
+	public Componente(int id, int stock, double preco, String nome, ClasseComponente classeComponente) {
+		this.requeridos = null;
+		this.incompativeis = null;
+		this.id = id;
+		this.stock = stock;
+		this.preco = preco;
+		this.nome = nome;
+		this.classeComponente = classeComponente;
+	}
+
+
 	public static int getNextId() {
 		return nextId++;
 	}
@@ -61,4 +72,11 @@ public class Componente {
 		this.nome = nome;
 	}
 
+	public ClasseComponente getClasseComponente() {
+		return classeComponente;
+	}
+
+	public void setClasseComponente(ClasseComponente classeComponente) {
+		this.classeComponente = classeComponente;
+	}
 }

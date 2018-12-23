@@ -10,6 +10,12 @@ public class Pacote {
 
 	private static int nextId = 1;
 
+	public Pacote(int id, double desconto) {
+		this.componentes = null;
+		this.id = id;
+		this.desconto = desconto;
+	}
+
 	public Pacote() {
 		this.componentes = new HashMap<>();
 		this.id = Pacote.getNextId();

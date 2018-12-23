@@ -6,6 +6,19 @@ public class Utilizador {
 	private String nome;
 	private String password;
 
+	private static int nextId = 1;
+
+	public Utilizador(String nome, String password, TipoUtilizador tipoUtilizador) {
+		this.id = getNextId();
+		this.nome = nome;
+		this.password = password;
+		this.tipoUtilizador = tipoUtilizador;
+	}
+
+	public static int getNextId() {
+		return nextId++;
+	}
+
 	public int getId() {
 		return this.id;
 	}

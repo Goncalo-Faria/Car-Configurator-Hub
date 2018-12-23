@@ -1,6 +1,6 @@
 package CCH.controller;
 
-import CCH.services.TipoUtilizadorService;
+import CCH.dataaccess.TipoUtilizadorDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,15 +17,14 @@ public class TipoUtilizadorController {
     @FXML
     public ComboBox<String> tipoUtilizadoresComboBox;
 
-    @Autowired
-    private TipoUtilizadorService tipoUtilizadorService;
+    private TipoUtilizadorDAO tipoUtilizadorDAO = new TipoUtilizadorDAO();
 
     @FXML
     public void initialize() {
         List<String> tipoUtilizadores = new ArrayList<>();
         ObservableList<String> observableList = FXCollections.observableList(tipoUtilizadores);
         observableList.addAll(
-                tipoUtilizadorService.getAll()
+                tipoUtilizadorDAO.values()
                         .stream()
                         .map(t -> t.getTipo())
                         .collect(Collectors.toList())

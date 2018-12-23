@@ -16,6 +16,13 @@ public class ClasseComponente {
 		this.nome = nome;
 	}
 
+	public ClasseComponente(int id, boolean eObrigatorio, String nome, TipoComponente tipoComponente) {
+		this.tipoComponente = tipoComponente;
+		this.id = id;
+		this.eObrigatorio = eObrigatorio;
+		this.nome = nome;
+	}
+
 	public static int getNextId() {
 		return nextId++;
 	}
@@ -44,4 +51,11 @@ public class ClasseComponente {
 		this.nome = nome;
 	}
 
+	public TipoComponente getTipoComponente() {
+		return tipoComponente;
+	}
+
+	public void setTipoComponente(TipoComponente tipoComponente) {
+		this.tipoComponente = tipoComponente;
+	}
 }
