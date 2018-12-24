@@ -93,7 +93,7 @@ public class ConfiguracaoOtima {
         restricaoPacotes(cplex,pacotes,componentes,comps,pacs);
 
         //restrição de preço
-            cplex.addLe(money,objfunc);
+        cplex.addLe(money,objfunc);
 
         //resolve o problema
         if(cplex.solve()){
