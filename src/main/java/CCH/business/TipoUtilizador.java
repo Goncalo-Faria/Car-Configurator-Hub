@@ -1,27 +1,17 @@
 package CCH.business;
 
-public class TipoUtilizador {
-	private int id;
-	private String tipo;
+public enum TipoUtilizador {
+	ADMIN(0),
+	FABRICA(1),
+	STAND(2);
 
-	public TipoUtilizador(int id, String tipo) {
-		this.id = id;
-		this.tipo = tipo;
+	private final int value;
+
+	private TipoUtilizador(int value) {
+		this.value = value;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public int getValue() {
+		return value;
 	}
 }

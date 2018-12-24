@@ -1,30 +1,38 @@
 package CCH.business;
 
-import java.util.Map;
+public class Encomenda {
 
-public class Encomenda extends Configuracao {
+	private Componente componentes;
+	private int id;
+	private double preco;
 	private String nomeCliente;
 	private String numeroDeIdentificacaoCliente;
 	private String moradaCliente;
 	private String paisCliente;
 	private String emailCliente;
 
-	public Encomenda(Map<Integer, Componente> componentes, double preco, double desconto, String nomeCliente, String numeroDeIdentificacaoCliente, String moradaCliente, String paisCliente, String emailCliente) {
-		super(componentes, preco, desconto);
-		this.nomeCliente = nomeCliente;
-		this.numeroDeIdentificacaoCliente = numeroDeIdentificacaoCliente;
-		this.moradaCliente = moradaCliente;
-		this.paisCliente = paisCliente;
-		this.emailCliente = emailCliente;
+	public Componente getComponentes() {
+		return componentes;
 	}
 
-	public Encomenda(Configuracao configuracao, String nomeCliente, String numeroDeIdentificacaoCliente, String moradaCliente, String paisCliente, String emailCliente) {
-		super(configuracao);
-		this.nomeCliente = nomeCliente;
-		this.numeroDeIdentificacaoCliente = numeroDeIdentificacaoCliente;
-		this.moradaCliente = moradaCliente;
-		this.paisCliente = paisCliente;
-		this.emailCliente = emailCliente;
+	public void setComponentes(Componente componentes) {
+		this.componentes = componentes;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(double preco) {
+		this.preco = preco;
 	}
 
 	public String getNomeCliente() {
@@ -65,6 +73,20 @@ public class Encomenda extends Configuracao {
 
 	public void setEmailCliente(String emailCliente) {
 		this.emailCliente = emailCliente;
+	}
+
+	/**
+	 *
+	 * @param id
+	 * @param nomeCliente
+	 * @param numeroDeIdentificacaoCliente
+	 * @param moradaCliente
+	 * @param paisCliente
+	 * @param emailCliente
+	 */
+	public Encomenda(int id, String nomeCliente, String numeroDeIdentificacaoCliente, String moradaCliente, String paisCliente, String emailCliente) {
+		// TODO - implement Encomenda.Encomenda
+		throw new UnsupportedOperationException();
 	}
 
 }

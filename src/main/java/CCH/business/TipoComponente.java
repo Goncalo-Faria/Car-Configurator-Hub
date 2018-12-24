@@ -1,27 +1,23 @@
 package CCH.business;
 
-public class TipoComponente {
-	private int id;
-	private String tipo;
+public enum TipoComponente {
+	Pintura(0),
+	JantesEPneus(1),
+	Motor(2),
+	DetalhesExteriores(3),
+	DetalhesInteriores(4);
 
-	public TipoComponente(int id, String tipo) {
-		this.id = id;
-		this.tipo = tipo;
+	private final int value;
+
+	private TipoComponente(int value) {
+		this.value = value;
 	}
 
-	public int getId() {
-		return id;
+	public int getValue() {
+		return value;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public static TipoComponente withValue(int value) {
+		return TipoComponente.values()[value];
 	}
 }

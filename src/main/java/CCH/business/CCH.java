@@ -1,75 +1,14 @@
 package CCH.business;
 
-import java.util.HashMap;
+import CCH.dataaccess.*;
+
 import java.util.List;
-import java.util.Map;
 
 public class CCH {
-	private GestaoDeConfiguracao gestaoDeConfiguracao;
-	private Map<Integer,Componente> componentes;
-	private Map<Integer,Utilizador> utilizadores;
-	private Map<Integer,Pacote> pacotes;
-	private OperacaoFabril operacaoFabril;
 
-	public CCH() {
-		this.gestaoDeConfiguracao = new GestaoDeConfiguracao();
-		this.componentes = new HashMap<>();
-		this.utilizadores = new HashMap<>();
-		this.pacotes = new HashMap<>();
-		this.operacaoFabril = new OperacaoFabril();
-	}
-
-	public CCH(GestaoDeConfiguracao gestaoDeConfiguracao, Map<Integer,
-			   Componente> componentes, Map<Integer, Utilizador> utilizadores,
-			   Map<Integer, Pacote> pacotes,
-			   OperacaoFabril operacaoFabril) {
-		this.gestaoDeConfiguracao = gestaoDeConfiguracao;
-		this.componentes = componentes;
-		this.utilizadores = utilizadores;
-		this.pacotes = pacotes;
-		this.operacaoFabril = operacaoFabril;
-	}
-
-	public GestaoDeConfiguracao getGestaoDeConfiguracao() {
-		return this.gestaoDeConfiguracao;
-	}
-
-	public void setGestaoDeConfiguracao(GestaoDeConfiguracao gestaoDeConfiguracao) {
-		this.gestaoDeConfiguracao = gestaoDeConfiguracao;
-	}
-
-	public Map<Integer, Componente> getComponentes() {
-		return this.componentes;
-	}
-
-	public void setComponentes(Map<Integer, Componente> componentes) {
-		this.componentes = componentes;
-	}
-
-	public Map<Integer, Pacote> getPacotes() {
-		return this.pacotes;
-	}
-
-	public void setPacotes(Map<Integer, Pacote> pacotes) {
-		this.pacotes = pacotes;
-	}
-
-
-	public Map<Integer, Utilizador> getUtilizadores() {
-		return this.utilizadores;
-	}
-
-	public void setUtilizadores(Map<Integer, Utilizador> utilizadores) {
-		this.utilizadores = utilizadores;
-	}
-
-	public OperacaoFabril getOperacaoFabril() {
-		return this.operacaoFabril;
-	}
-
-	public void setOperacaoFabril(OperacaoFabril operacaoFabril) {
-		this.operacaoFabril = operacaoFabril;
-	}
+	private GestaoDeConfiguracao gestao_de_configuracao;
+	private UtilizadorDAO utilizadores;
+	private OperacaoFabril operacao_fabril;
 
 	/**
 	 * 
@@ -77,15 +16,16 @@ public class CCH {
 	 * @param password
 	 */
 	public void iniciarSessao(int id, String password) {
+		// TODO - implement CCH.iniciarSessao
 		throw new UnsupportedOperationException();
 	}
 
 	/**
-	 *
+	 * 
 	 * @param pacote
-	 * @param desconto
 	 */
-	public boolean criarPacote(Pacote pacote, Double desconto) {
+	public void criarPacote(Pacote pacote) {
+		// TODO - implement CCH.criarPacote
 		throw new UnsupportedOperationException();
 	}
 
@@ -94,10 +34,12 @@ public class CCH {
 	 * @param pacoteId
 	 */
 	public void removerPacote(int pacoteId) {
+		// TODO - implement CCH.removerPacote
 		throw new UnsupportedOperationException();
 	}
 
 	public List<Utilizador> consultarFuncionarios() {
+		// TODO - implement CCH.consultarFuncionarios
 		throw new UnsupportedOperationException();
 	}
 
@@ -108,6 +50,7 @@ public class CCH {
 	 * @param tipo
 	 */
 	public Utilizador criarFuncionario(String nome, String password, TipoUtilizador tipo) {
+		// TODO - implement CCH.criarFuncionario
 		throw new UnsupportedOperationException();
 	}
 
@@ -116,14 +59,17 @@ public class CCH {
 	 * @param utilizadorId
 	 */
 	public void removerFuncionario(int utilizadorId) {
+		// TODO - implement CCH.removerFuncionario
 		throw new UnsupportedOperationException();
 	}
 
 	/**
-	 *
+	 * 
 	 * @param componenteId
+	 * @param nrComponentes
 	 */
 	public void atualizarStock(int componenteId, int nrComponentes) {
+		// TODO - implement CCH.atualizarStock
 		throw new UnsupportedOperationException();
 	}
 

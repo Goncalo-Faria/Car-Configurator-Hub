@@ -1,36 +1,12 @@
 package CCH.business;
 
-import java.util.HashMap;
-import java.util.Map;
+import CCH.dataaccess.ComponenteDAO;
 
 public class Pacote {
-	private Map<Integer,Componente> componentes;
+
+	private ComponenteDAO componentes;
 	private int id;
 	private double desconto;
-
-	private static int nextId = 1;
-
-	public Pacote(int id, double desconto) {
-		this.componentes = null;
-		this.id = id;
-		this.desconto = desconto;
-	}
-
-	public Pacote() {
-		this.componentes = new HashMap<>();
-		this.id = Pacote.getNextId();
-		this.desconto = 0;
-	}
-
-	public Pacote(Map<Integer, Componente> componentes, double desconto) {
-		this.componentes = componentes;
-		this.id = Pacote.getNextId();
-		this.desconto = desconto;
-	}
-
-	public static int getNextId() {
-		return nextId++;
-	}
 
 	public int getId() {
 		return this.id;
@@ -48,11 +24,26 @@ public class Pacote {
 		this.desconto = desconto;
 	}
 
+	public ComponenteDAO getComponentes() {
+		return componentes;
+	}
+
+	public void setComponentes(ComponenteDAO componentes) {
+		this.componentes = componentes;
+	}
+
+	public Pacote(int id, double desconto) {
+		this.id = id;
+		this.desconto = desconto;
+		this.componentes = new ComponenteDAO();
+	}
+
 	/**
 	 * 
 	 * @param componenteId
 	 */
 	public Componente adicionarComponente(int componenteId) {
+		// TODO - implement Pacote.adicionarComponente
 		throw new UnsupportedOperationException();
 	}
 
@@ -61,6 +52,12 @@ public class Pacote {
 	 * @param componenteId
 	 */
 	public void removerComponente(int componenteId) {
+		// TODO - implement Pacote.removerComponente
+		throw new UnsupportedOperationException();
+	}
+
+	public Pacote() {
+		// TODO - implement Pacote.Pacote
 		throw new UnsupportedOperationException();
 	}
 

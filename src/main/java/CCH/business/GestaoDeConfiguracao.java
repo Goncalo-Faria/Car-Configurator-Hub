@@ -1,20 +1,26 @@
 package CCH.business;
 
-import java.util.HashMap;
-import java.util.Map;
+import CCH.dataaccess.ConfiguracaoDAO;
 
 public class GestaoDeConfiguracao {
-	private Map<Integer,Configuracao> configuracoes;
 
-	public GestaoDeConfiguracao() {
-		this.configuracoes = new HashMap<>();
+	private ConfiguracaoDAO configuracoes;
+
+	public ConfiguracaoDAO getConfiguracoes() {
+		return configuracoes;
 	}
 
-	public GestaoDeConfiguracao(Map<Integer, Configuracao> configuracoes) {
+	public void setConfiguracoes(ConfiguracaoDAO configuracoes) {
 		this.configuracoes = configuracoes;
 	}
 
+	public GestaoDeConfiguracao() {
+		// TODO - implement GestaoDeConfiguracao.GestaoDeConfiguracao
+		throw new UnsupportedOperationException();
+	}
+
 	public Configuracao criarConfiguracao() {
+		// TODO - implement GestaoDeConfiguracao.criarConfiguracao
 		throw new UnsupportedOperationException();
 	}
 
@@ -23,6 +29,7 @@ public class GestaoDeConfiguracao {
 	 * @param configuracaoId
 	 */
 	public void removerConfiguracao(int configuracaoId) {
+		// TODO - implement GestaoDeConfiguracao.removerConfiguracao
 		throw new UnsupportedOperationException();
 	}
 

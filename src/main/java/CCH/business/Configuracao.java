@@ -1,46 +1,14 @@
 package CCH.business;
 
-import java.util.*;
+import java.util.List;
 
 public class Configuracao {
-	private Map<Integer,Componente> componentes;
+
 	private int id;
 	private double preco;
 	private double desconto;
-
-	private static int nextId = 1;
-
-	public Configuracao() {
-		this.componentes = new HashMap<>();
-		this.id = Configuracao.getNextId();
-		this.preco = 0;
-		this.desconto = 0;
-	}
-
-	public Configuracao(Configuracao configuracao) {
-		this.componentes = configuracao.getComponentes();
-		this.id = configuracao.getId();
-		this.preco = configuracao.getPreco();
-		this.desconto = configuracao.getDesconto();
-	}
-
-	public Configuracao(int id, double preco, double desconto) {
-		this.componentes = null;
-		this.id = id;
-		this.preco = preco;
-		this.desconto = desconto;
-	}
-
-	public Configuracao(Map<Integer, Componente> componentes, double preco, double desconto) {
-		this.componentes = componentes;
-		this.id = Configuracao.getNextId();
-		this.preco = preco;
-		this.desconto = desconto;
-	}
-
-	public static int getNextId() {
-		return nextId++;
-	}
+	private List<Componente> componentes;
+	private List<Pacote> pacotes;
 
 	public int getId() {
 		return this.id;
@@ -66,12 +34,31 @@ public class Configuracao {
 		this.desconto = desconto;
 	}
 
-	public Map<Integer, Componente> getComponentes() {
+	public List<Componente> getComponentes() {
 		return componentes;
 	}
 
-	public void setComponentes(Map<Integer, Componente> componentes) {
+	public void setComponentes(List<Componente> componentes) {
 		this.componentes = componentes;
+	}
+
+	public List<Pacote> getPacotes() {
+		return pacotes;
+	}
+
+	public void setPacotes(List<Pacote> pacotes) {
+		this.pacotes = pacotes;
+	}
+
+	public Configuracao() {
+		// TODO - implement Configuracao.Configuracao
+		throw new UnsupportedOperationException();
+	}
+
+	public Configuracao(int id, double preco, double desconto) {
+		this.id = id;
+		this.preco = preco;
+		this.desconto = desconto;
 	}
 
 	/**
@@ -79,6 +66,7 @@ public class Configuracao {
 	 * @param precoMaximo
 	 */
 	public List<Componente> gerarConfiguracaoOtima(double precoMaximo) {
+		// TODO - implement Configuracao.gerarConfiguracaoOtima
 		throw new UnsupportedOperationException();
 	}
 
@@ -87,6 +75,7 @@ public class Configuracao {
 	 * @param componenteId
 	 */
 	public Componente adiconarComponente(int componenteId) {
+		// TODO - implement Configuracao.adiconarComponente
 		throw new UnsupportedOperationException();
 	}
 
@@ -95,6 +84,7 @@ public class Configuracao {
 	 * @param componenteId
 	 */
 	public void removerComponente(int componenteId) {
+		// TODO - implement Configuracao.removerComponente
 		throw new UnsupportedOperationException();
 	}
 
@@ -103,10 +93,12 @@ public class Configuracao {
 	 * @param pacoteId
 	 */
 	public void adicionarPacote(int pacoteId) {
+		// TODO - implement Configuracao.adicionarPacote
 		throw new UnsupportedOperationException();
 	}
 
 	public List<Pacote> consultarPacotes() {
+		// TODO - implement Configuracao.consultarPacotes
 		throw new UnsupportedOperationException();
 	}
 
@@ -115,6 +107,7 @@ public class Configuracao {
 	 * @param tipoComponente
 	 */
 	public List<Componente> consultarComponentes(TipoComponente tipoComponente) {
+		// TODO - implement Configuracao.consultarComponentes
 		throw new UnsupportedOperationException();
 	}
 
@@ -123,6 +116,7 @@ public class Configuracao {
 	 * @param componentes
 	 */
 	public void aceitarConfiguracaoOtima(List<Componente> componentes) {
+		// TODO - implement Configuracao.aceitarConfiguracaoOtima
 		throw new UnsupportedOperationException();
 	}
 

@@ -1,23 +1,11 @@
 package CCH.business;
 
 public class Utilizador {
+
 	private TipoUtilizador tipoUtilizador;
 	private int id;
 	private String nome;
 	private String password;
-
-	private static int nextId = 1;
-
-	public Utilizador(String nome, String password, TipoUtilizador tipoUtilizador) {
-		this.id = getNextId();
-		this.nome = nome;
-		this.password = password;
-		this.tipoUtilizador = tipoUtilizador;
-	}
-
-	public static int getNextId() {
-		return nextId++;
-	}
 
 	public int getId() {
 		return this.id;
@@ -52,6 +40,17 @@ public class Utilizador {
 	}
 
 	/**
+	 * 
+	 * @param nome
+	 * @param password
+	 * @param tipo
+	 */
+	public Utilizador(String nome, String password, TipoUtilizador tipo) {
+		// TODO - implement Utilizador.Utilizador
+		throw new UnsupportedOperationException();
+	}
+
+	/**
 	 *
 	 * @param id
 	 * @param nome
@@ -71,6 +70,7 @@ public class Utilizador {
 	 * @param password
 	 */
 	public boolean validarCredenciais(int id, String password) {
+		// TODO - implement Utilizador.validarCredenciais
 		throw new UnsupportedOperationException();
 	}
 

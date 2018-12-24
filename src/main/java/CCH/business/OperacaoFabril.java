@@ -1,27 +1,30 @@
 package CCH.business;
 
 import java.util.List;
-import java.util.Map;
 
 public class OperacaoFabril {
-	private Map<Integer,Encomenda> encomendas;
 
 	public OperacaoFabril() {
-	}
-
-	public OperacaoFabril(Map<Integer,Encomenda> encomendas) {
-		this.encomendas = encomendas;
+		// TODO - implement OperacaoFabril.OperacaoFabril
+		throw new UnsupportedOperationException();
 	}
 
 	public List<Componente> consultarComponentes() {
+		// TODO - implement OperacaoFabril.consultarComponentes
 		throw new UnsupportedOperationException();
 	}
 
 	public Encomenda consultarProximaEncomenda() {
+		// TODO - implement OperacaoFabril.consultarProximaEncomenda
 		throw new UnsupportedOperationException();
 	}
 
-	public void adiconarEncomenda(Encomenda encomenda) {
+	/**
+	 * 
+	 * @param e
+	 */
+	public void adiconarEncomenda(Encomenda e) {
+		// TODO - implement OperacaoFabril.adiconarEncomenda
 		throw new UnsupportedOperationException();
 	}
 

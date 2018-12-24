@@ -47,34 +47,6 @@ public class ComponenteDAO implements Map<Integer, Componente> {
         }
     }
 
-    public Componente put(Integer key, Componente value) {
-        try {
-            Statement stm = conn.createStatement();
-
-            stm.executeUpdate("DELETE FROM Componente WHERE id='"+key+"'");
-
-            String sql = "INSERT INTO Componente VALUES ('" + value.getId() +
-                    "','" + value.getStock() + "','" + value.getPreco() +
-                    "','" + value.getNome() + "','" + value.getClasseComponente().getId() + "');";
-
-            int i  = stm.executeUpdate(sql);
-
-            return get(key);
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
-
-    public Componente remove(Object key) {
-        try {
-            Componente al = this.get(key);
-            Statement stm = conn.createStatement();
-            String sql = "DELETE " + key + " FROM Componente";
-            int i  = stm.executeUpdate(sql);
-            return al;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
-
     public int size() {
         try {
             int i = 0;
@@ -154,6 +126,15 @@ public class ComponenteDAO implements Map<Integer, Componente> {
         }
     }
 
+    public Componente put(Integer key, Componente value) {
+        throw new NullPointerException("Not implemented!");
+
+    }
+
+    public Componente remove(Object key) {
+        throw new NullPointerException("Not implemented!");
+    }
+
     public int hashCode() {
         return this.conn.hashCode();
     }
@@ -163,10 +144,12 @@ public class ComponenteDAO implements Map<Integer, Componente> {
     }
 
     public Set<Entry<Integer, Componente>> entrySet() {
-        throw new NullPointerException("Not implemented!");    }
+        throw new NullPointerException("Not implemented!");
+    }
 
     public boolean equals(Object o) {
-        throw new NullPointerException("Not implemented!");    }
+        throw new NullPointerException("Not implemented!");
+    }
 
     public void putAll(Map<? extends Integer,? extends Componente> t) {
         throw new NullPointerException("Not implemented!");

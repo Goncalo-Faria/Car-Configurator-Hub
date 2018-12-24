@@ -1,6 +1,6 @@
 package CCH.dataaccess;
 
-import CCH.business.Configuracao;
+import CCH.business.Componente;
 import CCH.business.Encomenda;
 
 import java.sql.Connection;
@@ -11,8 +11,6 @@ import java.util.*;
 public class EncomendaDAO implements Map<Integer, Encomenda> {
 
     public Connection conn;
-
-    private ConfiguracaoDAO configuracaoDAO = new ConfiguracaoDAO();
 
     public EncomendaDAO () {
         conn = CCHConnection.getConnection();
@@ -36,8 +34,7 @@ public class EncomendaDAO implements Map<Integer, Encomenda> {
             ResultSet rs = stm.executeQuery(sql);
 
             if (rs.next()) {
-                Configuracao configuracao = configuracaoDAO.get(rs.getInt(7));
-                al = new Encomenda(configuracao, rs.getString(2),rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6));
+                al = new Encomenda(rs.getInt(1), rs.getString(2),rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6));
             }
 
             return al;
@@ -98,8 +95,7 @@ public class EncomendaDAO implements Map<Integer, Encomenda> {
             ResultSet rs = stm.executeQuery("SELECT * FROM Encomenda");
 
             while (rs.next()) {
-                Configuracao configuracao = configuracaoDAO.get(rs.getInt(7));
-                Encomenda al = new Encomenda(configuracao, rs.getString(2),rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6));
+                Encomenda al = new Encomenda(rs.getInt(1), rs.getString(2),rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6));
                 col.add(al);
             }
 
@@ -115,6 +111,25 @@ public class EncomendaDAO implements Map<Integer, Encomenda> {
         collection.forEach(u -> hashmap.put(u.getId(), u));
 
         return hashmap;
+    }
+
+    public Map<Integer, Componente> getComponentes(Integer configuracaoId) {
+        try {
+            Map<Integer, Componente> componentes = null;
+            Statement stm = conn.createStatement();
+            String sql = "SELECT * FROM Encomenda_has_Componente WHERE Encomenda_id=" + configuracaoId;
+            ResultSet rs = stm.executeQuery(sql);
+
+            if (rs.next()) {
+                Componente componente = new ComponenteDAO().get(rs.getInt(2));
+                componentes.put(componente.getId(), componente);
+            }
+
+            return componentes;
+        }
+        catch (Exception e) {
+            throw new NullPointerException(e.getMessage());
+        }
     }
 
     public int hashCode() {

@@ -12,8 +12,6 @@ public class ClasseComponenteDAO implements Map<Integer, ClasseComponente> {
 
     public Connection conn;
 
-    private TipoComponenteDAO tipoClasseComponenteDAO = new TipoComponenteDAO();
-
     public ClasseComponenteDAO () {
         conn = CCHConnection.getConnection();
     }
@@ -36,7 +34,7 @@ public class ClasseComponenteDAO implements Map<Integer, ClasseComponente> {
             ResultSet rs = stm.executeQuery(sql);
 
             if (rs.next()) {
-                TipoComponente tipoComponente = tipoClasseComponenteDAO.get(rs.getInt(4));
+                TipoComponente tipoComponente = TipoComponente.withValue(rs.getInt(4));
                 al = new ClasseComponente(rs.getInt(1),rs.getBoolean(2),rs.getString(3), tipoComponente);
             }
 
@@ -45,33 +43,6 @@ public class ClasseComponenteDAO implements Map<Integer, ClasseComponente> {
         catch (Exception e) {
             throw new NullPointerException(e.getMessage());
         }
-    }
-
-    public ClasseComponente put(Integer key, ClasseComponente value) {
-        try {
-            Statement stm = conn.createStatement();
-
-            stm.executeUpdate("DELETE FROM ClasseComponente WHERE id='"+key+"'");
-            String sql = "INSERT INTO ClasseComponente VALUES ('" +
-                    value.getId() + "','" + value.getEObrigatorio() + "','" + value.getNome() +
-                    "','" + value.getTipoComponente().getId() +"');";
-
-            int i  = stm.executeUpdate(sql);
-
-            return get(key);
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
-
-    public ClasseComponente remove(Object key) {
-        try {
-            ClasseComponente al = this.get(key);
-            Statement stm = conn.createStatement();
-            String sql = "DELETE " + key + " FROM ClasseComponente";
-            int i  = stm.executeUpdate(sql);
-            return al;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
     public int size() {
@@ -95,7 +66,8 @@ public class ClasseComponenteDAO implements Map<Integer, ClasseComponente> {
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM ClasseComponente");
 
-            while (rs.next()) { TipoComponente tipoComponente = tipoClasseComponenteDAO.get(rs.getInt(4));
+            while (rs.next()) {
+                TipoComponente tipoComponente = TipoComponente.withValue(rs.getInt(4));
                 ClasseComponente al = new ClasseComponente(rs.getInt(1),rs.getBoolean(2),rs.getString(3), tipoComponente);
                 col.add(al);
             }
@@ -112,6 +84,14 @@ public class ClasseComponenteDAO implements Map<Integer, ClasseComponente> {
         collection.forEach(u -> hashmap.put(u.getId(), u));
 
         return hashmap;
+    }
+
+    public ClasseComponente put(Integer key, ClasseComponente value) {
+        throw new NullPointerException("Not implemented!");
+    }
+
+    public ClasseComponente remove(Object key) {
+        throw new NullPointerException("Not implemented!");
     }
 
     public int hashCode() {

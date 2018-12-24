@@ -1,44 +1,16 @@
 package CCH.business;
 
-import java.util.List;
+import java.util.*;
 
 public class Componente {
+
 	private ClasseComponente classeComponente;
-	private List<Integer> requeridos;
-	private List<Integer> incompativeis;
+	private Collection<Integer> requeridos;
+	private Collection<Integer> incompativeis;
 	private int id;
 	private int stock;
 	private double preco;
 	private String nome;
-
-	private static int nextId = 1;
-
-	public Componente(ClasseComponente classeComponente, List<Integer> requeridos,
-					  List<Integer> incompativeis, int stock,
-					  double preco, String nome) {
-		this.classeComponente = classeComponente;
-		this.requeridos = requeridos;
-		this.incompativeis = incompativeis;
-		this.id = Componente.getNextId();
-		this.stock = stock;
-		this.preco = preco;
-		this.nome = nome;
-	}
-
-	public Componente(int id, int stock, double preco, String nome, ClasseComponente classeComponente) {
-		this.requeridos = null;
-		this.incompativeis = null;
-		this.id = id;
-		this.stock = stock;
-		this.preco = preco;
-		this.nome = nome;
-		this.classeComponente = classeComponente;
-	}
-
-
-	public static int getNextId() {
-		return nextId++;
-	}
 
 	public int getId() {
 		return this.id;
@@ -77,6 +49,30 @@ public class Componente {
 	}
 
 	public void setClasseComponente(ClasseComponente classeComponente) {
+		this.classeComponente = classeComponente;
+	}
+
+	public Collection<Integer> getRequeridos() {
+		return requeridos;
+	}
+
+	public void setRequeridos(Collection<Integer> requeridos) {
+		this.requeridos = requeridos;
+	}
+
+	public Collection<Integer> getIncompativeis() {
+		return incompativeis;
+	}
+
+	public void setIncompativeis(Collection<Integer> incompativeis) {
+		this.incompativeis = incompativeis;
+	}
+
+	public Componente(int id, int stock, double preco, String nome, ClasseComponente classeComponente) {
+		this.id = id;
+		this.stock = stock;
+		this.preco = preco;
+		this.nome = nome;
 		this.classeComponente = classeComponente;
 	}
 }

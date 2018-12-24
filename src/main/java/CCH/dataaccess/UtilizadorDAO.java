@@ -9,8 +9,6 @@ public class UtilizadorDAO implements Map<Integer, Utilizador> {
 
     public Connection conn;
 
-    private TipoUtilizadorDAO tipoUtilizadorDAO = new TipoUtilizadorDAO();
-
     public UtilizadorDAO () {
         conn = CCHConnection.getConnection();
     }
@@ -33,7 +31,7 @@ public class UtilizadorDAO implements Map<Integer, Utilizador> {
             ResultSet rs = stm.executeQuery(sql);
 
             if (rs.next()) {
-                TipoUtilizador tipoUtilizador =tipoUtilizadorDAO.get(rs.getInt(4));
+                TipoUtilizador tipoUtilizador = TipoUtilizador.values()[rs.getInt(4)];
                 al = new Utilizador(rs.getInt(1),rs.getString(2),rs.getString(3), tipoUtilizador);
             }
 
@@ -51,7 +49,7 @@ public class UtilizadorDAO implements Map<Integer, Utilizador> {
             stm.executeUpdate("DELETE FROM Utilizador WHERE id='"+key+"'");
             String sql = "INSERT INTO Utilizador VALUES ('" +
                     value.getId() + "','" + value.getNome() + "','" + value.getPassword() +
-                    "','" + value.getTipoUtilizador().getId() +"');";
+                    "','" + value.getTipoUtilizador().getValue() +"');";
 
             int i  = stm.executeUpdate(sql);
 
@@ -93,7 +91,7 @@ public class UtilizadorDAO implements Map<Integer, Utilizador> {
             ResultSet rs = stm.executeQuery("SELECT * FROM Utilizador");
 
             while (rs.next()) {
-                TipoUtilizador tipoUtilizador = tipoUtilizadorDAO.get(rs.getInt(4));
+                TipoUtilizador tipoUtilizador = TipoUtilizador.values()[rs.getInt(4)];
                 Utilizador al = new Utilizador(rs.getInt(1),rs.getString(2),rs.getString(3), tipoUtilizador);
                 col.add(al);
             }
