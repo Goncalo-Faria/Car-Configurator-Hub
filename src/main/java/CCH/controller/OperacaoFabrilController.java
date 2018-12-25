@@ -4,6 +4,7 @@ import CCH.CarConfiguratorHubApplication;
 import CCH.business.Componente;
 import CCH.business.Encomenda;
 import CCH.business.OperacaoFabril;
+import CCH.exception.SemEncomendasDisponiveisException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -28,11 +29,10 @@ public class OperacaoFabrilController {
 
     @FXML
     public void initialize() {
-        Encomenda encomenda = operacaoFabril.consultarProximaEncomenda();
-
-        if (encomenda != null) {
+        try {
+            Encomenda encomenda = operacaoFabril.consultarProximaEncomenda();
             idEncomenda.setText(Integer.toString(encomenda.getId()));
-        } else {
+        } catch (SemEncomendasDisponiveisException e) {
             idEncomenda.setText("Nenhuma encomenda disponível");
         }
 
@@ -75,11 +75,10 @@ public class OperacaoFabrilController {
             operacaoFabril.removerEncomenda(encomendaId);
         } catch (Exception e) { }
 
-        Encomenda encomenda = operacaoFabril.consultarProximaEncomenda();
-
-        if (encomenda != null) {
+        try {
+            Encomenda encomenda = operacaoFabril.consultarProximaEncomenda();
             idEncomenda.setText(Integer.toString(encomenda.getId()));
-        } else {
+        } catch (SemEncomendasDisponiveisException e) {
             idEncomenda.setText("Nenhuma encomenda disponível");
         }
     }
@@ -89,11 +88,10 @@ public class OperacaoFabrilController {
             Componente componente = event.getTableView().getItems().get(event.getTablePosition().getRow());
             componente.setStock(Integer.parseInt(event.getNewValue()));
 
-            Encomenda encomenda = operacaoFabril.atualizarStock(componente);
-
-            if (encomenda != null) {
+            try {
+                Encomenda encomenda = operacaoFabril.atualizarStock(componente);
                 idEncomenda.setText(Integer.toString(encomenda.getId()));
-            } else {
+            } catch (SemEncomendasDisponiveisException e) {
                 idEncomenda.setText("Nenhuma encomenda disponível");
             }
 

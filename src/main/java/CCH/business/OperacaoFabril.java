@@ -2,6 +2,7 @@ package CCH.business;
 
 import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.EncomendaDAO;
+import CCH.exception.SemEncomendasDisponiveisException;
 
 import java.util.*;
 
@@ -19,7 +20,7 @@ public class OperacaoFabril {
 		return new ArrayList<>(componenteDAO.values());
 	}
 
-	public Encomenda consultarProximaEncomenda() {
+	public Encomenda consultarProximaEncomenda() throws SemEncomendasDisponiveisException {
 		Collection<Encomenda> sorted = new TreeMap<>(encomendaDAO.getAll()).values();
 
 		for (Encomenda encomenda : sorted) {
@@ -38,7 +39,7 @@ public class OperacaoFabril {
 			}
 		}
 
-		return null;
+		throw new SemEncomendasDisponiveisException();
 	}
 
 	/**
@@ -49,7 +50,7 @@ public class OperacaoFabril {
 		encomendaDAO.remove(id);
 	}
 
-	public Encomenda atualizarStock(Componente componente) {
+	public Encomenda atualizarStock(Componente componente) throws SemEncomendasDisponiveisException  {
 		componenteDAO.updateStock(componente);
 		return consultarProximaEncomenda();
 	}
