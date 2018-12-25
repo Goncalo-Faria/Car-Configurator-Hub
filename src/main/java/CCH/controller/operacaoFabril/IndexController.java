@@ -77,7 +77,7 @@ public class IndexController {
         try {
             int encomendaId = Integer.parseInt(idEncomenda.getText());
             operacaoFabril.removerEncomenda(encomendaId);
-        } catch (Exception e) { }
+        } catch (Exception e) {e.printStackTrace();}
 
         try {
             Encomenda encomenda = operacaoFabril.consultarProximaEncomenda();

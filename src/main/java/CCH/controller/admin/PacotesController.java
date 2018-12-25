@@ -53,10 +53,10 @@ public class PacotesController {
     }
 
     private void addComponenteButtonToTableColumn(TableColumn t) {
-        Callback<TableColumn<Pacote, Void>, TableCell<Pacote, Void>> cellFactory = new Callback<>() {
+        Callback<TableColumn<Pacote, Void>, TableCell<Pacote, Void>> cellFactory = new Callback<TableColumn<Pacote, Void>, TableCell<Pacote, Void>>() {
             @Override
             public TableCell<Pacote, Void> call(final TableColumn<Pacote, Void> param) {
-                final TableCell<Pacote, Void> cell = new TableCell<>() {
+                final TableCell<Pacote, Void> cell = new TableCell<Pacote, Void>() {
 
                     private final Button btn = new Button("Abrir");
 
@@ -85,10 +85,10 @@ public class PacotesController {
     }
 
     private void addDeleteButtonToTableColumn(TableColumn t) {
-        Callback<TableColumn<Pacote, Void>, TableCell<Pacote, Void>> cellFactory = new Callback<>() {
+        Callback<TableColumn<Pacote, Void>, TableCell<Pacote, Void>> cellFactory = new Callback<TableColumn<Pacote, Void>, TableCell<Pacote, Void>>() {
             @Override
             public TableCell<Pacote, Void> call(final TableColumn<Pacote, Void> param) {
-                final TableCell<Pacote, Void> cell = new TableCell<>() {
+                final TableCell<Pacote, Void> cell = new TableCell<Pacote, Void>() {
 
                     private final Button btn = new Button("Apagar");
 
