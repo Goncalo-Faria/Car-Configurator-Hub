@@ -1,31 +1,41 @@
 package CCH.business;
 
+import CCH.dataaccess.ComponenteDAO;
+import CCH.dataaccess.EncomendaDAO;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 public class OperacaoFabril {
 
+	private EncomendaDAO encomendaDAO;
+	private ComponenteDAO componenteDAO;
+
 	public OperacaoFabril() {
-		// TODO - implement OperacaoFabril.OperacaoFabril
-		throw new UnsupportedOperationException();
+		this.encomendaDAO = new EncomendaDAO();
+		this.componenteDAO = new ComponenteDAO();
 	}
 
 	public List<Componente> consultarComponentes() {
-		// TODO - implement OperacaoFabril.consultarComponentes
-		throw new UnsupportedOperationException();
+		return new ArrayList<>(componenteDAO.values());
 	}
 
 	public Encomenda consultarProximaEncomenda() {
-		// TODO - implement OperacaoFabril.consultarProximaEncomenda
-		throw new UnsupportedOperationException();
+		TreeMap<Integer, Encomenda> sorted = new TreeMap<>(encomendaDAO.getAll());
+		return sorted.firstEntry().getValue();
 	}
 
 	/**
-	 * 
-	 * @param e
+	 *
+	 * @param id
 	 */
-	public void adiconarEncomenda(Encomenda e) {
-		// TODO - implement OperacaoFabril.adiconarEncomenda
-		throw new UnsupportedOperationException();
+	public void removerEncomenda(Integer id) {
+		encomendaDAO.remove(id);
 	}
 
+	public void atualizarStock(int componenteId, int nrComponentes) {
+		// TODO - implement OperacaoFabril.atualizarStock
+		throw new UnsupportedOperationException();
+	}
 }

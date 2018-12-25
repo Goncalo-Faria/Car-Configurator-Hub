@@ -66,7 +66,7 @@ public class EncomendaDAO implements Map<Integer, Encomenda> {
         try {
             Encomenda al = this.get(key);
             Statement stm = conn.createStatement();
-            String sql = "DELETE " + key + " FROM Encomenda";
+            String sql = "DELETE FROM Encomenda WHERE id = " + key;
             int i  = stm.executeUpdate(sql);
             return al;
         }
@@ -101,7 +101,9 @@ public class EncomendaDAO implements Map<Integer, Encomenda> {
 
             return col;
         }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        catch (Exception e) {
+            throw new NullPointerException(e.getMessage());
+        }
     }
 
     public Map<Integer, Encomenda> getAll() {
