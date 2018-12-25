@@ -93,4 +93,8 @@ public class Componente {
 	public String getFullName() {
 		return classeComponente.getNome() + " " + nome;
 	}
+
+	public String getStockString() {
+		return Integer.toString(stock);
+	}
 }

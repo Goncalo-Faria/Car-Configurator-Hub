@@ -34,8 +34,7 @@ public class OperacaoFabril {
 		encomendaDAO.remove(id);
 	}
 
-	public void atualizarStock(int componenteId, int nrComponentes) {
-		// TODO - implement OperacaoFabril.atualizarStock
-		throw new UnsupportedOperationException();
+	public void atualizarStock(Componente componente) {
+		componenteDAO.updateStock(componente);
 	}
 }

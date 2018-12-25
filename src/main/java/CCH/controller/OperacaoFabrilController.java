@@ -6,12 +6,14 @@ import CCH.business.Encomenda;
 import CCH.business.OperacaoFabril;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.*;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -43,8 +45,18 @@ public class OperacaoFabrilController {
                 new PropertyValueFactory<Componente, String>("fullName")
         );
 
-        observableList.get(1).setCellValueFactory(
-                new PropertyValueFactory<Componente, Integer>("stock")
+        TableColumn<Componente, String> stockColumn = observableList.get(1);
+        stockColumn.setCellValueFactory(
+                new PropertyValueFactory<>("stockString")
+        );
+        stockColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        stockColumn.setOnEditCommit(
+                new EventHandler<CellEditEvent<Componente, String>>() {
+                    @Override
+                    public void handle(CellEditEvent<Componente, String> t) {
+                        updateStock(t);
+                    }
+                }
         );
 
         observableList.get(2).setCellValueFactory(
@@ -58,14 +70,10 @@ public class OperacaoFabrilController {
 
     @FXML
     public void concluir() {
-        System.out.println("hey");
         try {
             int encomendaId = Integer.parseInt(idEncomenda.getText());
-            System.out.println(encomendaId);
             operacaoFabril.removerEncomenda(encomendaId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { }
 
         Encomenda encomenda = operacaoFabril.consultarProximaEncomenda();
 
@@ -81,7 +89,7 @@ public class OperacaoFabrilController {
             Componente componente = event.getTableView().getItems().get(event.getTablePosition().getRow());
             componente.setStock(Integer.parseInt(event.getNewValue()));
 
-            operacaoFabril.atualizarStock(componente.getId(), componente.getStock());
+            operacaoFabril.atualizarStock(componente);
             table.refresh();
     }
 }
