@@ -3,9 +3,7 @@ package CCH.business;
 import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.EncomendaDAO;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 public class OperacaoFabril {
 
@@ -22,8 +20,25 @@ public class OperacaoFabril {
 	}
 
 	public Encomenda consultarProximaEncomenda() {
-		TreeMap<Integer, Encomenda> sorted = new TreeMap<>(encomendaDAO.getAll());
-		return sorted.firstEntry().getValue();
+		Collection<Encomenda> sorted = new TreeMap<>(encomendaDAO.getAll()).values();
+
+		for (Encomenda encomenda : sorted) {
+			boolean available = true;
+			Collection<Componente> componentes = encomendaDAO.getComponentes(encomenda.getId()).values();
+
+			for (Componente componente : componentes) {
+				if (componente.getStock() <= 0) {
+					available = false;
+					break;
+				}
+			}
+
+			if (available) {
+				return encomenda;
+			}
+		}
+
+		return null;
 	}
 
 	/**
@@ -34,7 +49,8 @@ public class OperacaoFabril {
 		encomendaDAO.remove(id);
 	}
 
-	public void atualizarStock(Componente componente) {
+	public Encomenda atualizarStock(Componente componente) {
 		componenteDAO.updateStock(componente);
+		return consultarProximaEncomenda();
 	}
 }

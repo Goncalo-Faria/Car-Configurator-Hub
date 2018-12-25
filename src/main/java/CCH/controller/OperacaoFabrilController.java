@@ -89,7 +89,14 @@ public class OperacaoFabrilController {
             Componente componente = event.getTableView().getItems().get(event.getTablePosition().getRow());
             componente.setStock(Integer.parseInt(event.getNewValue()));
 
-            operacaoFabril.atualizarStock(componente);
+            Encomenda encomenda = operacaoFabril.atualizarStock(componente);
+
+            if (encomenda != null) {
+                idEncomenda.setText(Integer.toString(encomenda.getId()));
+            } else {
+                idEncomenda.setText("Nenhuma encomenda disponível");
+            }
+
             table.refresh();
     }
 }
