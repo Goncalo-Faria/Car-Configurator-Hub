@@ -53,17 +53,10 @@ public class PacotesController {
     }
 
     private void addComponenteButtonToTableColumn(TableColumn t) {
-<<<<<<< HEAD
         Callback<TableColumn<Pacote, Void>, TableCell<Pacote, Void>> cellFactory = new Callback<TableColumn<Pacote, Void>, TableCell<Pacote, Void>>() {
             @Override
             public TableCell<Pacote, Void> call(final TableColumn<Pacote, Void> param) {
                 final TableCell<Pacote, Void> cell = new TableCell<Pacote, Void>() {
-=======
-        Callback<TableColumn<Pacote, Void>, TableCell<Pacote, Void>> cellFactory = new Callback<>() {
-            @Override
-            public TableCell<Pacote, Void> call(final TableColumn<Pacote, Void> param) {
-                final TableCell<Pacote, Void> cell = new TableCell<>() {
->>>>>>> Show configurações
 
                     private final Button btn = new Button("Abrir");
 
@@ -92,24 +85,11 @@ public class PacotesController {
     }
 
     private void addDeleteButtonToTableColumn(TableColumn t) {
-<<<<<<< HEAD
         Callback<TableColumn<Pacote, Void>, TableCell<Pacote, Void>> cellFactory = new Callback<TableColumn<Pacote, Void>, TableCell<Pacote, Void>>() {
             @Override
             public TableCell<Pacote, Void> call(final TableColumn<Pacote, Void> param) {
                 final TableCell<Pacote, Void> cell = new TableCell<Pacote, Void>() {
-=======
-        Callback<TableColumn<Pacote, Void>, TableCell<Pacote, Void>> cellFactory = new Callback<>() {
-            @Override
-            public TableCell<Pacote, Void> call(final TableColumn<Pacote, Void> param) {
-                final TableCell<Pacote, Void> cell = new TableCell<>() {
->>>>>>> Show configurações
 
-                    private final Button btn = new Button("Apagar");
-
-                    {
-                        btn.setOnAction((ActionEvent event) -> {
-                            Pacote pacote = getTableView().getItems().get(getIndex());
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                             alert.setTitle("Aviso");
                             alert.setHeaderText("O " + pacote.getNome() + " será permanentemente apagado.");
                             alert.setContentText("Pretende continuar?");
