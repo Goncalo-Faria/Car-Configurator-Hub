@@ -151,6 +151,13 @@ public class Configuracao {
 				'}';
 	}
 
+	public Map<Integer, Componente> verificaValidade() throws EncomendaTemComponentesIncompativeis, EncomendaRequerOutrosComponentes {
+		Map<Integer, Componente> componentes = configuracaoDAO.getComponentes(id);
+		temIncompativeis(componentes);
+		requerOutros(componentes);
+
+		return componentes;
+	}
 
 	private void temIncompativeis(Map<Integer, Componente> componentes) throws EncomendaTemComponentesIncompativeis {
 		Map<Integer, Componente> incompativeis = new HashMap<>();

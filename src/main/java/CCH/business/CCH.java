@@ -148,6 +148,7 @@ public class CCH {
 							   String moradaCliente,
 							   String paisCliente,
 							   String emailCliente) throws EncomendaTemComponentesIncompativeis, EncomendaRequerOutrosComponentes {
+		//gestaoDeConfiguracao.criarEncomenda();
 		Configuracao config = gestaoDeConfiguracao.getConfiguracaoAtual();
 		config.validar();
 		operacaoFabril.addEncomenda(config,nomeCliente,numeroDeIdentificacaoCliente,moradaCliente,paisCliente,emailCliente);

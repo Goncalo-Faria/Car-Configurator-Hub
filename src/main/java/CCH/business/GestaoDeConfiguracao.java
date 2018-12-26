@@ -53,6 +53,19 @@ public class GestaoDeConfiguracao {
 		configuracoes.removeComponente(configuracaoId, componenteId);
 	}
 
+	public Encomenda criarEncomenda(
+				Configuracao configuracao,
+				String nomeCliente,
+				String numeroDeIdentificacaoCliente,
+				String moradaCliente,
+				String paisCliente,
+				String emailCliente,
+				int id
+	) throws EncomendaRequerOutrosComponentes, EncomendaTemComponentesIncompativeis {
+		Map<Integer, Componente> componentes = configuracao.verificaValidade();
+		Encomenda encomenda = new Encomenda(componentes, id, configuracao.getPreco(), nomeCliente, numeroDeIdentificacaoCliente, moradaCliente, paisCliente, emailCliente);
+		return encomenda;
+	}
 
 	public Configuracao configuracaoOtima(Collection<Pacote> pacs, Collection<Componente> comps, double valor) throws NoOptimalConfigurationException {
 		if (valor<0)
