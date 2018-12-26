@@ -261,4 +261,16 @@ public class PacoteDAO implements Map<Integer, Pacote> {
             throw new NullPointerException(e.getMessage());
         }
     }
+
+    public Pacote removeAllComponentes(Object key) {
+        try {
+            Pacote al = this.get(key);
+            Statement stm = conn.createStatement();
+            String sql = "DELETE FROM Pacote_has_Componente WHERE Pacote_id = " + key + ";";
+            stm.executeUpdate(sql);
+            return al;
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+
 }

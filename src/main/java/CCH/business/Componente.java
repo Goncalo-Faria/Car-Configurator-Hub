@@ -110,17 +110,6 @@ public class Componente {
 		return "Indisponível";
 	}
 
-	public String toString() {
-		return "Componente{" +
-				"requeridos=" + requeridos +
-				", incompativeis=" + incompativeis +
-				", id=" + id +
-				", stock=" + stock +
-				", preco=" + preco +
-				", nome='" + nome + '\'' +
-				'}';
-	}
-
 	public List<Integer> getIdNecessarios() {
 		return requeridos.stream().collect(Collectors.toList());
 	}

@@ -58,10 +58,9 @@ public class Pacote {
 		if (alreadyHas)
 			throw new ComponenteJaExisteNoPacoteException();
 
-		// FIX : NEEDED A FIX
 		for (Componente c : pacoteDAO.getAllComponentesNoPacote(this.id)) {
 			if (c.getIncompativeis() != null && c.getIncompativeis().containsKey(componenteId))
-				throw new ComponenteIncompativelNoPacoteException("Componente " + c.getId());
+				throw new ComponenteIncompativelNoPacoteException(c.getFullName());
 
 		}
 

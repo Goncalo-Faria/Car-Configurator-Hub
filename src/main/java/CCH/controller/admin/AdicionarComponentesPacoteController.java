@@ -10,15 +10,9 @@ import CCH.exception.ComponenteJaExisteNoPacoteException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.util.Optional;
@@ -94,7 +88,8 @@ public class AdicionarComponentesPacoteController {
                                 } catch (ComponenteIncompativelNoPacoteException e) {
                                     Alert alert2 = new Alert(Alert.AlertType.ERROR);
                                     alert2.setTitle("Erro");
-                                    alert2.setContentText("O componente é incompatível com o Componente " + e.getMessage());
+                                    alert2.setHeaderText("Impossível Adicionar Componente");
+                                    alert2.setContentText("É incompatível com o Componente " + e.getMessage() + ".");
                                     Optional<ButtonType> result2 = alert2.showAndWait();
                                 }
                             }
