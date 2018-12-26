@@ -3,7 +3,9 @@ package CCH.business;
 import CCH.dataaccess.ComponenteDAO;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Componente {
 
@@ -117,6 +119,14 @@ public class Componente {
 				", preco=" + preco +
 				", nome='" + nome + '\'' +
 				'}';
+	}
+
+	public List<Integer> getIdNecessarios() {
+		return requeridos.stream().collect(Collectors.toList());
+	}
+
+	public List<Integer> getIdIncompativeis() {
+		return incompativeis.stream().collect(Collectors.toList());
 	}
 
 }

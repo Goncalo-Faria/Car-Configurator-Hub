@@ -129,6 +129,25 @@ public class PacoteDAO implements Map<Integer, Pacote> {
         return hashmap;
     }
 
+    public Map<Integer, Componente> getComponentes(Integer pacoteId) {
+        try {
+            Map<Integer, Componente> componentes = new HashMap<>();
+            Statement stm = conn.createStatement();
+            String sql = "SELECT * FROM Pacote_has_Componente WHERE Pacote_id=" + pacoteId;
+            ResultSet rs = stm.executeQuery(sql);
+
+            while (rs.next()) {
+                Componente componente = componenteDAO.get(rs.getInt(2));
+                componentes.put(componente.getId(), componente);
+            }
+
+            return componentes;
+        }
+        catch (Exception e) {
+            throw new NullPointerException(e.getMessage());
+        }
+    }
+
     public int hashCode() {
         return this.conn.hashCode();
     }

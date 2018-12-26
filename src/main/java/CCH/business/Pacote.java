@@ -5,6 +5,8 @@ import CCH.dataaccess.PacoteDAO;
 import CCH.exception.ComponenteIncompativelNoPacoteException;
 import CCH.exception.ComponenteJaExisteNoPacoteException;
 
+import java.util.List;
+
 public class Pacote {
 	private ComponenteDAO componentes;
 	private int id;
@@ -85,4 +87,9 @@ public class Pacote {
 	public void atualizarDesconto(Pacote pacote) {
 		pacoteDAO.updateDesconto(pacote);
 	}
+
+    public List<Integer> idsComponentes() {
+    	return null;
+	}
+
 }
