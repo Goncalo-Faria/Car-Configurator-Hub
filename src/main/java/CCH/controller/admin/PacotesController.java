@@ -90,6 +90,12 @@ public class PacotesController {
             public TableCell<Pacote, Void> call(final TableColumn<Pacote, Void> param) {
                 final TableCell<Pacote, Void> cell = new TableCell<Pacote, Void>() {
 
+                    private final Button btn = new Button("Apagar");
+
+                    {
+                        btn.setOnAction((ActionEvent event) -> {
+                            Pacote pacote = getTableView().getItems().get(getIndex());
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                             alert.setTitle("Aviso");
                             alert.setHeaderText("O " + pacote.getNome() + " será permanentemente apagado.");
                             alert.setContentText("Pretende continuar?");
