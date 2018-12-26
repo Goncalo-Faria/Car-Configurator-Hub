@@ -74,7 +74,7 @@ public class Configuracao {
 				adicionarPacote(p.getId(), null);
 			}
 			for (Componente c : componentesAceitados) {
-				adiconarComponente(c.getId());
+				adicionarComponente(c.getId());
 			}
 		} catch (ComponenteJaAdicionadoException | PacoteJaAdicionadoException e) {}
 	}
@@ -87,7 +87,7 @@ public class Configuracao {
 	 *
 	 * @param componenteId
 	 */
-	public Componente adiconarComponente(int componenteId) throws ComponenteJaAdicionadoException {
+	public Componente adicionarComponente(int componenteId) throws ComponenteJaAdicionadoException {
 		if (configuracaoDAO.getComponentes(id).containsKey(componenteId)) {
 			throw new ComponenteJaAdicionadoException();
 		}
