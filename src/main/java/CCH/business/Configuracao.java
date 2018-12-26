@@ -1,14 +1,19 @@
 package CCH.business;
 
+import CCH.dataaccess.ConfiguracaoDAO;
+
 import java.util.List;
+import java.util.Map;
 
 public class Configuracao {
 
 	private int id;
 	private double preco;
 	private double desconto;
-	private List<Componente> componentes;
-	private List<Pacote> pacotes;
+	private Map<Integer, Componente> componentes;
+	private Map<Integer, Pacote> pacotes;
+
+	private ConfiguracaoDAO configuracaoDAO = new ConfiguracaoDAO();
 
 	public int getId() {
 		return this.id;
@@ -34,19 +39,19 @@ public class Configuracao {
 		this.desconto = desconto;
 	}
 
-	public List<Componente> getComponentes() {
-		return componentes;
+	public Map<Integer, Componente> getComponentes() {
+		return configuracaoDAO.getComponentes(id);
 	}
 
-	public void setComponentes(List<Componente> componentes) {
+	public void setComponentes(Map<Integer, Componente> componentes) {
 		this.componentes = componentes;
 	}
 
-	public List<Pacote> getPacotes() {
-		return pacotes;
+	public Map<Integer, Pacote> getPacotes() {
+		return configuracaoDAO.getPacotes(id);
 	}
 
-	public void setPacotes(List<Pacote> pacotes) {
+	public void setPacotes(Map<Integer, Pacote> pacotes) {
 		this.pacotes = pacotes;
 	}
 
@@ -117,5 +122,14 @@ public class Configuracao {
 
 	public String getNome() {
 		return "Configuração " + id;
+	}
+
+	@Override
+	public String toString() {
+		return "Configuracao{" +
+				"id=" + id +
+				", preco=" + preco +
+				", desconto=" + desconto +
+				'}';
 	}
 }

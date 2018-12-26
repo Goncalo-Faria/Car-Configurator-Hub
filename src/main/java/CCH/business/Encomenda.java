@@ -1,8 +1,11 @@
 package CCH.business;
 
+import java.util.List;
+import java.util.Map;
+
 public class Encomenda {
 
-	private Componente componentes;
+	private Map<Integer, Componente> componentes;
 	private int id;
 	private double preco;
 	private String nomeCliente;
@@ -11,11 +14,11 @@ public class Encomenda {
 	private String paisCliente;
 	private String emailCliente;
 
-	public Componente getComponentes() {
+	public Map<Integer, Componente> getComponentes() {
 		return componentes;
 	}
 
-	public void setComponentes(Componente componentes) {
+	public void setComponentes(Map<Integer, Componente> componentes) {
 		this.componentes = componentes;
 	}
 
@@ -93,4 +96,14 @@ public class Encomenda {
 		this.emailCliente = emailCliente;
 	}
 
+	public Encomenda(Map<Integer, Componente> componentes, int id, double preco, String nomeCliente, String numeroDeIdentificacaoCliente, String moradaCliente, String paisCliente, String emailCliente) {
+		this.componentes = componentes;
+		this.id = id;
+		this.preco = preco;
+		this.nomeCliente = nomeCliente;
+		this.numeroDeIdentificacaoCliente = numeroDeIdentificacaoCliente;
+		this.moradaCliente = moradaCliente;
+		this.paisCliente = paisCliente;
+		this.emailCliente = emailCliente;
+	}
 }
