@@ -45,14 +45,6 @@ public class GestaoDeConfiguracao {
 		return new ArrayList<>(configuracoes.values());
 	}
 
-	public Collection<Componente> getComponentes(int configuracaoId) {
-		return configuracoes.getComponentes(configuracaoId).values();
-	}
-
-	public void removerComponente(int configuracaoId, int componenteId) {
-		configuracoes.removeComponente(configuracaoId, componenteId);
-	}
-
 	public void criarEncomenda(
 				Configuracao configuracao,
 				String nomeCliente,
