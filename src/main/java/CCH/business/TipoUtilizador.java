@@ -15,4 +15,8 @@ public enum TipoUtilizador {
 		return value;
 	}
 
+	public static TipoUtilizador withValue(int value) {
+		return TipoUtilizador.values()[value];
+	}
+
 }

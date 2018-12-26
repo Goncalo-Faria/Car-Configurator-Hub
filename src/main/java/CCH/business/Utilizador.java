@@ -1,9 +1,13 @@
 package CCH.business;
 
+import CCH.dataaccess.RemoteClass;
 import CCH.dataaccess.UtilizadorDAO;
 import CCH.exception.TipoUtilizadorInexistenteException;
 
-public class Utilizador {
+import java.util.LinkedList;
+import java.util.List;
+
+public class Utilizador implements RemoteClass<Integer> {
 
 	private TipoUtilizador tipoUtilizador;
 	private int id;
@@ -31,12 +35,36 @@ public class Utilizador {
 		this.tipoUtilizador = tipoUtilizador;
 	}
 
+	public Utilizador(List<String> rs) {
+		this.id = Integer.valueOf(rs.get(0));
+		this.nome = rs.get(1);
+		this.password = rs.get(2);
+		this.tipoUtilizador = TipoUtilizador.withValue(Integer.valueOf(rs.get(3)));
+	}
+
 	public int getId() {
 		return this.id;
 	}
 
+	public Integer key(){ return this.id; }
+
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Override
+	public List<String> toRow() {
+		List<String> l = new LinkedList<>();
+		l.add(String.valueOf(this.id));
+		l.add(this.nome);
+		l.add(this.password);
+		l.add(String.valueOf(this.tipoUtilizador.getValue()));
+		return l;
+	}
+
+	@Override
+	public Utilizador fromRow(List<String> row) {
+		return new Utilizador(row);
 	}
 
 	public String getNome() {
