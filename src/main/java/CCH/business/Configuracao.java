@@ -3,8 +3,6 @@ package CCH.business;
 import CCH.dataaccess.ConfiguracaoDAO;
 import CCH.exception.EncomendaRequerOutrosComponentes;
 import CCH.exception.EncomendaTemComponentesIncompativeis;
-import CCH.exception.IncompatibleComponentsException;
-import CCH.exception.MissingComponentsException;
 import ilog.concert.IloException;
 
 import java.util.*;
