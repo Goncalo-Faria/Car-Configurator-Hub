@@ -148,7 +148,33 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
     }
 
     public boolean containsValue(Object value) {
-        throw new NullPointerException("Not implemented yet!");
+
+        if(!(value instanceof RemoteClass))
+            return false;
+
+        try {
+
+            RemoteClass<K> other = (RemoteClass<K>)value;
+
+            List<String> row = other.toRow();
+
+            Statement stm = conn.createStatement();
+            StringBuilder sql = new StringBuilder("SELECT * FROM " + this.tablename + " WHERE ");
+
+
+            for(int i = 0; i < (this.colname.size()-1) ; i++){
+               sql.append(this.colname.get(i) + " = " + row.get(i) +" and ");
+            }
+
+            sql.append(this.colname.get(this.colname.size()-1) + " = " + row.get(this.colname.size()-1) + " ; ");
+
+            ResultSet rs = stm.executeQuery(sql.toString());
+
+            return rs.next();
+        }
+        catch (SQLException e) {
+            throw new NullPointerException(e.getMessage());
+        }
     }
 
     public Set<Entry<K, RemoteClass<K>>> entrySet() {
