@@ -3,10 +3,13 @@ package CCH.business;
 import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.PacoteDAO;
 import CCH.dataaccess.UtilizadorDAO;
+import CCH.exception.NoOptimalConfigurationException;
 import CCH.exception.WrongCredentialsException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CCH {
 	private GestaoDeConfiguracao gestaoDeConfiguracao;
@@ -121,5 +124,23 @@ public class CCH {
 
 	public List<Componente> consultarComponentes() {
 		return new ArrayList<>(componenteDAO.values());
+	}
+
+	public void iniciarConfiguracao(){
+		gestaoDeConfiguracao.criarConfiguracao();
+	}
+
+	public void guardarConfiguracao(){
+		gestaoDeConfiguracao.guardarConfiguracao();
+	}
+
+	public Configuracao ConfiguracaoOtima(double valor) throws NoOptimalConfigurationException {
+		Collection<Pacote> pacs = pacoteDAO.values();
+		Collection<Componente> comps = componenteDAO.values();
+		return gestaoDeConfiguracao.configuracaoOtima(pacs,comps,valor);
+	}
+
+	public void criarEncomenda(){
+		//gestaoDeConfiguracao.criarEncomenda();
 	}
 }
