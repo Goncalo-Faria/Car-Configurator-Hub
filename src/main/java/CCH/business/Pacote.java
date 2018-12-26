@@ -4,24 +4,21 @@ import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.PacoteDAO;
 import CCH.exception.ComponenteIncompativelNoPacoteException;
 import CCH.exception.ComponenteJaExisteNoPacoteException;
-import CCH.dataaccess.PacoteDAO;
 
 import java.util.Map;
 
 public class Pacote {
-	private ComponenteDAO componentes;
-	private PacoteDAO pacoteDAO = new PacoteDAO();
 	private int id;
 	private double desconto;
+	private PacoteDAO pacoteDAO = new PacoteDAO();
+
 
 	public Pacote(int id, double desconto) {
 		this.id = id;
 		this.desconto = desconto;
-		this.componentes = new ComponenteDAO();
 	}
 
 	public Pacote() {
-		this.id = pacoteDAO.getNextId();
 		this.desconto = 0.0;
 	}
 
@@ -38,11 +35,6 @@ public class Pacote {
 	}
 
 	public void setDesconto(double desconto) {
-		this.desconto = desconto;
-	}
-
-	public Pacote(int id, double desconto) {
-		this.id = id;
 		this.desconto = desconto;
 	}
 
