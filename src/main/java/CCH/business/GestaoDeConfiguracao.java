@@ -88,4 +88,8 @@ public class GestaoDeConfiguracao {
 	public Configuracao getConfiguracaoAtual() {
 		return confatual;
 	}
+
+	public void updateConfiguracao(Configuracao c) {
+		confatual = c;
+	}
 }
