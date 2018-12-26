@@ -105,17 +105,17 @@ public class ConfiguracaoController {
 
     @FXML
     public void loadComponentes() throws IOException {
-        redirectTo("/views/gestaoDeConfiguracao/componentes.fxml");
+        //redirectTo("/views/gestaoDeConfiguracao/componentes.fxml");
     }
 
     @FXML
     public void loadPacotes() throws IOException {
-        redirectTo("/views/gestaoDeConfiguracao/pacotes.fxml");
+        //redirectTo("/views/gestaoDeConfiguracao/pacotes.fxml");
     }
 
     @FXML
     public void configOtima() throws IOException {
-        redirectTo("/views/gestaoDeConfiguracao/configotima.fxml");
+        //redirectTo("/views/gestaoDeConfiguracao/configotima.fxml");
     }
 
     @FXML
