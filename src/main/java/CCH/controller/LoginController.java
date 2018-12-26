@@ -48,7 +48,7 @@ public class LoginController {
                 } else if (tipoUtilizador == TipoUtilizador.FABRICA) {
                     redirectTo("/views/operacaoFabril/index.fxml");
                 } else {
-                    redirectTo("/views/gestaoDeConfiguracao/index.fxml");
+                    redirectTo("/views/gestaoDeConfiguracao/configuracoes.fxml");
                 }
 
             } else {
@@ -57,6 +57,7 @@ public class LoginController {
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         } catch (Exception e) {
+            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login Error");
             alert.setHeaderText("Invalid credentials");
