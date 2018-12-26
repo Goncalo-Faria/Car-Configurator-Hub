@@ -104,6 +104,7 @@ public class ConfiguracaoController {
     }
 
     @FXML
+<<<<<<< HEAD
     public void loadComponentes() throws IOException {
         //redirectTo("/views/gestaoDeConfiguracao/componentes.fxml");
     }
@@ -134,6 +135,28 @@ public class ConfiguracaoController {
 
         stage.showAndWait();
     }
+=======
+    public void loadComponentes() {
+
+    }
+
+    @FXML
+    public void loadPacotes() {
+
+    }
+
+    @FXML
+    public void configOtima() {
+
+    }
+
+    @FXML
+    public void criarEncomenda() {
+
+    }
+
+
+>>>>>>> Index de configurações e de respetivos componentes (#6)
 
     @FXML
     public void back() {
