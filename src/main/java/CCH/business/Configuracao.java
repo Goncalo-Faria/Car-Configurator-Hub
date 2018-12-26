@@ -191,10 +191,4 @@ public class Configuracao {
 			throw new EncomendaRequerOutrosComponentes();
 		}
 	}
-
-	public void validar() throws EncomendaTemComponentesIncompativeis, EncomendaRequerOutrosComponentes {
-		this.temIncompativeis(componentes);
-		this.requerOutros(componentes);
-		return;
-	}
 }

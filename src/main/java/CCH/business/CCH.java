@@ -3,7 +3,8 @@ package CCH.business;
 import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.PacoteDAO;
 import CCH.dataaccess.UtilizadorDAO;
-import CCH.exception.*;
+import CCH.exception.NoOptimalConfigurationException;
+import CCH.exception.WrongCredentialsException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -139,6 +140,7 @@ public class CCH {
 		return gestaoDeConfiguracao.configuracaoOtima(pacs,comps,valor);
 	}
 
+<<<<<<< HEAD
 	public void updateConfiguracao(Configuracao c){
 		gestaoDeConfiguracao.updateConfiguracao(c);
 	}
@@ -148,9 +150,9 @@ public class CCH {
 							   String moradaCliente,
 							   String paisCliente,
 							   String emailCliente) throws EncomendaTemComponentesIncompativeis, EncomendaRequerOutrosComponentes {
+=======
+	public void criarEncomenda(){
+>>>>>>> parent of 5ff8d6d... CriarEncomenda
 		//gestaoDeConfiguracao.criarEncomenda();
-		Configuracao config = gestaoDeConfiguracao.getConfiguracaoAtual();
-		config.validar();
-		operacaoFabril.addEncomenda(config,nomeCliente,numeroDeIdentificacaoCliente,moradaCliente,paisCliente,emailCliente);
 	}
 }

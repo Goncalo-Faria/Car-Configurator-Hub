@@ -85,6 +85,7 @@ public class GestaoDeConfiguracao {
 		configuracoes.put(id,confatual);
 	}
 
+
 	public Configuracao getConfiguracaoAtual() {
 		return confatual;
 	}
@@ -92,4 +93,5 @@ public class GestaoDeConfiguracao {
 	public void updateConfiguracao(Configuracao c) {
 		confatual = c;
 	}
+
 }
