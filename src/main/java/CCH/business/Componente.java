@@ -1,10 +1,13 @@
 package CCH.business;
 
+import CCH.dataaccess.ClasseComponenteDAO;
 import CCH.dataaccess.ComponenteDAO;
+import CCH.dataaccess.RemoteClass;
 
+import java.util.List;
 import java.util.Map;
 
-public class Componente {
+public class Componente implements RemoteClass<Integer> {
 
 	private ClasseComponente classeComponente;
 	private int id;
@@ -12,7 +15,8 @@ public class Componente {
 	private double preco;
 	private String nome;
 
-	private ComponenteDAO componenteDAO = new ComponenteDAO();
+	private final ComponenteDAO componenteDAO = new ComponenteDAO();
+	private final ClasseComponenteDAO classeComponenteDAO = new ClasseComponenteDAO();
 
 	public Componente(int id, int stock, double preco, String nome, ClasseComponente classeComponente) {
 		this.id = id;
@@ -23,6 +27,23 @@ public class Componente {
 	}
 
 	public int getId() {
+		return this.id;
+	}
+
+	@Override
+	public List<String> toRow() {
+		// não é suposto adicionar componentes.
+		throw new NullPointerException(" não é suposto criar componentes");
+	}
+
+	public Componente fromRow(List<String> rs){
+
+		ClasseComponente classeComponente = this.classeComponenteDAO.get(Integer.valueOf(rs.get(4)));
+		return new Componente(Integer.valueOf(rs.get(0)),Integer.valueOf(rs.get(1)),Double.valueOf(rs.get(2)), rs.get(3), classeComponente);
+
+	}
+
+	public Integer key() {
 		return this.id;
 	}
 
