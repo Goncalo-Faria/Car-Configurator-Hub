@@ -59,10 +59,10 @@ public class GestaoDeConfiguracao {
 				String numeroDeIdentificacaoCliente,
 				String moradaCliente,
 				String paisCliente,
-				String emailCliente,
-				int id
+				String emailCliente
 	) throws EncomendaRequerOutrosComponentes, EncomendaTemComponentesIncompativeis {
 		Map<Integer, Componente> componentes = configuracao.verificaValidade();
+		int id = encomendas.getNextId();
 		Encomenda encomenda = new Encomenda(componentes, id, configuracao.getPreco(), nomeCliente, numeroDeIdentificacaoCliente, moradaCliente, paisCliente, emailCliente);
 		encomendas.put(id, encomenda);
 	}
