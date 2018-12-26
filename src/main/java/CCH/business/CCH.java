@@ -5,6 +5,7 @@ import CCH.dataaccess.PacoteDAO;
 import CCH.dataaccess.UtilizadorDAO;
 import CCH.exception.ComponenteIncompativelNoPacoteException;
 import CCH.exception.ComponenteJaExisteNoPacoteException;
+import CCH.exception.WrongCredentialsException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,9 +70,15 @@ public class CCH {
 	 * @param id
 	 * @param password
 	 */
-	public void iniciarSessao(int id, String password) {
-		// TODO - implement CCH.iniciarSessao
-		throw new UnsupportedOperationException();
+	public Utilizador iniciarSessao(int id, String password) throws WrongCredentialsException {
+		Utilizador utilizador = utilizadorDAO.get(id);
+		boolean loggedIn = utilizador.validarCredenciais(id, password);
+
+		if (!loggedIn) {
+			throw new WrongCredentialsException();
+		}
+
+		return utilizador;
 	}
 
 	public Pacote criarPacote() {

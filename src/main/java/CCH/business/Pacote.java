@@ -5,9 +5,6 @@ import CCH.dataaccess.PacoteDAO;
 import CCH.exception.ComponenteIncompativelNoPacoteException;
 import CCH.exception.ComponenteJaExisteNoPacoteException;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Pacote {
 	private ComponenteDAO componentes;
 	private int id;
