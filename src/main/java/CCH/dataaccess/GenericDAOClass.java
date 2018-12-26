@@ -178,7 +178,32 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
     }
 
     public Set<Entry<K, RemoteClass<K>>> entrySet() {
-        throw new NullPointerException("Not implemented yet!");    }
+
+        try {
+            Set<Entry<K, RemoteClass<K>>> set = new HashSet<>();
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT * FROM " + this.tablename + " ;");
+
+            List<String> row;
+            int col = rs.getMetaData().getColumnCount();
+
+
+            while (rs.next()) {
+
+                row = new ArrayList<>();
+                for( int i = 1; i<= col; i++)
+                    row.add(rs.getString(i));
+
+                RemoteClass<K> r = this.token.fromRow(row);
+
+                set.add(new AbstractMap.SimpleEntry(r.key(),r));
+            }
+
+            return set;
+        }
+        catch (SQLException e) {throw new NullPointerException(e.getMessage());}
+
+    }
 
     public boolean equals(Object o) {
         return false;
