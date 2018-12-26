@@ -3,7 +3,6 @@ package CCH.business;
 import CCH.dataaccess.ComponenteDAO;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 public class Componente {

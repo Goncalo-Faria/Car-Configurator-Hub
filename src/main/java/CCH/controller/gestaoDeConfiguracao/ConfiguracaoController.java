@@ -1,7 +1,6 @@
 package CCH.controller.gestaoDeConfiguracao;
 
 import CCH.CarConfiguratorHubApplication;
-import CCH.business.CCH;
 import CCH.business.Componente;
 import CCH.business.Configuracao;
 import CCH.business.GestaoDeConfiguracao;

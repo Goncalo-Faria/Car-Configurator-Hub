@@ -2,7 +2,6 @@ package CCH.dataaccess;
 
 import CCH.business.ClasseComponente;
 import CCH.business.Componente;
-import ch.qos.logback.core.encoder.EchoEncoder;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

@@ -4,8 +4,6 @@ import CCH.CarConfiguratorHubApplication;
 import CCH.business.CCH;
 import CCH.business.TipoUtilizador;
 import CCH.business.Utilizador;
-import CCH.exception.WrongCredentialsException;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
