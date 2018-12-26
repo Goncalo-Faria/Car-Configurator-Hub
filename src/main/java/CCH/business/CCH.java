@@ -3,6 +3,7 @@ package CCH.business;
 import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.PacoteDAO;
 import CCH.dataaccess.UtilizadorDAO;
+import CCH.exception.WrongCredentialsException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,9 +68,15 @@ public class CCH {
 	 * @param id
 	 * @param password
 	 */
-	public void iniciarSessao(int id, String password) {
-		// TODO - implement CCH.iniciarSessao
-		throw new UnsupportedOperationException();
+	public Utilizador iniciarSessao(int id, String password) throws WrongCredentialsException {
+		Utilizador utilizador = utilizadorDAO.get(id);
+		boolean loggedIn = utilizador.validarCredenciais(id, password);
+
+		if (!loggedIn) {
+			throw new WrongCredentialsException();
+		}
+
+		return utilizador;
 	}
 
 	/**
@@ -89,29 +96,23 @@ public class CCH {
 		pacoteDAO.remove(pacoteId);
 	}
 
-	public List<Utilizador> consultarFuncionarios() {
-		// TODO - implement CCH.consultarFuncionarios
-		throw new UnsupportedOperationException();
-	}
 
-	/**
-	 *
-	 * @param nome
-	 * @param password
-	 * @param tipo
-	 */
-	public Utilizador criarFuncionario(String nome, String password, TipoUtilizador tipo) {
-		// TODO - implement CCH.criarFuncionario
-		throw new UnsupportedOperationException();
+	public Utilizador criarUtilizador() {
+		Utilizador utilizador = new Utilizador("empty", "empty");
+		utilizador = utilizadorDAO.put(utilizador.getId(), utilizador);
+		return utilizador;
 	}
 
 	/**
 	 *
 	 * @param utilizadorId
 	 */
-	public void removerFuncionario(int utilizadorId) {
-		// TODO - implement CCH.removerFuncionario
-		throw new UnsupportedOperationException();
+	public void removerUtilizador(int utilizadorId) {
+		utilizadorDAO.remove(utilizadorId);
+	}
+
+	public List<Utilizador> consultarFuncionarios() {
+		return new ArrayList<>(utilizadorDAO.values());
 	}
 
 	public List<Pacote> consultarPacotes() {
