@@ -153,7 +153,8 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
         throw new NullPointerException("Not implemented yet!");    }
 
     public boolean equals(Object o) {
-        throw new NullPointerException("Not implemented yet!");    }
+        return false;
+    }
 
     public void putAll(Map<? extends K,? extends RemoteClass<K>> t) {
         throw new NullPointerException("Not implemented yet!");
