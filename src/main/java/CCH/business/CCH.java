@@ -8,6 +8,7 @@ import CCH.exception.ComponenteJaExisteNoPacoteException;
 import CCH.exception.WrongCredentialsException;
 import CCH.exception.ComponenteIncompativelNoPacoteException;
 import CCH.exception.ComponenteJaExisteNoPacoteException;
+import CCH.exception.WrongCredentialsException;
 
 import java.util.ArrayList;
 import java.util.List;

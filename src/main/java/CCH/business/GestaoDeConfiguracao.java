@@ -52,12 +52,12 @@ public class GestaoDeConfiguracao {
 	}
 
 	public void criarEncomenda(
-			Configuracao configuracao,
-			String nomeCliente,
-			String numeroDeIdentificacaoCliente,
-			String moradaCliente,
-			String paisCliente,
-			String emailCliente
+				Configuracao configuracao,
+				String nomeCliente,
+				String numeroDeIdentificacaoCliente,
+				String moradaCliente,
+				String paisCliente,
+				String emailCliente
 	) throws EncomendaRequerOutrosComponentes, EncomendaTemComponentesIncompativeis {
 		Map<Integer, Componente> componentes = configuracao.verificaValidade();
 
