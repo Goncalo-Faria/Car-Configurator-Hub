@@ -1,10 +1,7 @@
 package CCH.dataaccess;
 
-import CCH.business.ClasseComponente;
 import CCH.business.Componente;
 import CCH.business.Pacote;
-
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;
