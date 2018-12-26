@@ -8,6 +8,7 @@ import CCH.exception.NoOptimalConfigurationException;
 import ilog.concert.IloException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GestaoDeConfiguracao {
 	private ConfiguracaoDAO configuracoes;
@@ -40,7 +41,7 @@ public class GestaoDeConfiguracao {
 	}
 
 	public List<Configuracao> consultarConfiguracoes() {
-		return new ArrayList<>(configuracoes.values());
+		return configuracoes.values().stream().map(l-> (Configuracao)l).collect(Collectors.toList());
 	}
 
 	public void criarEncomenda(
