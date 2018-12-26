@@ -1,17 +1,12 @@
 package CCH.business;
 
 import CCH.dataaccess.ComponenteDAO;
-import CCH.dataaccess.PacoteDAO;
-
-import java.util.List;
 
 public class Pacote {
 
-	private List<Componente> componentes;
+	private ComponenteDAO componentes;
 	private int id;
 	private double desconto;
-
-	private PacoteDAO pacoteDAO = new PacoteDAO();
 
 	public int getId() {
 		return this.id;
@@ -30,7 +25,7 @@ public class Pacote {
 	}
 
 	public ComponenteDAO getComponentes() {
-		return pacoteDAO.ge;
+		return componentes;
 	}
 
 	public void setComponentes(ComponenteDAO componentes) {
