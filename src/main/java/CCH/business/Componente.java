@@ -109,7 +109,6 @@ public class Componente {
 		return "Indisponível";
 	}
 
-	@Override
 	public String toString() {
 		return "Componente{" +
 				"requeridos=" + requeridos +
@@ -120,4 +119,5 @@ public class Componente {
 				", nome='" + nome + '\'' +
 				'}';
 	}
+
 }
