@@ -4,6 +4,8 @@ import CCH.CarConfiguratorHubApplication;
 import CCH.business.CCH;
 import CCH.business.Componente;
 import CCH.business.Pacote;
+import CCH.exception.ComponenteIncompativelNoPacoteException;
+import CCH.exception.ComponenteJaExisteNoPacoteException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +19,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
+import java.util.Optional;
 
 
 public class AdicionarComponentesPacoteController {
@@ -50,21 +54,69 @@ public class AdicionarComponentesPacoteController {
                 new PropertyValueFactory<Componente, Double>("preco")
         );
 
-        //addDeleteButtonToTableColumn(observableList.get(3));
+        addNewComponenteToPacoteButtonToTableColumn(observableList.get(3));
 
         table.setItems(getComponentes());
     }
 
     private ObservableList<Componente> getComponentes() {
         ObservableList<Componente> componentes = FXCollections.observableArrayList();
-       // componentes.addAll(cch.consultarComponentesNoPacote(pacote.getId()));
+        componentes.addAll(cch.consultarComponentes());
 
         return componentes;
     }
 
+    private void addNewComponenteToPacoteButtonToTableColumn(TableColumn t) {
+        Callback<TableColumn<Componente, Void>, TableCell<Componente, Void>> cellFactory = new Callback<TableColumn<Componente, Void>, TableCell<Componente, Void>>() {
+            @Override
+            public TableCell<Componente, Void> call(final TableColumn<Componente, Void> param) {
+                final TableCell<Componente, Void> cell = new TableCell<Componente, Void>() {
 
+                    private final Button btn = new Button("Adicionar ao Pacote");
 
+                    {
+                        btn.setOnAction((ActionEvent event) -> {
+                            Componente componente = getTableView().getItems().get(getIndex());
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Confirmação");
+                            alert.setContentText("Pretende adicionar o componente ao pacote?");
+                            Optional<ButtonType> result = alert.showAndWait();
 
+                            if (result.get() == ButtonType.OK) {
+                                try {
+                                    cch.adicionarComponenteAoPacote(pacote, componente.getId());
+                                    table.refresh();
+                                } catch (ComponenteJaExisteNoPacoteException e) {
+                                    Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                                    alert2.setTitle("Erro");
+                                    alert2.setContentText("O componente já existe no pacote.");
+                                    Optional<ButtonType> result2 = alert2.showAndWait();
+                                } catch (ComponenteIncompativelNoPacoteException e) {
+                                    Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                                    alert2.setTitle("Erro");
+                                    alert2.setContentText("O componente é incompatível com o Componente " + e.getMessage());
+                                    Optional<ButtonType> result2 = alert2.showAndWait();
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        t.setCellFactory(cellFactory);
+    }
 
     @FXML
     public void back() {

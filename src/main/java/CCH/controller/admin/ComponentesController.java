@@ -119,6 +119,8 @@ public class ComponentesController {
             stage.setScene(scene);
 
             stage.showAndWait();
+
+            back();
         } catch (IOException e) { }
     }
 

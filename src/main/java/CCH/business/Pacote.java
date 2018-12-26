@@ -2,6 +2,8 @@ package CCH.business;
 
 import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.PacoteDAO;
+import CCH.exception.ComponenteIncompativelNoPacoteException;
+import CCH.exception.ComponenteJaExisteNoPacoteException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,9 +54,19 @@ public class Pacote {
 	 *
 	 * @param componenteId
 	 */
-	public Componente adicionarComponente(int componenteId) {
-		// TODO - implement Pacote.adicionarComponente
-		throw new UnsupportedOperationException();
+	public void adicionaComponente(int componenteId) throws ComponenteJaExisteNoPacoteException, ComponenteIncompativelNoPacoteException {
+		boolean alreadyHas = pacoteDAO.getAllIdsComponentesNoPacote(this.id).contains(componenteId);
+		if (alreadyHas)
+			throw new ComponenteJaExisteNoPacoteException();
+
+		// FIX : NEEDED A FIX
+		for (Componente c : pacoteDAO.getAllComponentesNoPacote(this.id)) {
+			if (c.getIncompativeis() != null && c.getIncompativeis().containsKey(componenteId))
+				throw new ComponenteIncompativelNoPacoteException("Componente " + c.getId());
+
+		}
+
+		pacoteDAO.adicionaComponente(this.id, componenteId);
 	}
 
 	/**
@@ -62,7 +74,7 @@ public class Pacote {
 	 * @param componenteId
 	 */
 	public void removeComponente(int componenteId) {
-		pacoteDAO.removeComponente(this.id,componenteId);
+		pacoteDAO.removeComponente(this.id, componenteId);
 	}
 
 	public String getNome() {

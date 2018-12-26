@@ -4,6 +4,7 @@ import CCH.dataaccess.ComponenteDAO;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public class Componente {
 
@@ -81,8 +82,8 @@ public class Componente {
 		this.requeridos = requeridos;
 	}
 
-	public Collection<Integer> getIncompativeis() {
-		return incompativeis;
+	public Map<Integer, Componente> getIncompativeis() {
+		return componenteDAO.getComponentesIncompativeis(id);
 	}
 
 	public void setIncompativeis(Collection<Integer> incompativeis) {
@@ -108,4 +109,15 @@ public class Componente {
 		return "Indisponível";
 	}
 
+	@Override
+	public String toString() {
+		return "Componente{" +
+				"requeridos=" + requeridos +
+				", incompativeis=" + incompativeis +
+				", id=" + id +
+				", stock=" + stock +
+				", preco=" + preco +
+				", nome='" + nome + '\'' +
+				'}';
+	}
 }

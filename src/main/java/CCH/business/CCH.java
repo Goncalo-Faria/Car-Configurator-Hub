@@ -3,6 +3,8 @@ package CCH.business;
 import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.PacoteDAO;
 import CCH.dataaccess.UtilizadorDAO;
+import CCH.exception.ComponenteIncompativelNoPacoteException;
+import CCH.exception.ComponenteJaExisteNoPacoteException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,5 +122,8 @@ public class CCH {
 		pacote.removeComponente(componente_id);
 	}
 
+	public void adicionarComponenteAoPacote(Pacote pacote, int componente_id) throws ComponenteJaExisteNoPacoteException, ComponenteIncompativelNoPacoteException {
+		pacote.adicionaComponente(componente_id);
+	}
 
 }
