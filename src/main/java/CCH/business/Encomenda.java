@@ -1,8 +1,12 @@
 package CCH.business;
 
+import CCH.dataaccess.RemoteClass;
+
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
-public class Encomenda {
+public class Encomenda implements RemoteClass<Integer> {
 
 	private Map<Integer, Componente> componentes;
 	private int id;
@@ -23,6 +27,25 @@ public class Encomenda {
 
 	public int getId() {
 		return id;
+	}
+
+	public Integer key(){ return id;}
+
+	@Override
+	public List<String> toRow() {
+		List<String> l = new LinkedList<>();
+		l.add(String.valueOf(this.id));
+		l.add(this.nomeCliente);
+		l.add(this.numeroDeIdentificacaoCliente);
+		l.add(this.moradaCliente);
+		l.add(this.paisCliente);
+		l.add(this.emailCliente);
+		return l;
+	}
+
+	@Override
+	public Encomenda fromRow(List<String> row) {
+		return new Encomenda(row);
 	}
 
 	public void setId(int id) {
@@ -93,6 +116,15 @@ public class Encomenda {
 		this.moradaCliente = moradaCliente;
 		this.paisCliente = paisCliente;
 		this.emailCliente = emailCliente;
+	}
+
+	public Encomenda(List<String> row) {
+		this.id = Integer.valueOf(row.get(0));
+		this.nomeCliente = row.get(1);
+		this.numeroDeIdentificacaoCliente = row.get(2);
+		this.moradaCliente = row.get(3);
+		this.paisCliente = row.get(4);
+		this.emailCliente = row.get(5);
 	}
 
 	public Encomenda(Map<Integer, Componente> componentes, int id, double preco, String nomeCliente, String numeroDeIdentificacaoCliente, String moradaCliente, String paisCliente, String emailCliente) {

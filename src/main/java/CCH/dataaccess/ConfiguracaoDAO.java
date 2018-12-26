@@ -22,7 +22,7 @@ public class ConfiguracaoDAO extends GenericDAOClass<Integer> {
         return (Configuracao)super.get(key);
     }
 
-    public Configuracao put(Integer key, Componente value){
+    public Configuracao put(Integer key, Configuracao value){
         return (Configuracao)super.put(key,value);
     }
 

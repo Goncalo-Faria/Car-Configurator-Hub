@@ -6,7 +6,7 @@ import java.sql.Statement;
 import java.util.*;
 import java.sql.ResultSet;
 
-public abstract class GenericDAOClass<K> implements Map<K,RemoteClass<K>> {
+public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
 
     public final Connection conn = CCHConnection.getConnection();
     private final String tablename;

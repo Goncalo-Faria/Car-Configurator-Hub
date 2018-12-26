@@ -64,7 +64,7 @@ public class GestaoDeConfiguracao {
 		}
 
 		ConfiguracaoOtima c = new ConfiguracaoOtima();
-    
+
 		Collection<Componente> componentesObrigatorios = configuracoes.getComponentes(configuracao.getId()).values();
 
 		try {
