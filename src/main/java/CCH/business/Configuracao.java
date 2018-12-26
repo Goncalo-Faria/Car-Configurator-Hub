@@ -4,10 +4,7 @@ import CCH.dataaccess.ConfiguracaoDAO;
 import CCH.exception.EncomendaRequerOutrosComponentes;
 import CCH.exception.EncomendaTemComponentesIncompativeis;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Configuracao {
 
@@ -18,6 +15,25 @@ public class Configuracao {
 	private Map<Integer, Pacote> pacotes;
 
 	private ConfiguracaoDAO configuracaoDAO = new ConfiguracaoDAO();
+
+	public Configuracao() {
+		preco = 0;
+		desconto = 0;
+		componentes = new HashMap<>();
+		pacotes = new HashMap<>();
+	}
+
+	public Configuracao(List<Pacote> pacotesAceitados, List<Componente> componentesAceitados) {
+		this();
+		for (Pacote p:pacotesAceitados) {
+			desconto += p.getDesconto();
+			pacotes.put(p.getId(),p);
+		}
+		for (Componente c:componentesAceitados) {
+			preco += c.getPreco();
+			componentes.put(c.getId(),c);
+		}
+	}
 
 	public int getId() {
 		return this.id;

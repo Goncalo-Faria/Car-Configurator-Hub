@@ -3,6 +3,7 @@ package CCH.business;
 import ilog.concert.*;
 import ilog.cplex.IloCplex;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,9 +19,6 @@ public class ConfiguracaoOtima {
                     IloIntVar kvalue = comps.get(k);
                     cplex.addLe(cplex.sum(value,kvalue),1);
                 }
-                else
-                if (c.getId() > k)//otimização para não repetir restrições uma vez que a incompatibilidade funciona nas duas direções
-                    cplex.addEq(0,value);//se o componente não estiver em comps o modelo não o seleciona, Para prevenir Erros.
             }
             List<Integer> necessarios = c.getIdNecessarios();
             for (Integer k:necessarios) {
@@ -31,7 +29,6 @@ public class ConfiguracaoOtima {
                 else cplex.addEq(0,value);//se o componente não estiver em comps o modelo não o seleciona, Para prevenir Erros.
             }
         }
-
         //componentes obrigatórios
         for (Componente c:componentesObrigatorios) {
             if(!comps.containsKey(c.getId()))throw new IloException();
@@ -98,13 +95,19 @@ public class ConfiguracaoOtima {
         //resolve o problema
         if(cplex.solve()){
             //retornar configuração
-            Configuracao otima = new Configuracao();
+            ArrayList<Pacote> pacotesAceitados = new ArrayList<>();
             for (Pacote p: pacotes) {
-                //if() otima.adicionarPacote();
+                IloIntVar pvar = pacs.get(p.getId());
+                if (cplex.getValue(pvar)==1)
+                    pacotesAceitados.add(p);
             }
+            ArrayList<Componente> componentesAceitados = new ArrayList<>();
             for (Componente c: componentes) {
-                //if() otima.adiconarComponente();
+                IloIntVar cvar = comps.get(c.getId());
+                if(cplex.getValue(cvar) == 1)
+                    componentesAceitados.add(c);
             }
+            Configuracao otima = new Configuracao(pacotesAceitados,componentesAceitados);
             return otima;
         }
         else throw new IloException();

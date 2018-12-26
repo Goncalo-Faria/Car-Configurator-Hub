@@ -3,6 +3,7 @@ package CCH.business;
 import CCH.dataaccess.ComponenteDAO;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public class Componente {
@@ -108,4 +109,11 @@ public class Componente {
 		return "Indisponível";
 	}
 
+	public List<Integer> getIdNecessarios() {
+		return null;
+	}
+
+	public List<Integer> getIdIncompativeis() {
+		return null;
+	}
 }
