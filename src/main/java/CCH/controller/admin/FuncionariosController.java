@@ -162,6 +162,12 @@ public class FuncionariosController {
             utilizador.atualizarTipo(utilizador);
         }
         catch (TipoUtilizadorInexistenteException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Tipo de Funcionário Incorreto");
+            alert.setHeaderText("Tipo de Funcionário não existe");
+            alert.setContentText("O tipo de funcionário não foi alterado.");
+
+            alert.showAndWait();
         }
 
         table.refresh();

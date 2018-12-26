@@ -10,8 +10,6 @@ public class Utilizador {
 	private String nome;
 	private String password;
 
-	private static int nextId = 1;
-
 	private UtilizadorDAO utilizadorDAO = new UtilizadorDAO();
 
 	/**
@@ -27,15 +25,10 @@ public class Utilizador {
 	}
 
 	public Utilizador(int id, String nome, String password, TipoUtilizador tipoUtilizador) {
-		this.tipoUtilizador = tipoUtilizador;
 		this.id = id;
 		this.nome = nome;
 		this.password = password;
-		this.utilizadorDAO = utilizadorDAO;
-	}
-
-	public static int getNextId() {
-		return nextId++;
+		this.tipoUtilizador = tipoUtilizador;
 	}
 
 	public int getId() {
@@ -90,9 +83,9 @@ public class Utilizador {
 	}
 
 	public String getNomeTipoUtilizador() {
-		if (tipoUtilizador.getValue() == 0)
+		if (tipoUtilizador == TipoUtilizador.ADMIN)
 			return "Admin";
-		else if (tipoUtilizador.getValue() == 1)
+		else if (tipoUtilizador == TipoUtilizador.FABRICA)
 			return "Fabrica";
 		else
 			return "Stand";
