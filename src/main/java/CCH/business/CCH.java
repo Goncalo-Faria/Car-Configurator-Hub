@@ -6,6 +6,8 @@ import CCH.dataaccess.UtilizadorDAO;
 import CCH.exception.ComponenteIncompativelNoPacoteException;
 import CCH.exception.ComponenteJaExisteNoPacoteException;
 import CCH.exception.WrongCredentialsException;
+import CCH.exception.ComponenteIncompativelNoPacoteException;
+import CCH.exception.ComponenteJaExisteNoPacoteException;
 
 import java.util.ArrayList;
 import java.util.List;

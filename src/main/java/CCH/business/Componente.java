@@ -129,4 +129,16 @@ public class Componente {
 		return incompativeis.stream().collect(Collectors.toList());
 	}
 
+	@Override
+	public String toString() {
+		return "Componente{" +
+				"requeridos=" + requeridos +
+				", incompativeis=" + incompativeis +
+				", id=" + id +
+				", stock=" + stock +
+				", preco=" + preco +
+				", nome='" + nome + '\'' +
+				'}';
+	}
+
 }
