@@ -59,46 +59,10 @@ public class GestaoDeConfiguracao {
 				String paisCliente,
 				String emailCliente
 	) throws EncomendaRequerOutrosComponentes, EncomendaTemComponentesIncompativeis {
-		Map<Integer, Componente> componentes = configuracao.getComponentes();
-
-		temIncompativeis(componentes);
-		requerOutros(componentes);
+		Map<Integer, Componente> componentes = configuracao.verificaValidade();
 
 		int id = encomendas.getNextId();
 		Encomenda encomenda = new Encomenda(componentes, id, configuracao.getPreco(), nomeCliente, numeroDeIdentificacaoCliente, moradaCliente, paisCliente, emailCliente);
 		encomendas.put(id, encomenda);
-	}
-
-	public void temIncompativeis(Map<Integer, Componente> componentes) throws EncomendaTemComponentesIncompativeis {
-		Map<Integer, Componente> incompativeis = new HashMap<>();
-
-		componentes.forEach((k,c) ->
-			incompativeis.putAll(
-						c.getIncompativeis()
-			)
-		);
-
-		for (Componente componente : componentes.values()) {
-			if (incompativeis.containsKey(componente.getId())) {
-				throw new EncomendaTemComponentesIncompativeis(
-						componente.getFullName() + " é incompatível com outros componentes."
-				);
-			}
-		}
-	}
-
-	public void requerOutros(Map<Integer, Componente> componentes) throws EncomendaRequerOutrosComponentes {
-		Map<Integer, Componente> requeridos = new HashMap<>();
-		componentes.forEach((k,c) ->
-				requeridos.putAll(
-						c.getRequeridos()
-				)
-		);
-
-		Collection<Componente> requeridosValues = requeridos.values();
-
-		if(!componentes.values().containsAll(requeridosValues)) {
-			throw new EncomendaRequerOutrosComponentes();
-		}
 	}
 }
