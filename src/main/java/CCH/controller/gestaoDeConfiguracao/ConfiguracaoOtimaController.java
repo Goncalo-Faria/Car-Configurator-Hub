@@ -2,6 +2,7 @@ package CCH.controller.gestaoDeConfiguracao;
 
 import CCH.business.CCH;
 import CCH.business.Componente;
+import CCH.business.Configuracao;
 import CCH.business.Pacote;
 import CCH.exception.NoOptimalConfigurationException;
 import javafx.collections.FXCollections;
@@ -33,6 +34,11 @@ public class ConfiguracaoOtimaController {
     @FXML
     public Button back;
 
+    private static Configuracao configuracao;
+    public static void setConfiguracao(Configuracao newConfiguracao) {
+        configuracao = newConfiguracao;
+    }
+
     private CCH cch = CarConfiguratorHubApplication.getCch();
 
     @FXML
@@ -59,8 +65,9 @@ public class ConfiguracaoOtimaController {
         ObservableList<Componente> componentes = FXCollections.observableArrayList();
 
         try {
-            componentes.addAll(cch.ConfiguracaoOtima(Integer.parseInt(valor.getText())).getComponentes().values());
-            //ger pacotes tambem
+            componentes.addAll(cch.ConfiguracaoOtima(configuracao,Double.parseDouble(valor.getText()))
+                        .consultarComponentes().values());
+            //adicionar componentes dos pacotes tambem
         } catch (NoOptimalConfigurationException e) {
             //TODO
         }

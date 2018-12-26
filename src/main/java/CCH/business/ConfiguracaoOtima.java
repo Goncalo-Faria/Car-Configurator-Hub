@@ -97,7 +97,7 @@ public class ConfiguracaoOtima {
         for (Pacote p:pacotes) {
             int pkey = p.getId();
             IloIntVar pvalue = cplex.boolVar("p"+pkey);
-            comps.put(pkey,pvalue);
+            pacs.put(pkey,pvalue);
             objfunc = cplex.sum(objfunc,cplex.prod(pvalue,-1*p.getDesconto()));//função objetivo
         }
 
@@ -109,7 +109,7 @@ public class ConfiguracaoOtima {
         restricaoPacotes(cplex,pacotes,componentes,comps,pacs);
 
         //restrição de preço
-        cplex.addLe(money,objfunc);
+        cplex.addLe(objfunc,money);
 
         //resolve o problema
         if(cplex.solve()) {
