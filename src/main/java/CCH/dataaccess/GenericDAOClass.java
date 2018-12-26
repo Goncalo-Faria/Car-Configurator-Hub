@@ -206,7 +206,7 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
     }
 
     public boolean equals(Object o) {
-        return false;
+        return o.getClass().equals( this.getClass());
     }
 
     public void putAll(Map<? extends K,? extends RemoteClass<K>> t) {
