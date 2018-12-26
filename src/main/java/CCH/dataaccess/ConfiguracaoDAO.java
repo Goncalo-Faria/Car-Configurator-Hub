@@ -107,8 +107,16 @@ public class ConfiguracaoDAO implements Map<Integer, Configuracao> {
         try {
             Configuracao al = this.get(key);
             Statement stm = conn.createStatement();
-            String sql = "DELETE FROM Configuracao WHERE id = " + key;
+
+            String sql = "DELETE FROM Configuracao_has_Componente WHERE Configuracao_id = " + key;
             int i  = stm.executeUpdate(sql);
+
+            sql = "DELETE FROM Configuracao_has_Pacote WHERE Configuracao_id = " + key;
+            i  = stm.executeUpdate(sql);
+
+            sql = "DELETE FROM Configuracao WHERE id = " + key;
+            i  = stm.executeUpdate(sql);
+
             return al;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
