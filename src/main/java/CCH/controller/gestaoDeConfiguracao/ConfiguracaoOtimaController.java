@@ -28,11 +28,12 @@ public class ConfiguracaoOtimaController {
     public TableView table;
 
     @FXML
+    public TextField valor;
+
+    @FXML
     public Button back;
 
     private CCH cch = CarConfiguratorHubApplication.getCch();
-
-    private int value = 0;
 
     @FXML
     public void initialize() {
@@ -50,22 +51,21 @@ public class ConfiguracaoOtimaController {
                 new PropertyValueFactory<Componente, Double>("preco")
         );
 
-        //table.setItems(getComponentes(value));
         table.setItems(null);
     }
 
-    private ObservableList<Componente> getComponentes(int value) {
+    @FXML
+    private void loadConfiguracaoOtima() {
         ObservableList<Componente> componentes = FXCollections.observableArrayList();
-        if (value == 0)
-            return componentes;
 
         try {
-            componentes.addAll(cch.ConfiguracaoOtima(this.value).getComponentes().values());
+            componentes.addAll(cch.ConfiguracaoOtima(Integer.parseInt(valor.getText())).getComponentes().values());
+            //ger pacotes tambem
         } catch (NoOptimalConfigurationException e) {
             //TODO
         }
 
-        return componentes;
+        table.setItems(componentes);
     }
 
     @FXML
