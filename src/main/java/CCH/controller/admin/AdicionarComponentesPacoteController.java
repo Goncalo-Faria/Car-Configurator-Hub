@@ -6,6 +6,7 @@ import CCH.business.Componente;
 import CCH.business.Pacote;
 import CCH.exception.ComponenteIncompativelNoPacoteException;
 import CCH.exception.ComponenteJaExisteNoPacoteException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,7 +22,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.util.Optional;
-
 
 public class AdicionarComponentesPacoteController {
     @FXML
