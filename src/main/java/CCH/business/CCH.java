@@ -89,15 +89,11 @@ public class CCH {
 		pacoteDAO.remove(pacoteId);
 	}
 
-	/**
-	 *
-	 * @param nome
-	 * @param password
-	 * @param tipo
-	 */
-	public Utilizador criarFuncionario(String nome, String password, TipoUtilizador tipo) {
-		// TODO - implement CCH.criarFuncionario
-		throw new UnsupportedOperationException();
+
+	public Utilizador criarUtilizador() {
+		Utilizador utilizador = new Utilizador("empty", "empty");
+		utilizador = utilizadorDAO.put(utilizador.getId(), utilizador);
+		return utilizador;
 	}
 
 	/**

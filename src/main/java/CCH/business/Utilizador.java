@@ -1,11 +1,42 @@
 package CCH.business;
 
+import CCH.dataaccess.UtilizadorDAO;
+import CCH.exception.TipoUtilizadorInexistenteException;
+
 public class Utilizador {
 
 	private TipoUtilizador tipoUtilizador;
 	private int id;
 	private String nome;
 	private String password;
+
+	private static int nextId = 1;
+
+	private UtilizadorDAO utilizadorDAO = new UtilizadorDAO();
+
+	/**
+	 *
+	 * @param nome
+	 * @param password
+	 */
+	public Utilizador(String nome, String password) {
+		this.id = utilizadorDAO.getNextId();
+		this.nome = nome;
+		this.password = password;
+		this.tipoUtilizador = TipoUtilizador.STAND; //default
+	}
+
+	public Utilizador(int id, String nome, String password, TipoUtilizador tipoUtilizador) {
+		this.tipoUtilizador = tipoUtilizador;
+		this.id = id;
+		this.nome = nome;
+		this.password = password;
+		this.utilizadorDAO = utilizadorDAO;
+	}
+
+	public static int getNextId() {
+		return nextId++;
+	}
 
 	public int getId() {
 		return this.id;
@@ -39,28 +70,9 @@ public class Utilizador {
 		this.tipoUtilizador = tipoUtilizador;
 	}
 
-	/**
-	 *
-	 * @param nome
-	 * @param password
-	 * @param tipo
-	 */
-	public Utilizador(String nome, String password, TipoUtilizador tipo) {
-		// TODO - implement Utilizador.Utilizador
-		throw new UnsupportedOperationException();
-	}
+	public void setTipoUtilizadorValue(int value) {
+		TipoUtilizador tipoUtilizador = TipoUtilizador.values()[value];
 
-	/**
-	 *
-	 * @param id
-	 * @param nome
-	 * @param password
-	 * @param tipoUtilizador
-	 */
-	public Utilizador(int id, String nome, String password, TipoUtilizador tipoUtilizador) {
-		this.id = id;
-		this.nome = nome;
-		this.password = password;
 		this.tipoUtilizador = tipoUtilizador;
 	}
 
@@ -84,6 +96,29 @@ public class Utilizador {
 			return "Fabrica";
 		else
 			return "Stand";
+	}
+
+	public int parseNomeTipoToValue(String nomeTipo) throws TipoUtilizadorInexistenteException {
+		if (nomeTipo.equals("Admin"))
+			return 0;
+		else if (nomeTipo.equals("Fabrica"))
+			return 1;
+		else if (nomeTipo.equals("Stand"))
+			return 2;
+		else
+			throw new TipoUtilizadorInexistenteException();
+	}
+
+	public void atualizarUser(Utilizador utilizador) {
+		utilizadorDAO.updateUser(utilizador);
+	}
+
+	public void atualizarPassword(Utilizador utilizador) {
+		utilizadorDAO.updatePassword(utilizador);
+	}
+
+	public void atualizarTipo(Utilizador utilizador) {
+		utilizadorDAO.updateTipo(utilizador);
 	}
 
 }

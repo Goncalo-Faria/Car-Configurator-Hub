@@ -2,19 +2,20 @@ package CCH.controller.admin;
 
 import CCH.CarConfiguratorHubApplication;
 import CCH.business.*;
+import CCH.exception.TipoUtilizadorInexistenteException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
-import java.io.IOException;
 import java.util.Optional;
 
 
@@ -29,22 +30,55 @@ public class FuncionariosController {
 
     @FXML
     public void initialize() {
+        table.setEditable(true);
+        table.getSelectionModel().cellSelectionEnabledProperty().set(true);
+
         ObservableList<TableColumn> observableList = table.getColumns();
 
-        observableList.get(0).setCellValueFactory(
-                new PropertyValueFactory<Utilizador, String>("nome")
+        TableColumn<Utilizador, String> userColumn = observableList.get(0);
+        userColumn.setCellValueFactory(
+                new PropertyValueFactory<>("nome")
+        );
+        userColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        userColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Utilizador, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Utilizador, String> t) {
+                        updateUser(t);
+                    }
+                }
         );
 
-        observableList.get(1).setCellValueFactory(
-                new PropertyValueFactory<Utilizador, String>("password")
+        TableColumn<Utilizador, String> passwordColumn = observableList.get(1);
+        passwordColumn.setCellValueFactory(
+                new PropertyValueFactory<>("password")
+        );
+        passwordColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        passwordColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Utilizador, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Utilizador, String> t) {
+                        updatePassword(t);
+                    }
+                }
         );
 
         observableList.get(2).setCellValueFactory(
                 new PropertyValueFactory<Utilizador, String>("nomeUtilizador")
         );
 
-        observableList.get(3).setCellValueFactory(
-                new PropertyValueFactory<Utilizador, String>("nomeTipoUtilizador")
+        TableColumn<Utilizador, String> tipoUtilizadorColumn = observableList.get(3);
+        tipoUtilizadorColumn.setCellValueFactory(
+                new PropertyValueFactory<>("nomeTipoUtilizador")
+        );
+        tipoUtilizadorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        tipoUtilizadorColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Utilizador, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Utilizador, String> t) {
+                        updateTipo(t);
+                    }
+                }
         );
 
         addDeleteButtonToTableColumn(observableList.get(4));
@@ -55,6 +89,7 @@ public class FuncionariosController {
     private ObservableList<Utilizador> getUtilizadores() {
         ObservableList<Utilizador> utilizadores = FXCollections.observableArrayList();
         utilizadores.addAll(cch.consultarFuncionarios());
+
         return utilizadores;
     }
 
@@ -75,6 +110,7 @@ public class FuncionariosController {
 
                             Optional<ButtonType> result = alert.showAndWait();
                             if (result.get() == ButtonType.OK){
+                                cch.removerUtilizador(utilizador.getId());
                                 table.setItems(getUtilizadores());
                                 table.refresh();
                             }
@@ -99,8 +135,43 @@ public class FuncionariosController {
     }
 
     @FXML
-    public void add() {
+    public void updateUser(TableColumn.CellEditEvent<Utilizador, String> event) {
+        Utilizador utilizador = event.getTableView().getItems().get(event.getTablePosition().getRow());
+        utilizador.setNome(event.getNewValue());
+        utilizador.atualizarUser(utilizador);
 
+        table.refresh();
+    }
+
+    @FXML
+    public void updatePassword(TableColumn.CellEditEvent<Utilizador, String> event) {
+        Utilizador utilizador = event.getTableView().getItems().get(event.getTablePosition().getRow());
+        utilizador.setPassword(event.getNewValue());
+        utilizador.atualizarPassword(utilizador);
+
+        table.refresh();
+    }
+
+    @FXML
+    public void updateTipo(TableColumn.CellEditEvent<Utilizador, String> event) {
+        Utilizador utilizador = event.getTableView().getItems().get(event.getTablePosition().getRow());
+
+        try {
+            int value = utilizador.parseNomeTipoToValue(event.getNewValue());
+            utilizador.setTipoUtilizadorValue(value);
+            utilizador.atualizarTipo(utilizador);
+        }
+        catch (TipoUtilizadorInexistenteException e) {
+        }
+
+        table.refresh();
+    }
+
+    @FXML
+    public void add() {
+        cch.criarUtilizador();
+        table.setItems(getUtilizadores());
+        table.refresh();
     }
 
     @FXML
