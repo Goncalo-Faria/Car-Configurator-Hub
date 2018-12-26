@@ -125,27 +125,13 @@ public class CCH {
 		return new ArrayList<>(componenteDAO.values());
 	}
 
-	public void iniciarConfiguracao(){
-		gestaoDeConfiguracao.criarConfiguracao();
-	}
-
-	public void guardarConfiguracao(){
-		gestaoDeConfiguracao.guardarConfiguracao();
-	}
 
 	public Configuracao ConfiguracaoOtima(double valor) throws NoOptimalConfigurationException {
 		Collection<Pacote> pacs = pacoteDAO.values();
 		Collection<Componente> comps = componenteDAO.values();
 		return gestaoDeConfiguracao.configuracaoOtima(pacs,comps,valor);
 	}
-
-	public void updateConfiguracao(Configuracao c){
-		gestaoDeConfiguracao.updateConfiguracao(c);
-	}
 	
-	public void criarEncomenda(){
-		//gestaoDeConfiguracao.criarEncomenda();
-	}
 
 	public List<Componente> consultarComponentesNoPacote(int pacote_id) {
 		return new ArrayList<>(pacoteDAO.getAllComponentesNoPacote(pacote_id));
