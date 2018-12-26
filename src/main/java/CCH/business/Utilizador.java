@@ -114,4 +114,6 @@ public class Utilizador {
 		utilizadorDAO.updateTipo(utilizador);
 	}
 
+=======
+>>>>>>> gerir funcionarios
 }
