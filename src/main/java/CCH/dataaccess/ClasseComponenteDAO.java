@@ -28,5 +28,4 @@ public class ClasseComponenteDAO extends GenericDAOClass<Integer> {
         return (ClasseComponente)super.remove(key);
     }
 
-
 }
