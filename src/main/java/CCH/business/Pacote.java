@@ -88,8 +88,8 @@ public class Pacote {
 		pacoteDAO.updateDesconto(pacote);
 	}
 
-    public List<Integer> idsComponentes() {
-    	return null;
+	public List<Integer> idsComponentes() {
+		return null;
 	}
 
 }
