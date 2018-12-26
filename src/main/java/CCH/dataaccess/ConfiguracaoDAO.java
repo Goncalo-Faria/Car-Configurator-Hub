@@ -202,7 +202,6 @@ public class ConfiguracaoDAO implements Map<Integer, Configuracao> {
     public void removePacote(Integer configuracaoId, Integer pacoteId) {
         try {
             Statement stm = conn.createStatement();
-            System.out.println("removing " + configuracaoId + " " + pacoteId);
             String sql = "DELETE FROM Configuracao_has_Pacote WHERE Configuracao_id=" +
                     configuracaoId +
                     " AND Pacote_id=" +
