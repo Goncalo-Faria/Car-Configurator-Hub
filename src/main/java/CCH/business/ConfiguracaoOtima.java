@@ -100,7 +100,7 @@ public class ConfiguracaoOtima {
             int pkey = p.getId();
             IloIntVar pvalue = cplex.boolVar("p"+pkey);
             pacs.put(pkey,pvalue);
-            pacsDesconto = cplex.sum(pacsDesconto,cplex.prod(pvalue, p.getDesconto()));//função objetivo
+            pacsDesconto = cplex.sum(pacsDesconto,cplex.prod(pvalue, p.getDesconto()));
         }
 
         //Função Objetivo
