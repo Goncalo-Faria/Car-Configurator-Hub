@@ -2,26 +2,20 @@ package CCH.controller.admin;
 
 import CCH.business.CCH;
 import CCH.business.Componente;
-import CCH.business.GestaoDeConfiguracao;
 import CCH.business.Pacote;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import CCH.CarConfiguratorHubApplication;
-import CCH.business.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -110,6 +104,22 @@ public class ComponentesController {
         };
 
         t.setCellFactory(cellFactory);
+    }
+
+    @FXML
+    private void loadComponentes() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/admin/adicionarComponentesPacote.fxml"));
+            AdicionarComponentesPacoteController.setPacote(pacote);
+            Parent root = fxmlLoader.load();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initOwner(back.getScene().getWindow());
+            stage.setScene(scene);
+
+            stage.showAndWait();
+        } catch (IOException e) { }
     }
 
     @FXML

@@ -1,7 +1,8 @@
 package CCH.controller.admin;
 
 import CCH.CarConfiguratorHubApplication;
-import CCH.business.*;
+import CCH.business.CCH;
+import CCH.business.Pacote;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -56,7 +57,6 @@ public class PacotesController {
         );
 
         addDeleteButtonToTableColumn(observableList.get(3));
-
 
         table.setItems(getPacotes());
     }

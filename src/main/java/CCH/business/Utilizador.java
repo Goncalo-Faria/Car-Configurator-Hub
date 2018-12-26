@@ -10,11 +10,6 @@ public class Utilizador {
 	private String nome;
 	private String password;
 
-<<<<<<< HEAD
-	private static int nextId = 1;
-
-=======
->>>>>>> Index Gerir Funcionários (#7)
 	private UtilizadorDAO utilizadorDAO = new UtilizadorDAO();
 
 	/**
@@ -30,22 +25,10 @@ public class Utilizador {
 	}
 
 	public Utilizador(int id, String nome, String password, TipoUtilizador tipoUtilizador) {
-<<<<<<< HEAD
-		this.tipoUtilizador = tipoUtilizador;
-		this.id = id;
-		this.nome = nome;
-		this.password = password;
-		this.utilizadorDAO = utilizadorDAO;
-	}
-
-	public static int getNextId() {
-		return nextId++;
-=======
 		this.id = id;
 		this.nome = nome;
 		this.password = password;
 		this.tipoUtilizador = tipoUtilizador;
->>>>>>> Index Gerir Funcionários (#7)
 	}
 
 	public int getId() {
