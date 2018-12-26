@@ -73,4 +73,17 @@ public class Utilizador {
 		return this.id == id && this.password.equals(password);
 	}
 
+	public String getNomeUtilizador() {
+		return "Utilizador " + id;
+	}
+
+	public String getNomeTipoUtilizador() {
+		if (tipoUtilizador.getValue() == 0)
+			return "Admin";
+		else if (tipoUtilizador.getValue() == 1)
+			return "Fabrica";
+		else
+			return "Stand";
+	}
+
 }

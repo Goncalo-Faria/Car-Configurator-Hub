@@ -182,4 +182,15 @@ public class ConfiguracaoDAO implements Map<Integer, Configuracao> {
     public Set<Integer> keySet() {
         throw new NullPointerException("Not implemented!");
     }
+
+    public int getNextId() {
+        try {
+            Statement stm = conn.createStatement();
+            String sql = "SELECT id FROM Configuracao ORDER BY id DESC LIMIT 1;";
+            ResultSet rs = stm.executeQuery(sql);
+            return rs.getInt(0) + 1;
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+
 }

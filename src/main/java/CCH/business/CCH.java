@@ -89,11 +89,6 @@ public class CCH {
 		pacoteDAO.remove(pacoteId);
 	}
 
-	public List<Utilizador> consultarFuncionarios() {
-		// TODO - implement CCH.consultarFuncionarios
-		throw new UnsupportedOperationException();
-	}
-
 	/**
 	 *
 	 * @param nome
@@ -109,9 +104,12 @@ public class CCH {
 	 *
 	 * @param utilizadorId
 	 */
-	public void removerFuncionario(int utilizadorId) {
-		// TODO - implement CCH.removerFuncionario
-		throw new UnsupportedOperationException();
+	public void removerUtilizador(int utilizadorId) {
+		utilizadorDAO.remove(utilizadorId);
+	}
+
+	public List<Utilizador> consultarFuncionarios() {
+		return new ArrayList<>(utilizadorDAO.values());
 	}
 
 	public List<Pacote> consultarPacotes() {
