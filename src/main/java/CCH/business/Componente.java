@@ -50,6 +50,9 @@ public class Componente implements RemoteClass<Integer> {
 	public Integer key() {
 		return this.id;
 	}
+    public Integer key(String k) {
+        return Integer.valueOf(k);
+    }
 
 	public void setId(int id) {
 		this.id = id;

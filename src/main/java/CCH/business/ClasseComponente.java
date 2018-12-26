@@ -18,6 +18,10 @@ public class ClasseComponente implements RemoteClass<Integer> {
 
 	public Integer key(){return this.id; }
 
+    public Integer key(String k) {
+        return Integer.valueOf(k);
+    }
+
 	@Override
 	public ClasseComponente fromRow(List<String> row) {
 		return new ClasseComponente(row);

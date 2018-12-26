@@ -46,6 +46,11 @@ public class Utilizador implements RemoteClass<Integer> {
 		return this.id;
 	}
 
+    public Integer key(String k) {
+        return Integer.valueOf(k);
+    }
+
+
 	public Integer key(){ return this.id; }
 
 	public void setId(int id) {

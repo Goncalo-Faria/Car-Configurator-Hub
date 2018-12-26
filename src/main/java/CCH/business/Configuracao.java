@@ -12,6 +12,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import java.util.*;
+
 import ilog.concert.IloException;
 
 import java.util.*;
@@ -29,6 +32,10 @@ public class Configuracao implements RemoteClass<Integer> {
 	}
 
 	public Integer key(){return this.id; }
+
+    public Integer key(String k) {
+        return Integer.valueOf(k);
+    }
 
 	@Override
 	public List<String> toRow() {

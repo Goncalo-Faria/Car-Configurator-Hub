@@ -30,6 +30,10 @@ public class Pacote implements RemoteClass<Integer> {
 
 	public Integer key(){return this.id; }
 
+    public Integer key(String k) {
+        return Integer.valueOf(k);
+    }
+
 	@Override
 	public Pacote fromRow(List<String> row) {
 		return new Pacote(row);

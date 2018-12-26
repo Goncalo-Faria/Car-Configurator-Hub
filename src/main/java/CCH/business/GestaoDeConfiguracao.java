@@ -87,6 +87,43 @@ public class GestaoDeConfiguracao {
 			configuracoes.updateDesconto(configuracaoId, descontoAtualizado);
 		}
 	}
+    private Configuracao confatual;
+    private ConfiguracaoDAO configuracoes;
+    private EncomendaDAO encomendas;
 
+    public Collection<Componente> getComponentes(int configuracaoId) {
+        return configuracoes.getComponentes(configuracaoId).values();
+    }
+
+    public void removerComponente(int configuracaoId, int componenteId) {
+        configuracoes.removeComponente(configuracaoId, componenteId);
+    }
+
+    public Configuracao configuracaoOtima(Collection<Pacote> pacs, Collection<Componente> comps, double valor) throws NoOptimalConfigurationException {
+        if (valor<0)
+            throw new NoOptimalConfigurationException("Negative Value");
+        ConfiguracaoOtima c = new ConfiguracaoOtima();
+        Collection<Componente> componentesObrigatorios = confatual.getComponentes().values();
+        try {
+            return c.configuracaoOtima(componentesObrigatorios,comps,pacs,valor);
+        } catch (IloException e) {
+            e.printStackTrace();
+            throw new NoOptimalConfigurationException();
+        }
+    }
+
+    public void guardarConfiguracao() {
+        int id = confatual.getId();
+        configuracoes.put(id,confatual);
+    }
+
+
+    public Configuracao getConfiguracaoAtual() {
+        return confatual;
+    }
+
+    public void updateConfiguracao(Configuracao c) {
+        confatual = c;
+    }
 
 }

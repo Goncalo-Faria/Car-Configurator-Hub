@@ -119,12 +119,15 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM " + this.tablename + " ;");
 
-            List<String> row = new LinkedList<>();
+            List<String> row;
             int col = rs.getMetaData().getColumnCount();
-            for( int i = 1; i<= col; i++)
-                row.add(rs.getString(i));
+
 
             while (rs.next()) {
+
+                row = new ArrayList<>();
+                for( int i = 1; i<= col; i++)
+                    row.add(rs.getString(i));
                 set.add( this.token.fromRow(row) );
             }
 
@@ -161,10 +164,23 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
     }
 
     public boolean isEmpty() {
-        throw new NullPointerException("Not implemented yet!");
+        return (this.size() == 0 );
     }
 
     public Set<K> keySet() {
-        throw new NullPointerException("Not implemented yet!");
+        try {
+
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT id FROM " + this.tablename + " ;");
+
+            Set<K> set = new HashSet<>();
+            while (rs.next()) {
+                set.add( this.token.key(rs.getString(1))  );
+            }
+
+            return set;
+
+        }
+        catch (SQLException e) {throw new NullPointerException(e.getMessage());}
     }
 }

@@ -56,6 +56,10 @@ public class Encomenda implements RemoteClass<Integer> {
 		return preco;
 	}
 
+    public Integer key(String k) {
+        return Integer.valueOf(k);
+    }
+
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
