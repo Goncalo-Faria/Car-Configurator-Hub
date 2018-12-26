@@ -11,11 +11,13 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
     public final Connection conn = CCHConnection.getConnection();
     private final String tablename;
     private final RemoteClass<K> token;
+    private final List<String> colname;
 
 
-    public GenericDAOClass (String tablename, RemoteClass<K> token) {
+    public GenericDAOClass (String tablename, RemoteClass<K> token, List<String> colname) {
         this.tablename = tablename;
         this.token = token;
+        this.colname = colname;
     }
 
     public int getNextId() {
@@ -157,7 +159,10 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
     }
 
     public void putAll(Map<? extends K,? extends RemoteClass<K>> t) {
-        throw new NullPointerException("Not implemented yet!");
+        for( Map.Entry<? extends K,? extends RemoteClass<K>> d : t.entrySet() )
+            if(this.token.getClass().equals(d.getValue().getClass()))
+                this.put(d.getKey(),d.getValue());
+
     }
 
     public void clear () {

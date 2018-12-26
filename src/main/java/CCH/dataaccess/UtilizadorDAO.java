@@ -11,7 +11,8 @@ public class UtilizadorDAO extends GenericDAOClass<Integer> {
     public UtilizadorDAO () {
         super("Utilizador",
                 new Utilizador(0,"hey",
-                        "hey",TipoUtilizador.withValue(0)));
+                        "hey",TipoUtilizador.withValue(0)),
+                Arrays.asList(new String[]{"id","nome","password","TipoUtilizador"}));
     }
 
     public Utilizador get(Object key) {

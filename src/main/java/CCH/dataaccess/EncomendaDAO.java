@@ -14,7 +14,10 @@ public class EncomendaDAO extends GenericDAOClass<Integer> {
 
     public EncomendaDAO () {
         super("Encomenda",new Encomenda(0,null,
-                null,null,null,null));
+                null,null,null,null),
+                Arrays.asList(new String[]{"id","nomeCliente",
+                        "numeroDeIdentificaoCliente","moradaCliente","paisCliente",
+                        "emailCliente","emailCliente","preco"}));
     }
 
     public Configuracao get(Object key) {

@@ -15,7 +15,9 @@ public class ConfiguracaoDAO extends GenericDAOClass<Integer> {
     private ComponenteDAO componenteDAO = new ComponenteDAO();
 
     public ConfiguracaoDAO () {
-        super("Configuracao",new Configuracao(0,0,0));
+        super("Configuracao",
+                new Configuracao(0,0,0),
+                Arrays.asList(new String[]{"id","preco","desconto"}));
     }
 
     public Configuracao get(Object key) {

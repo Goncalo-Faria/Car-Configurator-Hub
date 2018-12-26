@@ -12,7 +12,9 @@ import java.util.stream.Collectors;
 public class ComponenteDAO extends GenericDAOClass<Integer> {
 
     public ComponenteDAO () {
-        super("Componente",new Componente(0,0,0.0,"lol",null));
+        super("Componente",
+                new Componente(0,0,0.0,"lol",null),
+                Arrays.asList(new String[]{"id","stock","preco","nome","ClasseComponente_id"}));
     }
 
     public Componente get(Object key) {

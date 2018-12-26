@@ -13,7 +13,8 @@ public class ClasseComponenteDAO extends GenericDAOClass<Integer> {
     public ClasseComponenteDAO () {
         super("ClasseComponente",
                 new ClasseComponente(0, true, "lol",
-                        TipoComponente.withValue(0)));
+                        TipoComponente.withValue(0)),
+                Arrays.asList(new String[]{"id","eObrigatorio","nome","TipoComponente_id"}));
     }
 
     public ClasseComponente get(Object key) {

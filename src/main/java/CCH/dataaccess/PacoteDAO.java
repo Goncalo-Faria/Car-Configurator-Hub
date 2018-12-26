@@ -12,7 +12,8 @@ public class PacoteDAO extends GenericDAOClass<Integer> {
     private ClasseComponenteDAO classeComponenteDAO = new ClasseComponenteDAO();
 
     public PacoteDAO () {
-        super("Pacote", new Pacote(0,0.0));
+        super("Pacote", new Pacote(0,0.0),
+                Arrays.asList(new String[]{"id","desconto"}));
     }
 
     public int getNextId() {
@@ -49,6 +50,9 @@ public class PacoteDAO extends GenericDAOClass<Integer> {
     }
 
     public Pacote remove(Object key){
+
+        String[] f = new String[]{"a","b","c"};
+
         return (Pacote)super.remove(key);
     }
 
