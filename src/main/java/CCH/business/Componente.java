@@ -26,6 +26,13 @@ public class Componente implements RemoteClass<Integer> {
 		this.classeComponente = classeComponente;
 	}
 
+	public Componente(List<String> rs){
+	    this.id = Integer.valueOf(rs.get(0));
+	    this.stock = Integer.valueOf(rs.get(1));
+	    this.preco = Double.valueOf(rs.get(2));
+	    this.nome = rs.get(3);
+    }
+
 	public int getId() {
 		return this.id;
 	}
@@ -37,10 +44,7 @@ public class Componente implements RemoteClass<Integer> {
 	}
 
 	public Componente fromRow(List<String> rs){
-
-		ClasseComponente classeComponente = this.classeComponenteDAO.get(Integer.valueOf(rs.get(4)));
-		return new Componente(Integer.valueOf(rs.get(0)),Integer.valueOf(rs.get(1)),Double.valueOf(rs.get(2)), rs.get(3), classeComponente);
-
+		return new Componente(rs);
 	}
 
 	public Integer key() {
@@ -76,7 +80,7 @@ public class Componente implements RemoteClass<Integer> {
 	}
 
 	public ClasseComponente getClasseComponente() {
-		return classeComponente;
+		return this.classeComponente;
 	}
 
 	public void setClasseComponente(ClasseComponente classeComponente) {
@@ -85,16 +89,16 @@ public class Componente implements RemoteClass<Integer> {
 
 
 	public Map<Integer, Componente> getRequeridos() {
-		return componenteDAO.getComponentesRequeridos(id);
+		return this.componenteDAO.getComponentesRequeridos(id);
 	}
 
 	public Map<Integer, Componente> getIncompativeis() {
-		return componenteDAO.getComponentesIncompativeis(id);
+		return this.componenteDAO.getComponentesIncompativeis(id);
 	}
 
 
 	public String getFullName() {
-		return classeComponente.getNome() + " " + nome;
+		return this.classeComponente.getNome() + " " + this.nome;
 	}
 
 	public String getStockString() {

@@ -3,6 +3,7 @@ package CCH.business;
 import CCH.dataaccess.ConfiguracaoDAO;
 import CCH.dataaccess.PacoteDAO;
 import CCH.exception.ComponenteJaAdicionadoException;
+import CCH.dataaccess.RemoteClass;
 import CCH.exception.EncomendaRequerOutrosComponentes;
 import CCH.exception.EncomendaTemComponentesIncompativeis;
 import CCH.exception.PacoteJaAdicionadoException;
@@ -15,8 +16,7 @@ import ilog.concert.IloException;
 
 import java.util.*;
 
-
-public class Configuracao {
+public class Configuracao implements RemoteClass<Integer> {
 	private int id;
 	private double preco;
 	private double desconto;
@@ -27,6 +27,22 @@ public class Configuracao {
 	public int getId() {
 		return this.id;
 	}
+
+	public Integer key(){return this.id; }
+
+	@Override
+	public List<String> toRow() {
+
+		List<String> l = new LinkedList<>();
+		l.add(String.valueOf(this.id));
+        l.add(String.valueOf(this.preco));
+        l.add(String.valueOf(this.desconto));
+        return l;
+	}
+
+	public Configuracao fromRow(List<String> rs){
+	    return new Configuracao(rs);
+    }
 
 	public void setId(int id) {
 		this.id = id;
@@ -59,6 +75,12 @@ public class Configuracao {
 		this.preco = 0;
 		this.desconto = 0;
 	}
+
+	public Configuracao(List<String> rs){
+	    this.id =Integer.valueOf(rs.get(0));
+	    this.preco=Double.valueOf(rs.get(1));
+	    this.desconto=Double.valueOf(rs.get(2));
+    }
 
 	public Configuracao gerarConfiguracaoOtima(
 			List<Componente> componentesObrigatorios,
