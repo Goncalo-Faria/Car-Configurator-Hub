@@ -140,16 +140,11 @@ public class CCH {
 		return gestaoDeConfiguracao.configuracaoOtima(pacs,comps,valor);
 	}
 
-
 	public void updateConfiguracao(Configuracao c){
 		gestaoDeConfiguracao.updateConfiguracao(c);
 	}
-
-	public void criarEncomenda(String nomeCliente,
-							   String numeroDeIdentificacaoCliente,
-							   String moradaCliente,
-							   String paisCliente,
-							   String emailCliente) throws EncomendaTemComponentesIncompativeis, EncomendaRequerOutrosComponentes {
-		gestaoDeConfiguracao.criarEncomenda();
+	
+	public void criarEncomenda(){
+		//gestaoDeConfiguracao.criarEncomenda();
 	}
 }
