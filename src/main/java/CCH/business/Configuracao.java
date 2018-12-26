@@ -17,24 +17,7 @@ public class Configuracao {
 
 	private ConfiguracaoDAO configuracaoDAO = new ConfiguracaoDAO();
 
-	public Configuracao() {
-		preco = 0;
-		desconto = 0;
-		componentes = new HashMap<>();
-		pacotes = new HashMap<>();
-	}
 
-	public Configuracao(List<Pacote> pacotesAceitados, List<Componente> componentesAceitados) {
-		this();
-		for (Pacote p:pacotesAceitados) {
-			desconto += p.getDesconto();
-			pacotes.put(p.getId(),p);
-		}
-		for (Componente c:componentesAceitados) {
-			preco += c.getPreco();
-			componentes.put(c.getId(),c);
-		}
-	}
 
 	public int getId() {
 		return this.id;
@@ -86,6 +69,8 @@ public class Configuracao {
 		this.id = configuracaoDAO.getNextId();
 		this.preco = 0;
 		this.desconto = 0;
+		componentes = new HashMap<>();
+		pacotes = new HashMap<>();
 	}
 
 	public Configuracao gerarConfiguracaoOtima(
@@ -96,6 +81,19 @@ public class Configuracao {
 	) throws IloException {
 		ConfiguracaoOtima configuracaoOtima = new ConfiguracaoOtima();
 		return configuracaoOtima.configuracaoOtima(componentesObrigatorios, componentes, pacotes, money);
+	}
+
+	//Para criar Configuração a partir da configuração otima mais rapidamente
+	public Configuracao(List<Pacote> pacotesAceitados, List<Componente> componentesAceitados) {
+		this();
+		for (Pacote p:pacotesAceitados) {
+			desconto += p.getDesconto();
+			pacotes.put(p.getId(),p);
+		}
+		for (Componente c:componentesAceitados) {
+			preco += c.getPreco();
+			componentes.put(c.getId(),c);
+		}
 	}
 
 	public Map<Integer, Componente> consultarComponentes() {
