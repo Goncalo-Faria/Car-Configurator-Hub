@@ -4,8 +4,13 @@ import CCH.dataaccess.ClasseComponenteDAO;
 import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.RemoteClass;
 
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Map;
+=======
+import java.util.*;
+import java.util.stream.Collectors;
+>>>>>>>  enable new component creation
 
 public class Componente implements RemoteClass<Integer> {
 
@@ -31,6 +36,7 @@ public class Componente implements RemoteClass<Integer> {
 	    this.stock = Integer.valueOf(rs.get(1));
 	    this.preco = Double.valueOf(rs.get(2));
 	    this.nome = rs.get(3);
+	    this.classeComponente = this.classeComponenteDAO.get(Integer.valueOf(rs.get(4)));
     }
 
 	public int getId() {
@@ -39,8 +45,13 @@ public class Componente implements RemoteClass<Integer> {
 
 	@Override
 	public List<String> toRow() {
-		// não é suposto adicionar componentes.
-		throw new NullPointerException(" não é suposto criar componentes");
+		List<String> l = new LinkedList<>();
+		l.add(String.valueOf(this.id));
+		l.add(String.valueOf(this.stock));
+		l.add(String.valueOf(this.preco));
+		l.add(this.nome);
+		l.add(String.valueOf(this.classeComponente.key()));
+		return l;
 	}
 
 	public Componente fromRow(List<String> rs){
