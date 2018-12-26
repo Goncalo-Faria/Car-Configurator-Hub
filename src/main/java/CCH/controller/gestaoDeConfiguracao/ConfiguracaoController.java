@@ -115,7 +115,7 @@ public class ConfiguracaoController {
 
     @FXML
     public void configOtima() throws IOException {
-        //redirectTo("/views/gestaoDeConfiguracao/configotima.fxml");
+        redirectTo("/views/gestaoDeConfiguracao/configuracaootima.fxml");
     }
 
     @FXML
