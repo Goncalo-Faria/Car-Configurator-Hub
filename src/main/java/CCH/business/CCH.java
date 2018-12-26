@@ -134,8 +134,8 @@ public class CCH {
 	*
 	* */
 
-	public void abrirConfigurcaoGuardada(Integer configurcaoid) throws ConfiguracaoNaoExistenteException {
-		this.gestaoDeConfiguracao.abrir(configurcaoid);
+	public void abrirConfigurcaoGuardada(Integer configuracaoid) throws ConfiguracaoNaoExistenteException {
+		this.gestaoDeConfiguracao.abrir(configuracaoid);
 	}
 
 
