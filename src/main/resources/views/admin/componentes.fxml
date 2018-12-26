@@ -9,10 +9,10 @@
     <children>
         <TableView fx:id="table" layoutX="60.0" layoutY="36.0" prefHeight="270.0" prefWidth="480">
             <columns>
-                <TableColumn prefWidth="140.0" style="-fx-alignment: center;" text="Componentes" />
-                <TableColumn prefWidth="140.0" style="-fx-alignment: center;" text="Stock" />
-                <TableColumn prefWidth="140.0" style="-fx-alignment: center;" text="Preço (€)" />
-                <TableColumn prefWidth="57.0" style="-fx-alignment: center;"/>
+                <TableColumn prefWidth="167.0" style="-fx-alignment: center;" text="Componentes" />
+                <TableColumn prefWidth="120.0" style="-fx-alignment: center;" text="Stock" />
+                <TableColumn prefWidth="100.0" style="-fx-alignment: center;" text="Preço (€)" />
+                <TableColumn prefWidth="90.0" style="-fx-alignment: center;"/>
             </columns>
         </TableView>
         <Button layoutX="60.0" layoutY="345.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="480.0" text="Componentes" />

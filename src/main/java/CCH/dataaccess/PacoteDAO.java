@@ -1,5 +1,6 @@
 package CCH.dataaccess;
 
+import CCH.business.ClasseComponente;
 import CCH.business.Componente;
 import CCH.business.Pacote;
 
@@ -13,9 +14,25 @@ public class PacoteDAO implements Map<Integer, Pacote> {
     public Connection conn;
 
     private ComponenteDAO componenteDAO = new ComponenteDAO();
+    private ClasseComponenteDAO classeComponenteDAO = new ClasseComponenteDAO();
 
     public PacoteDAO () {
         conn = CCHConnection.getConnection();
+    }
+
+    public int getNextId() {
+        try {
+            Statement stm = conn.createStatement();
+            String sql = "SELECT id FROM Pacote ORDER BY id DESC LIMIT 1;";
+            ResultSet rs = stm.executeQuery(sql);
+
+            if (rs.next()) {
+                return rs.getInt(1) + 1;
+            }
+
+            return 0;
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
     public boolean containsKey(Object key) throws NullPointerException {
@@ -140,5 +157,56 @@ public class PacoteDAO implements Map<Integer, Pacote> {
 
     public Set<Integer> keySet() {
         throw new NullPointerException("Not implemented!");
+    }
+
+    public Collection<Componente> getAllComponentesNoPacote(Object key) {
+        try {
+            Collection<Componente> col = new HashSet<>();
+            Componente al = null;
+            Statement stm = conn.createStatement();
+
+            ResultSet rs_componenteId = stm.executeQuery("SELECT Componente_id FROM Pacote_has_Componente where Pacote_id = " + key);
+
+            while (rs_componenteId.next()) {
+                Object componente_id = rs_componenteId.getInt(1);
+                String sql = "SELECT * FROM Componente WHERE id=" + componente_id;
+                stm = conn.createStatement();
+                ResultSet rs = stm.executeQuery(sql);
+
+                if (rs.next()) {
+                    ClasseComponente classeComponente = classeComponenteDAO.get(rs.getInt(5));
+                    al = new Componente(rs.getInt(1), rs.getInt(2), rs.getDouble(3), rs.getString(4), classeComponente);
+
+                    col.add(al);
+                }
+            }
+
+            return col;
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+
+    }
+
+    public void removeComponente(Object key_pacote, Object key_componente) {
+        try {
+            Statement stm = conn.createStatement();
+            String sql = "DELETE FROM Pacote_has_Componente WHERE Pacote_id = " + key_pacote + " and " + "Componente_id = " + key_componente;
+            stm.executeUpdate(sql);
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+
+    public void updateDesconto(Pacote pacote) {
+        try {
+            Statement stm = conn.createStatement();
+            stm.executeUpdate("UPDATE Pacote SET desconto = " +
+                    pacote.getDesconto() +
+                    " WHERE id = " +
+                    pacote.getId() +
+                    ";");
+
+        } catch (Exception e) {
+            throw new NullPointerException(e.getMessage());
+        }
     }
 }

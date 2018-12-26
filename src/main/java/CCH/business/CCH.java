@@ -72,13 +72,10 @@ public class CCH {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 *
-	 * @param pacote
-	 */
-	public void criarPacote(Pacote pacote) {
-		// TODO - implement CCH.criarPacote
-		throw new UnsupportedOperationException();
+	public Pacote criarPacote() {
+		Pacote pacote = new Pacote();
+		pacote = pacoteDAO.put(pacote.getId(), pacote);
+		return pacote;
 	}
 
 	/**
@@ -114,4 +111,14 @@ public class CCH {
 	public List<Componente> consultarComponentes() {
 		return new ArrayList<>(componenteDAO.values());
 	}
+
+	public List<Componente> consultarComponentesNoPacote(int pacote_id) {
+		return new ArrayList<>(pacoteDAO.getAllComponentesNoPacote(pacote_id));
+	}
+
+	public void removerComponenteDoPacote(Pacote pacote, int componente_id) {
+		pacote.removeComponente(componente_id);
+	}
+
+
 }
