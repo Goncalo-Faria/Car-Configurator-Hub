@@ -3,6 +3,7 @@ package CCH.business;
 import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.PacoteDAO;
 import CCH.dataaccess.UtilizadorDAO;
+import CCH.exception.ConfiguracaoNaoExistenteException;
 import CCH.exception.WrongCredentialsException;
 
 import java.util.ArrayList;
@@ -122,4 +123,20 @@ public class CCH {
 	public List<Componente> consultarComponentes() {
 		return new ArrayList<>(componenteDAO.values());
 	}
+
+	/*
+	*
+	* removerComponente(){
+	* }
+	*
+	* AdicionarPacote(){
+	* }
+	*
+	* */
+
+	public void abrirConfigurcaoGuardada(Integer configurcaoid) throws ConfiguracaoNaoExistenteException {
+		this.gestaoDeConfiguracao.abrir(configurcaoid);
+	}
+
+
 }

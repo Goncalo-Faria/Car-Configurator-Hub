@@ -2,6 +2,7 @@ package CCH.business;
 
 import CCH.dataaccess.ConfiguracaoDAO;
 import CCH.dataaccess.EncomendaDAO;
+import CCH.exception.ConfiguracaoNaoExistenteException;
 import CCH.exception.EncomendaRequerOutrosComponentes;
 import CCH.exception.EncomendaTemComponentesIncompativeis;
 
@@ -11,6 +12,7 @@ public class GestaoDeConfiguracao {
 
 	private ConfiguracaoDAO configuracoes;
 	private EncomendaDAO encomendas;
+	private Configuracao configuracaoAtual;
 
 	public GestaoDeConfiguracao() {
 		this.configuracoes = new ConfiguracaoDAO();
@@ -65,4 +67,12 @@ public class GestaoDeConfiguracao {
 		Encomenda encomenda = new Encomenda(componentes, id, configuracao.getPreco(), nomeCliente, numeroDeIdentificacaoCliente, moradaCliente, paisCliente, emailCliente);
 		encomendas.put(id, encomenda);
 	}
+
+	public void abrir(Integer id) throws ConfiguracaoNaoExistenteException {
+        if( !this.configuracoes.containsKey(id) ){
+            throw new ConfiguracaoNaoExistenteException();
+        }else{
+            this.configuracaoAtual = this.configuracoes.get(id);
+        }
+    }
 }
