@@ -43,7 +43,7 @@ public class ConfiguracoesController {
 
         addDeleteButtonToTableColumn(observableList.get(2));
 
-        table.setItems(getConfigurcoes());
+        table.setItems(getConfiguracoes());
         setSelection();
     }
 
@@ -74,7 +74,7 @@ public class ConfiguracoesController {
         });
     }
 
-    private ObservableList<Configuracao> getConfigurcoes() {
+    private ObservableList<Configuracao> getConfiguracoes() {
         ObservableList<Configuracao> configuracoes = FXCollections.observableArrayList();
         configuracoes.addAll(gestaoDeConfiguracao.consultarConfiguracoes());
         return configuracoes;
@@ -99,7 +99,7 @@ public class ConfiguracoesController {
                             Optional<ButtonType> result = alert.showAndWait();
                             if (result.get() == ButtonType.OK){
                                 gestaoDeConfiguracao.removerConfiguracao(configuracao.getId());
-                                table.setItems(getConfigurcoes());
+                                table.setItems(getConfiguracoes());
                                 table.refresh();
                             }
                         });
@@ -125,7 +125,7 @@ public class ConfiguracoesController {
     @FXML
     public void add() {
         gestaoDeConfiguracao.criarConfiguracao();
-        table.setItems(getConfigurcoes());
+        table.setItems(getConfiguracoes());
         table.refresh();
     }
 
