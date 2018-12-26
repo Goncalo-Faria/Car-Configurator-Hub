@@ -84,4 +84,8 @@ public class GestaoDeConfiguracao {
 		int id = confatual.getId();
 		configuracoes.put(id,confatual);
 	}
+
+	public Configuracao getConfiguracaoAtual() {
+		return confatual;
+	}
 }

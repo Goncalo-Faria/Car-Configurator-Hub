@@ -54,4 +54,15 @@ public class OperacaoFabril {
 		componenteDAO.updateStock(componente);
 		return consultarProximaEncomenda();
 	}
+
+    public void addEncomenda(Configuracao c,
+							 String nomeCliente,
+							 String numeroDeIdentificacaoCliente,
+							 String moradaCliente,
+							 String paisCliente,
+							 String emailCliente) {
+		int id = encomendaDAO.size()+1;
+		Encomenda e = new Encomenda(c.getComponentes(),id,c.getPreco(),nomeCliente, numeroDeIdentificacaoCliente, moradaCliente, paisCliente, emailCliente);
+		encomendaDAO.put(e.getId(),e);
+    }
 }
