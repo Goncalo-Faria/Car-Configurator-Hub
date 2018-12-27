@@ -51,25 +51,28 @@ public class Configuracao implements RemoteClass<Integer> {
 	    return new Configuracao(rs);
     }
 
+    /*
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	*/
 	public double getPreco() {
 		return this.preco;
 	}
-
+	/*
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
+	*/
 
 	public double getDesconto() {
 		return this.desconto;
 	}
-
+	/*
 	public void setDesconto(double desconto) {
 		this.desconto = desconto;
 	}
+	*/
 
 	public Configuracao(int id, double preco, double desconto) {
 		this.id = id;
@@ -142,10 +145,11 @@ public class Configuracao implements RemoteClass<Integer> {
 		Componente componente = configuracaoDAO.removeComponente(id, componenteId);
 
 		this.preco -= componente.getPreco();
-		for (Pacote pacote : configuracaoDAO.getPacotes(id).values()) {
+		for (RemoteClass<Integer> pac : configuracaoDAO.getPacotes(id).values()) {
+			Pacote pacote = (Pacote)pac;
 			if (pacote.getComponentes().containsKey(componenteId)) {
 				this.desconto -= pacote.getDesconto();
-				configuracaoDAO.removePacote(id, pacote.getId());
+				configuracaoDAO.removePacote(this.id, pacote.getId());
 			}
 		}
 

@@ -24,12 +24,35 @@ public class ConfiguracaoDAO extends GenericDAOClass<Integer> {
         return (Configuracao)super.get(key);
     }
 
-    public Configuracao put(Integer key, Configuracao value){
-        return (Configuracao)super.put(key,value);
+    public Configuracao update(Integer key, Configuracao value) {
+        try {
+            super.remove(key);
+            return this.put(key,value);
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
-    public Configuracao remove(Object key){
-        return (Configuracao)super.remove(key);
+    public Configuracao remove(Object key) {
+        try {
+            Configuracao al = this.get(key);
+            Statement stm = conn.createStatement();
+
+            String sql = "DELETE FROM Configuracao_has_Componente WHERE Configuracao_id = " + key;
+            int i  = stm.executeUpdate(sql);
+
+            sql = "DELETE FROM Configuracao_has_Pacote WHERE Configuracao_id = " + key;
+            i  = stm.executeUpdate(sql);
+
+            sql = "DELETE FROM Configuracao WHERE id = " + key;
+            i  = stm.executeUpdate(sql);
+
+            return al;
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
+
+    public Configuracao put(Integer key, Configuracao value){
+        return (Configuracao)super.put(key,value);
     }
 
     public Map<Integer, Pacote> getPacotes(Integer configuracaoId) {
