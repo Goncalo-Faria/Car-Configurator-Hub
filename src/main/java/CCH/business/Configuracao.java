@@ -20,7 +20,7 @@ import ilog.concert.IloException;
 import java.util.*;
 
 public class Configuracao implements RemoteClass<Integer> {
-	private int id;
+	private final int id;
 	private double preco;
 	private double desconto;
 

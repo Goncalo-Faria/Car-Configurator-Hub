@@ -8,8 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Pacote implements RemoteClass<Integer> {
-
-	private int id;
+	private final int id;
 	private double desconto;
 	private PacoteDAO pacoteDAO = new PacoteDAO();
 	private ComponenteDAO componentes = new ComponenteDAO();
@@ -22,6 +21,7 @@ public class Pacote implements RemoteClass<Integer> {
 	public Pacote() {
 		this.id = pacoteDAO.getNextId();
 		this.desconto = 0.0;
+		this.id = 0;
 	}
 
 	public int getId() {
@@ -47,17 +47,20 @@ public class Pacote implements RemoteClass<Integer> {
 		return l;
 	}
 
+	/*
 	public void setId(int id) {
 		this.id = id;
 	}
+	*/
 
 	public double getDesconto() {
 		return this.desconto;
 	}
-
+	/*
 	public void setDesconto(double desconto) {
 		this.desconto = desconto;
 	}
+	*/
 
 	public Map<Integer, Componente> getComponentes() {
 		return pacoteDAO.getComponentes(id);

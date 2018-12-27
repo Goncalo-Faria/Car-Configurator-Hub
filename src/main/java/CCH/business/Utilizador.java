@@ -9,10 +9,10 @@ import java.util.List;
 
 public class Utilizador implements RemoteClass<Integer> {
 
-	private TipoUtilizador tipoUtilizador;
-	private int id;
-	private String nome;
-	private String password;
+	private final TipoUtilizador tipoUtilizador;
+	private final int id;
+	private final String nome;
+	private final String password;
 
 	private UtilizadorDAO utilizadorDAO = new UtilizadorDAO();
 
@@ -53,9 +53,11 @@ public class Utilizador implements RemoteClass<Integer> {
 
 	public Integer key(){ return this.id; }
 
+	/*
 	public void setId(int id) {
 		this.id = id;
 	}
+	*/
 
 	@Override
 	public List<String> toRow() {
@@ -76,31 +78,38 @@ public class Utilizador implements RemoteClass<Integer> {
 		return this.nome;
 	}
 
+	/*
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	*/
 
 	public String getPassword() {
 		return this.password;
 	}
 
+	/*
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	*/
 
 	public TipoUtilizador getTipoUtilizador() {
 		return tipoUtilizador;
 	}
 
+	/*
 	public void setTipoUtilizador(TipoUtilizador tipoUtilizador) {
 		this.tipoUtilizador = tipoUtilizador;
 	}
-
+	*/
+	/*
 	public void setTipoUtilizadorValue(int value) {
 		TipoUtilizador tipoUtilizador = TipoUtilizador.values()[value];
 
 		this.tipoUtilizador = tipoUtilizador;
 	}
+	*/
 
 	/**
 	 *
