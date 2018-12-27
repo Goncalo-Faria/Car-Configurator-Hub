@@ -69,4 +69,3 @@ public class UtilizadorDAO extends GenericDAOClass<Integer> {
     }
 
 }
-

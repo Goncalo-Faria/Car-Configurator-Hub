@@ -100,7 +100,7 @@ public class CCH {
 		pacoteDAO.removeAllComponentes(pacoteId);
 		pacoteDAO.remove(pacoteId);
 	}
-	
+
 	public Utilizador criarUtilizador() {
 		Utilizador utilizador = new Utilizador("empty", "empty");
 		utilizador = utilizadorDAO.put(utilizador.getId(), utilizador);
@@ -133,7 +133,7 @@ public class CCH {
 		Collection<Componente> comps = componenteDAO.values();
 		return gestaoDeConfiguracao.configuracaoOtima(comps,pacs,configuracao,valor);
 	}
-	
+
 
 	public List<Componente> consultarComponentesNoPacote(int pacote_id) {
 		return new ArrayList<>(pacoteDAO.getAllComponentesNoPacote(pacote_id));

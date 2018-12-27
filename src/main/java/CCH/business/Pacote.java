@@ -1,15 +1,6 @@
 package CCH.business;
 
 import CCH.dataaccess.ComponenteDAO;
-<<<<<<< HEAD
-import CCH.dataaccess.PacoteDAO;
-import CCH.exception.ComponenteIncompativelNoPacoteException;
-import CCH.exception.ComponenteJaExisteNoPacoteException;
-
-import java.util.Map;
-
-public class Pacote {
-=======
 import CCH.dataaccess.RemoteClass;
 
 import java.rmi.Remote;
@@ -18,12 +9,10 @@ import java.util.List;
 
 public class Pacote implements RemoteClass<Integer> {
 
-	private ComponenteDAO componentes = new ComponenteDAO();
->>>>>>>  pacote dao
 	private int id;
 	private double desconto;
 	private PacoteDAO pacoteDAO = new PacoteDAO();
-
+	private ComponenteDAO componentes = new ComponenteDAO();
 
 	public Pacote(int id, double desconto) {
 		this.id = id;
@@ -66,27 +55,17 @@ public class Pacote implements RemoteClass<Integer> {
 		this.desconto = desconto;
 	}
 
-<<<<<<< HEAD
 	public Map<Integer, Componente> getComponentes() {
 		return pacoteDAO.getComponentes(id);
-=======
-	public ComponenteDAO getComponentes() {
-		return componentes;
 	}
 
 	public void setComponentes(ComponenteDAO componentes) {
 		this.componentes = componentes;
 	}
 
-	public Pacote(int id, double desconto) {
-		this.id = id;
-		this.desconto = desconto;
-	}
-
 	public Pacote(List<String> rs){
 		this.id = Integer.valueOf(rs.get(0));
 		this.desconto = Double.valueOf(rs.get(1));
->>>>>>>  pacote dao
 	}
 
 	/**
