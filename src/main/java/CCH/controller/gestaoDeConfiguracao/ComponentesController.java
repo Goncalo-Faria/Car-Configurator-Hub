@@ -5,31 +5,20 @@ import CCH.CarConfiguratorHubApplication;
 import CCH.business.CCH;
 import CCH.business.Componente;
 import CCH.business.Configuracao;
-import CCH.business.Pacote;
-
 import CCH.exception.ComponenteJaAdicionadoException;
-import CCH.exception.PacoteJaAdicionadoException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-import javafx.util.Callback;
-import java.lang.StringBuilder;
-
-import java.util.List;
-import java.util.Optional;
-
-import java.io.IOException;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import java.lang.StringBuilder;
+import java.util.List;
+import java.util.Optional;
+
 
 public class ComponentesController {
     @FXML
