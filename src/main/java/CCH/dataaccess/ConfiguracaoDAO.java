@@ -299,7 +299,7 @@ public class ConfiguracaoDAO implements Map<Integer, Configuracao> {
         throw new NullPointerException("Not implemented!");
     }
 
-    public void updatePreco(Object key, double descontoAtualizado) {
+    public void updateDesconto(Object key, double descontoAtualizado) {
         try {
             Statement stm = conn.createStatement();
 
@@ -314,7 +314,7 @@ public class ConfiguracaoDAO implements Map<Integer, Configuracao> {
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
     }
 
-    public void removeAllPacoteNasConfiguracoes(Object key) {
+    public void removePacoteNasConfiguracoes(Object key) {
         try {
             Statement stm = conn.createStatement();
             String sql = "DELETE FROM Configuracao_has_Pacote WHERE Pacote_id = " + key + ";";

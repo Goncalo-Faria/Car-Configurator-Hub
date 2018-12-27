@@ -77,13 +77,13 @@ public class GestaoDeConfiguracao {
 	public void removePacote (int pacoteId, double desconto){
 		List <Integer> configuracoesId = configuracoes.getAllIdsConfiguracoesComOPacote(pacoteId);
 
-		configuracoes.removeAllPacoteNasConfiguracoes(pacoteId);
+		configuracoes.removePacoteNasConfiguracoes(pacoteId);
 
 		for(Integer configuracaoId : configuracoesId) {
 			double descontoAtualizado =
 					configuracoes.getDescontoConfiguracao(configuracaoId) - desconto;
 
-			configuracoes.updatePreco(configuracaoId, descontoAtualizado);
+			configuracoes.updateDesconto(configuracaoId, descontoAtualizado);
 		}
 	}
 
