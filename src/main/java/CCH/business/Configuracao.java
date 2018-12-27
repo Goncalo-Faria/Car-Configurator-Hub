@@ -230,8 +230,9 @@ public class Configuracao {
 
 		Collection<Componente> requeridosValues = requeridos.values();
 
-		if(!componentes.values().containsAll(requeridosValues)) {
-			throw new EncomendaRequerOutrosComponentes();
+		for (Componente req : requeridosValues) {
+			if (!componentes.keySet().contains(req.getId()))
+				throw new EncomendaRequerOutrosComponentes();
 		}
 	}
 
