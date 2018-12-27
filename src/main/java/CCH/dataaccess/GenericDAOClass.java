@@ -38,7 +38,9 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
     public boolean containsKey(Object key) throws NullPointerException {
         try {
             Statement stm = conn.createStatement();
-            String sql = "SELECT id FROM " + this.tablename + " WHERE ID = " + key + " ;";
+            String sql = "SELECT " + this.colname.get(0) + " FROM " +
+                    this.tablename + " WHERE " +
+                        this.colname.get(0) + " = " + key + " ;";
             ResultSet rs = stm.executeQuery(sql);
             return rs.next();
         }
@@ -48,7 +50,7 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
     public RemoteClass<K> get(Object key) {
         try {
             Statement stm = conn.createStatement();
-            String sql = "SELECT * FROM " + this.tablename + " WHERE id = " + key + " ;";
+            String sql = "SELECT * FROM " + this.tablename + " WHERE " + this.colname.get(0) + " = " + key + " ;";
             ResultSet rs = stm.executeQuery(sql);
 
             List<String> row = new LinkedList<>();
@@ -67,13 +69,40 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
         }
     }
 
+    public RemoteClass<K> update(K key, RemoteClass<K> value){
+        try {
+
+            List<String> row = value.toRow();
+
+            Statement stm = conn.createStatement();
+            StringBuilder sql = new StringBuilder("UPDATE " + this.tablename + " SET ");
+
+
+            for(int i = 1; i < (this.colname.size()-1) ; i++){
+                sql.append(this.colname.get(i) + " = " + row.get(i) +" , ");
+            }
+
+            sql.append(this.colname.get(this.colname.size()-1) + " = " +
+                    row.get(this.colname.size()-1) + " WHERE " +
+                        this.colname.get(0) + " = " + key + ";");
+
+            stm.executeUpdate(sql.toString());
+
+            return value;
+        }
+        catch (SQLException e) {
+            throw new NullPointerException(e.getMessage());
+        }
+
+    }
+
     public RemoteClass<K> put(K key, RemoteClass<K> value) {
         try {
             Statement stm = conn.createStatement();
 
             RemoteClass<K> result = this.get(key);
 
-            stm.executeUpdate("DELETE FROM " + this.tablename + " WHERE id = "+key+" ;");
+            this.remove(key);
 
             StringBuilder sql = new StringBuilder("INSERT INTO " + this.tablename + " VALUES (");
 
@@ -96,7 +125,7 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
         try {
             RemoteClass<K> al = this.get(key);
             Statement stm = conn.createStatement();
-            String sql = "DELETE FROM " + this.tablename + " WHERE id = " + key + " ;";
+            String sql = "DELETE FROM " + this.tablename + " WHERE " + this.colname.get(0) + " = " + key + " ;";
             int i  = stm.executeUpdate(sql);
             return al;
         }
@@ -228,7 +257,7 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
         try {
 
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT id FROM " + this.tablename + " ;");
+            ResultSet rs = stm.executeQuery("SELECT " + this.colname.get(0) + " FROM " + this.tablename + " ;");
 
             Set<K> set = new HashSet<>();
             while (rs.next()) {

@@ -25,11 +25,7 @@ public class ConfiguracaoDAO extends GenericDAOClass<Integer> {
     }
 
     public Configuracao update(Integer key, Configuracao value) {
-        try {
-            super.remove(key);
-            return this.put(key,value);
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        return (Configuracao)super.update(key,value);
     }
 
     public Configuracao remove(Object key) {

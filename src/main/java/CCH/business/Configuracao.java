@@ -221,22 +221,22 @@ public class Configuracao implements RemoteClass<Integer> {
 	}
 
 	private void temIncompativeis(Map<Integer, Componente> componentes) throws EncomendaTemComponentesIncompativeis {
-		Map<Integer, Componente> incompativeis = new HashMap<>();
+        Map<Integer, Componente> incompativeis = new HashMap<>();
 
-		componentes.forEach((k,c) ->
-				incompativeis.putAll(
-						c.getIncompativeis()
-				)
-		);
+        componentes.forEach((k, c) ->
+                incompativeis.putAll(
+                        c.getIncompativeis()
+                )
+        );
 
-		for (Componente componente : componentes.values()) {
-			if (incompativeis.containsKey(componente.getId())) {
-				throw new EncomendaTemComponentesIncompativeis(
-						componente.getFullName() + " é incompatível com outros componentes."
-				);
-			}
-		}
-	}
+        for (Componente componente : componentes.values()) {
+            if (incompativeis.containsKey(componente.getId())) {
+                throw new EncomendaTemComponentesIncompativeis(
+                        componente.getFullName() + " é incompatível com outros componentes."
+                );
+            }
+        }
+    }
 
 	private void requerOutros(Map<Integer, Componente> componentes) throws EncomendaRequerOutrosComponentes {
 		Map<Integer, Componente> requeridos = new HashMap<>();
