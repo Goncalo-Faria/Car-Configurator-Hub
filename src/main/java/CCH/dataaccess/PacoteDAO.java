@@ -9,7 +9,6 @@ import java.util.*;
 public class PacoteDAO extends GenericDAOClass<Integer> {
 
     private ComponenteDAO componenteDAO = new ComponenteDAO();
-    private ClasseComponenteDAO classeComponenteDAO = new ClasseComponenteDAO();
 
     public PacoteDAO () {
         super("Pacote", new Pacote(0,0.0),
@@ -50,9 +49,6 @@ public class PacoteDAO extends GenericDAOClass<Integer> {
     }
 
     public Pacote remove(Object key){
-
-        String[] f = new String[]{"a","b","c"};
-
         return (Pacote)super.remove(key);
     }
 
