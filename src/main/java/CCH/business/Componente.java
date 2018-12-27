@@ -4,13 +4,10 @@ import CCH.dataaccess.ClasseComponenteDAO;
 import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.RemoteClass;
 
-<<<<<<< HEAD
 import java.util.List;
 import java.util.Map;
-=======
 import java.util.*;
 import java.util.stream.Collectors;
->>>>>>>  enable new component creation
 
 public class Componente implements RemoteClass<Integer> {
 

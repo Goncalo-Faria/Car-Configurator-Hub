@@ -11,11 +11,11 @@ public class Encomenda implements RemoteClass<Integer> {
 	private Map<Integer, Componente> componentes;
 	private int id;
 	private double preco;
-	private String nomeCliente;
-	private String numeroDeIdentificacaoCliente;
-	private String moradaCliente;
-	private String paisCliente;
-	private String emailCliente;
+	private final String nomeCliente;
+	private final String numeroDeIdentificacaoCliente;
+	private final String moradaCliente;
+	private final String paisCliente;
+	private final String emailCliente;
 
 	public Map<Integer, Componente> getComponentes() {
 		return componentes;
@@ -48,9 +48,10 @@ public class Encomenda implements RemoteClass<Integer> {
 		return new Encomenda(row);
 	}
 
-	public void setId(int id) {
+	/*public void setId(int id) {
 		this.id = id;
 	}
+	*/
 
 	public double getPreco() {
 		return preco;
@@ -59,50 +60,60 @@ public class Encomenda implements RemoteClass<Integer> {
     public Integer key(String k) {
         return Integer.valueOf(k);
     }
-
+	/*
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
+	*/
 
 	public String getNomeCliente() {
 		return this.nomeCliente;
 	}
 
+	/*
 	public void setNomeCliente(String nomeCliente) {
 		this.nomeCliente = nomeCliente;
 	}
+	*/
 
 	public String getNumeroDeIdentificacaoCliente() {
 		return this.numeroDeIdentificacaoCliente;
 	}
 
+	/*
 	public void setNumeroDeIdentificacaoCliente(String numeroDeIdentificacaoCliente) {
 		this.numeroDeIdentificacaoCliente = numeroDeIdentificacaoCliente;
 	}
+	*/
 
 	public String getMoradaCliente() {
 		return this.moradaCliente;
 	}
 
+	/*
 	public void setMoradaCliente(String moradaCliente) {
 		this.moradaCliente = moradaCliente;
 	}
+	*/
 
 	public String getPaisCliente() {
 		return this.paisCliente;
 	}
 
+	/*
 	public void setPaisCliente(String paisCliente) {
 		this.paisCliente = paisCliente;
 	}
+	*/
 
 	public String getEmailCliente() {
 		return this.emailCliente;
 	}
-
+	/*
 	public void setEmailCliente(String emailCliente) {
 		this.emailCliente = emailCliente;
 	}
+	*/
 
 	/**
 	 *

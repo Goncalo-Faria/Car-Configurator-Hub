@@ -11,6 +11,7 @@ import CCH.exception.WrongCredentialsException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CCH {
 	private GestaoDeConfiguracao gestaoDeConfiguracao;
@@ -112,25 +113,27 @@ public class CCH {
 	 * @param utilizadorId
 	 */
 	public void removerUtilizador(int utilizadorId) {
-		utilizadorDAO.remove(utilizadorId);
+		this.utilizadorDAO.remove(utilizadorId);
 	}
 
 	public List<Utilizador> consultarFuncionarios() {
-		return new ArrayList<>(utilizadorDAO.values());
+		return this.utilizadorDAO.values().stream().
+                    map(l -> (Utilizador)l).collect(Collectors.toList());
 	}
 
 	public List<Pacote> consultarPacotes() {
-		return new ArrayList<>(pacoteDAO.values());
+		return this.pacoteDAO.values().stream().
+                    map(l -> (Pacote) l).collect(Collectors.toList());
 	}
 
 	public List<Componente> consultarComponentes() {
-		return new ArrayList<>(componenteDAO.values());
+		return this.componenteDAO.values().stream().
+                    map(l -> (Componente)l).collect(Collectors.toList());
 	}
 
-
 	public Configuracao ConfiguracaoOtima(Configuracao configuracao, double valor) throws NoOptimalConfigurationException {
-		Collection<Pacote> pacs = pacoteDAO.values();
-		Collection<Componente> comps = componenteDAO.values();
+		Collection<Pacote> pacs = this.consultarPacotes();
+		Collection<Componente> comps = this.consultarComponentes();
 		return gestaoDeConfiguracao.configuracaoOtima(comps,pacs,configuracao,valor);
 	}
 
