@@ -64,10 +64,23 @@ public class ConfiguracaoOtimaController {
     @FXML
     private void loadConfiguracaoOtima() {
         ObservableList<Componente> componentes = FXCollections.observableArrayList();
+        double valorMaximo;
 
         try {
-            componentes.addAll(cch.ConfiguracaoOtima(configuracao,Double.parseDouble(valor.getText()))
-                        .consultarComponentes().values());
+            valorMaximo = Double.parseDouble(valor.getText());
+        } catch (NumberFormatException a) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Impossível obter configuração ótima");
+            alert.setContentText("Insira um valor máximo.");
+            alert.showAndWait();
+
+            valorMaximo = -1;
+        }
+
+        try {
+            componentes.addAll(cch.ConfiguracaoOtima(configuracao, valorMaximo)
+                    .consultarComponentes().values());
         } catch (NoOptimalConfigurationException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Informação");
