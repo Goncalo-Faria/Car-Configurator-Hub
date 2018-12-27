@@ -117,6 +117,7 @@ public class ConfiguracaoController {
     public void configOtima() throws IOException {
         ConfiguracaoOtimaController.setConfiguracao(configuracao);
         redirectTo("/views/gestaoDeConfiguracao/configuracaootima.fxml");
+        back();
     }
 
     @FXML
@@ -139,6 +140,6 @@ public class ConfiguracaoController {
 
     @FXML
     public void back() {
-        ((Stage) back.getScene().getWindow()).close();
+        back.getScene().getWindow().hide();
     }
 }

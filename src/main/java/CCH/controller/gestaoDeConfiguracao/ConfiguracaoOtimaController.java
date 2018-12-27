@@ -3,26 +3,18 @@ package CCH.controller.gestaoDeConfiguracao;
 import CCH.business.CCH;
 import CCH.business.Componente;
 import CCH.business.Configuracao;
-import CCH.business.Pacote;
+import CCH.business.GestaoDeConfiguracao;
 import CCH.exception.NoOptimalConfigurationException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import CCH.CarConfiguratorHubApplication;
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import javafx.util.Callback;
-
-import java.io.IOException;
-import java.util.Optional;
 
 public class ConfiguracaoOtimaController {
     @FXML
@@ -35,12 +27,14 @@ public class ConfiguracaoOtimaController {
     public Button back;
 
     private static Configuracao configuracao;
+    private Configuracao configuracaoGerada;
 
     public static void setConfiguracao(Configuracao newConfiguracao) {
         configuracao = newConfiguracao;
     }
 
     private CCH cch = CarConfiguratorHubApplication.getCch();
+    private GestaoDeConfiguracao gestaoDeConfiguracao = CarConfiguratorHubApplication.getCch().getGestaoDeConfiguracao();
 
     @FXML
     public void initialize() {
@@ -79,8 +73,8 @@ public class ConfiguracaoOtimaController {
         }
 
         try {
-            componentes.addAll(cch.ConfiguracaoOtima(configuracao, valorMaximo)
-                    .consultarComponentes().values());
+            configuracaoGerada = cch.ConfiguracaoOtima(configuracao, valorMaximo);
+            componentes.addAll(configuracaoGerada.consultarComponentes().values());
         } catch (NoOptimalConfigurationException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Informação");
@@ -90,6 +84,17 @@ public class ConfiguracaoOtimaController {
         }
 
         table.setItems(componentes);
+    }
+
+    @FXML
+    public void aplicar() {
+        gestaoDeConfiguracao.removerConfiguracao(configuracao.getId());
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Informação");
+        alert.setHeaderText("Configuração aplicada com sucesso!");
+        alert.setContentText("Pode consultar a Configuração " + configuracaoGerada.getId() + ".");
+        alert.showAndWait();
     }
 
     @FXML
