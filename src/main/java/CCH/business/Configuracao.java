@@ -70,6 +70,8 @@ public class Configuracao {
 	//Para criar Configuração a partir da configuração otima mais rapidamente
 	public Configuracao(List<Pacote> pacotesAceitados, List<Componente> componentesAceitados) {
 		this();
+		configuracaoDAO.put(this.id, this);
+
 		try {
 			for (Pacote p : pacotesAceitados) {
 				adicionarPacote(p.getId());
@@ -108,7 +110,6 @@ public class Configuracao {
 		Componente componente = configuracaoDAO.removeComponente(id, componenteId);
 
 		this.preco -= componente.getPreco();
-		System.out.println("im " + componenteId);
 		for (Pacote pacote : configuracaoDAO.getPacotes(id).values()) {
 			System.out.println(pacote.getComponentes().keySet());
 			if (pacote.getComponentes().containsKey(componenteId)) {

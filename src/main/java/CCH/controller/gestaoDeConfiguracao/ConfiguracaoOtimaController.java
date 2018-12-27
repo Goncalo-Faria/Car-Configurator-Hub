@@ -35,6 +35,7 @@ public class ConfiguracaoOtimaController {
     public Button back;
 
     private static Configuracao configuracao;
+
     public static void setConfiguracao(Configuracao newConfiguracao) {
         configuracao = newConfiguracao;
     }
@@ -67,7 +68,6 @@ public class ConfiguracaoOtimaController {
         try {
             componentes.addAll(cch.ConfiguracaoOtima(configuracao,Double.parseDouble(valor.getText()))
                         .consultarComponentes().values());
-            //adicionar componentes dos pacotes tambem
         } catch (NoOptimalConfigurationException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Informação");
