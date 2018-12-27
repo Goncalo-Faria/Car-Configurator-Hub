@@ -69,7 +69,11 @@ public class ConfiguracaoOtimaController {
                         .consultarComponentes().values());
             //adicionar componentes dos pacotes tambem
         } catch (NoOptimalConfigurationException e) {
-            //TODO
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Informação");
+            alert.setHeaderText("");
+            alert.setContentText("Não existe uma configuração ótima.");
+            alert.showAndWait();
         }
 
         table.setItems(componentes);
