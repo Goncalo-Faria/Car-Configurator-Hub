@@ -1,10 +1,12 @@
 package CCH.controller.gestaoDeConfiguracao;
 
 import CCH.CarConfiguratorHubApplication;
+
 import CCH.business.CCH;
 import CCH.business.Configuracao;
 import CCH.business.GestaoDeConfiguracao;
 import CCH.business.Pacote;
+
 import CCH.exception.PacoteJaAdicionadoException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +19,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import java.io.IOException;
 
@@ -110,18 +115,33 @@ public class PacotesController {
         table.setRowFactory(tv -> {
             TableRow<Pacote> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
+                Pacote novoPacote = null;
                 Pacote pacote = null;
                 try {
                     if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                        pacote = row.getItem();
-                        configuracao.adicionarPacote(pacote.getId());
+                        novoPacote = row.getItem();
+
+                        pacote = configuracao.adicionarPacote(novoPacote.getId(), null);
+
+                        if (pacote != null) {
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Confirmação");
+                            alert.setHeaderText(pacote.getNome() + " será substituido por " + novoPacote.getId());
+                            alert.setContentText("Confirmar?");
+
+                            Optional<ButtonType> result = alert.showAndWait();
+                            if (result.get() == ButtonType.OK){
+                                configuracao.adicionarPacote(novoPacote.getId(), pacote);
+                            }
+                        }
+
                         ((Stage) back.getScene().getWindow()).close();
                     }
                 } catch (PacoteJaAdicionadoException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Erro");
                     alert.setHeaderText("Pacote já adicionado");
-                    alert.setContentText("Esta configuração já contém o " + pacote.getNome());
+                    alert.setContentText("Esta configuração já contém o " + novoPacote.getNome());
 
                     alert.showAndWait();
                 } catch (Exception e) {

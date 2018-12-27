@@ -19,7 +19,6 @@ public class Pacote {
 	}
 
 	public Pacote() {
-		this.id = pacoteDAO.getNextId();
 		this.desconto = 0.0;
 	}
 

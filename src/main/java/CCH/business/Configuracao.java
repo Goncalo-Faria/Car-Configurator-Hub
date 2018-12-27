@@ -1,6 +1,8 @@
 package CCH.business;
 
 import CCH.dataaccess.ConfiguracaoDAO;
+import CCH.dataaccess.PacoteDAO;
+
 import CCH.exception.ComponenteJaAdicionadoException;
 import CCH.exception.EncomendaRequerOutrosComponentes;
 import CCH.exception.EncomendaTemComponentesIncompativeis;
@@ -11,6 +13,9 @@ import java.util.Map;
 import CCH.exception.PacoteJaAdicionadoException;
 import ilog.concert.IloException;
 
+import java.util.*;
+
+import CCH.exception.PacoteJaAdicionadoException;
 import ilog.concert.IloException;
 
 public class Configuracao {
@@ -19,6 +24,7 @@ public class Configuracao {
 	private double preco;
 	private double desconto;
 
+	private PacoteDAO pacoteDAO = new PacoteDAO();
 	private ConfiguracaoDAO configuracaoDAO = new ConfiguracaoDAO();
 
 	public int getId() {
@@ -74,10 +80,10 @@ public class Configuracao {
 
 		try {
 			for (Pacote p : pacotesAceitados) {
-				adicionarPacote(p.getId());
+				adicionarPacote(p.getId(), null);
 			}
 			for (Componente c : componentesAceitados) {
-				adiconarComponente(c.getId());
+				adicionarComponente(c.getId());
 			}
 		} catch (ComponenteJaAdicionadoException | PacoteJaAdicionadoException e) {}
 	}
@@ -90,7 +96,7 @@ public class Configuracao {
 	 *
 	 * @param componenteId
 	 */
-	public Componente adiconarComponente(int componenteId) throws ComponenteJaAdicionadoException {
+	public Componente adicionarComponente(int componenteId) throws ComponenteJaAdicionadoException {
 		if (configuracaoDAO.getComponentes(id).containsKey(componenteId)) {
 			throw new ComponenteJaAdicionadoException();
 		}
@@ -111,7 +117,6 @@ public class Configuracao {
 
 		this.preco -= componente.getPreco();
 		for (Pacote pacote : configuracaoDAO.getPacotes(id).values()) {
-			System.out.println(pacote.getComponentes().keySet());
 			if (pacote.getComponentes().containsKey(componenteId)) {
 				this.desconto -= pacote.getDesconto();
 				configuracaoDAO.removePacote(id, pacote.getId());
@@ -129,24 +134,54 @@ public class Configuracao {
 	 *
 	 * @param pacoteId
 	 */
-	public Pacote adicionarPacote(int pacoteId) throws PacoteJaAdicionadoException {
-		if (configuracaoDAO.getPacotes(id).containsKey(pacoteId)) {
+	public Pacote adicionarPacote(int pacoteId, Pacote replacedPacote) throws PacoteJaAdicionadoException {
+		Map<Integer, Pacote> pacotes = configuracaoDAO.getPacotes(id);
+		Pacote pacote;
+
+		if (pacotes.containsKey(pacoteId)) {
 			throw new PacoteJaAdicionadoException();
 		}
 
-		Pacote pacote = configuracaoDAO.addPacote(id, pacoteId);
+		if (replacedPacote == null) {
+			pacote = conflito(pacotes, pacoteId);
+
+			if (pacote != null) {
+				return pacote;
+			}
+		} else {
+			this.desconto -= replacedPacote.getDesconto();
+			configuracaoDAO.removePacote(id, replacedPacote.getId());
+		}
+
+		pacote = configuracaoDAO.addPacote(id, pacoteId);
 		this.desconto += pacote.getDesconto();
 
+		Set<Integer> componentes = consultarComponentes().keySet();
 		pacote.getComponentes().forEach((k,c) -> {
-			configuracaoDAO.addComponente(id, c.getId());
-			this.preco += c.getPreco();
+			if (!componentes.contains(c.getId())) {
+				configuracaoDAO.addComponente(id, c.getId());
+				this.preco += c.getPreco();
+			}
 		});
 
 		configuracaoDAO.put(id, this);
 
-		return pacote;
+		return null;
 	}
 
+	private Pacote conflito(Map<Integer, Pacote> pacotes, int pacoteId) {
+		Set<Integer> componentesDoPacote = pacoteDAO.get(pacoteId).getComponentes().keySet();
+
+		for (int i : componentesDoPacote) {
+			for (Pacote pacote : pacotes.values()) {
+				if (pacote.getComponentes().containsKey(i)) {
+					return pacote;
+				}
+			}
+		}
+
+		return null;
+	}
 
 	/**
 	 *
@@ -209,5 +244,9 @@ public class Configuracao {
 		if(!componentes.values().containsAll(requeridosValues)) {
 			throw new EncomendaRequerOutrosComponentes();
 		}
+	}
+
+	public double getPrecoFinal() {
+		return preco-desconto;
 	}
 }
