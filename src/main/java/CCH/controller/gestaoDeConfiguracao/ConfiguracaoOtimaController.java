@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import CCH.CarConfiguratorHubApplication;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 public class ConfiguracaoOtimaController {
     @FXML
@@ -99,6 +100,6 @@ public class ConfiguracaoOtimaController {
 
     @FXML
     public void back() {
-        back.getScene().getWindow().hide();
+        ((Stage) back.getScene().getWindow()).close();
     }
 }
