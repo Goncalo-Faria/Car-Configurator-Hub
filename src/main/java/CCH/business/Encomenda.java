@@ -48,10 +48,6 @@ public class Encomenda implements RemoteClass<Integer> {
 		return new Encomenda(row);
 	}
 
-	/*public void setId(int id) {
-		this.id = id;
-	}
-	*/
 
 	public double getPreco() {
 		return preco;
@@ -60,60 +56,26 @@ public class Encomenda implements RemoteClass<Integer> {
     public Integer key(String k) {
         return Integer.valueOf(k);
     }
-	/*
-	public void setPreco(double preco) {
-		this.preco = preco;
-	}
-	*/
 
 	public String getNomeCliente() {
 		return this.nomeCliente;
 	}
 
-	/*
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
-	}
-	*/
-
 	public String getNumeroDeIdentificacaoCliente() {
 		return this.numeroDeIdentificacaoCliente;
 	}
-
-	/*
-	public void setNumeroDeIdentificacaoCliente(String numeroDeIdentificacaoCliente) {
-		this.numeroDeIdentificacaoCliente = numeroDeIdentificacaoCliente;
-	}
-	*/
 
 	public String getMoradaCliente() {
 		return this.moradaCliente;
 	}
 
-	/*
-	public void setMoradaCliente(String moradaCliente) {
-		this.moradaCliente = moradaCliente;
-	}
-	*/
-
 	public String getPaisCliente() {
 		return this.paisCliente;
 	}
 
-	/*
-	public void setPaisCliente(String paisCliente) {
-		this.paisCliente = paisCliente;
-	}
-	*/
-
 	public String getEmailCliente() {
 		return this.emailCliente;
 	}
-	/*
-	public void setEmailCliente(String emailCliente) {
-		this.emailCliente = emailCliente;
-	}
-	*/
 
 	/**
 	 *

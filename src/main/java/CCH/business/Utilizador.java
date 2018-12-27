@@ -52,12 +52,7 @@ public class Utilizador implements RemoteClass<Integer> {
 
 
 	public Integer key(){ return this.id; }
-
-	/*
-	public void setId(int id) {
-		this.id = id;
-	}
-	*/
+	
 
 	@Override
 	public List<String> toRow() {
@@ -78,38 +73,15 @@ public class Utilizador implements RemoteClass<Integer> {
 		return this.nome;
 	}
 
-	/*
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	*/
 
 	public String getPassword() {
 		return this.password;
 	}
 
-	/*
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	*/
 
 	public TipoUtilizador getTipoUtilizador() {
 		return tipoUtilizador;
 	}
-
-	/*
-	public void setTipoUtilizador(TipoUtilizador tipoUtilizador) {
-		this.tipoUtilizador = tipoUtilizador;
-	}
-	*/
-	/*
-	public void setTipoUtilizadorValue(int value) {
-		TipoUtilizador tipoUtilizador = TipoUtilizador.values()[value];
-
-		this.tipoUtilizador = tipoUtilizador;
-	}
-	*/
 
 	/**
 	 *

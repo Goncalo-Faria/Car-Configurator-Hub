@@ -47,20 +47,9 @@ public class Pacote implements RemoteClass<Integer> {
 		return l;
 	}
 
-	/*
-	public void setId(int id) {
-		this.id = id;
-	}
-	*/
-
 	public double getDesconto() {
 		return this.desconto;
 	}
-	/*
-	public void setDesconto(double desconto) {
-		this.desconto = desconto;
-	}
-	*/
 
 	public Map<Integer, Componente> getComponentes() {
 		return pacoteDAO.getComponentes(id);

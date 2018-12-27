@@ -37,41 +37,18 @@ public class ClasseComponente implements RemoteClass<Integer> {
 		return l;
 	}
 
-	/*
-	public void setId(int id) {
-		this.id = id;
-	}
-	*/
-
 	public String getNome() {
 		return this.nome;
 	}
-
-	/*
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	*/
 
 	public TipoComponente getTipoComponente() {
 		return tipoComponente;
 	}
 
-	/*
-	public void setTipoComponente(TipoComponente tipoComponente) {
-		this.tipoComponente = tipoComponente;
-	}
-	*/
-
 	public boolean getEObrigatorio() {
 		return eObrigatorio;
 	}
 
-	/*
-	public void setEObrigatorio(boolean eObrigatorio) {
-		this.eObrigatorio = eObrigatorio;
-	}
-	*/
 
 	public ClasseComponente(int id, boolean eObrigatorio, String nome, TipoComponente tipoComponente) {
 		this.tipoComponente = tipoComponente;

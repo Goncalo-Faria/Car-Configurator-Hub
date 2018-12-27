@@ -62,9 +62,6 @@ public class Componente implements RemoteClass<Integer> {
         return Integer.valueOf(k);
     }
 
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public int getStock() {
 		return this.stock;
@@ -78,35 +75,14 @@ public class Componente implements RemoteClass<Integer> {
 		return this.preco;
 	}
 
-	public void setPreco(double preco) {
-		this.preco = preco;
-	}
 
 	public String getNome() {
 		return this.nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public ClasseComponente getClasseComponente() {
 		return this.classeComponente;
 	}
-
-	public void setClasseComponente(ClasseComponente classeComponente) {
-		this.classeComponente = classeComponente;
-	}
-
-
-	public Map<Integer, Componente> getRequeridos() {
-		return this.componenteDAO.getComponentesRequeridos(id);
-	}
-
-	public Map<Integer, Componente> getIncompativeis() {
-		return this.componenteDAO.getComponentesIncompativeis(id);
-	}
-
 
 	public String getFullName() {
 		return this.classeComponente.getNome() + " " + this.nome;
