@@ -271,7 +271,6 @@ public class Configuracao {
 			for (Componente c:comps) {
 				containsPacote = containsPacote && compsNotInPacotes.containsKey(c.getId());
 			}
-			System.out.println("STUFF");
 			if(containsPacote){
 				try {
 					for (Componente c:comps) compsNotInPacotes.remove(c.getId());
@@ -292,15 +291,5 @@ public class Configuracao {
 			}
 		}
 		return componentes;
-	}
-
-	private Collection<Componente> componentesNotInPacotes(Collection<Pacote> pacotes){
-		Map<Integer,Componente> componentes = this.consultarComponentes();
-		for (Pacote p:pacotes) {
-			for (Componente c:p.getComponentes().values()) {
-				componentes.remove(c.getId());
-			}
-		}
-		return componentes.values();
 	}
 }
