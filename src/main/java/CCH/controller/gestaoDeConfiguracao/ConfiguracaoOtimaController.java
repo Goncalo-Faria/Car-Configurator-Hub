@@ -73,9 +73,18 @@ public class ConfiguracaoOtimaController {
         observableListPacs.get(2).setCellValueFactory(
                 new PropertyValueFactory<Pacote, Integer>("desconto")
         );
-
-        table.setItems(null);
-        tablepacs.setItems(null);
+        if(configuracaoGerada!=null){
+            ObservableList<Componente> componentes = FXCollections.observableArrayList();
+            ObservableList<Pacote> pacotes = FXCollections.observableArrayList();
+            componentes.addAll(configuracaoGerada.componentesNotInPacotes().values());
+            pacotes.addAll(configuracaoGerada.consultarPacotes().values());
+            table.setItems(componentes);
+            tablepacs.setItems(pacotes);
+        }
+        else{
+            table.setItems(null);
+            tablepacs.setItems(null);
+        }
     }
 
     private void addComponenteButtonToTableColumn(TableColumn t) {
