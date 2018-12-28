@@ -263,14 +263,19 @@ public class Configuracao {
 	}
 
 	public void checkforPacotesInConfiguration(){
-		Collection<Pacote> pacotes = this.consultarPacotes().values();
-		Collection<Componente> compsNotInPacotes = this.componentesNotInPacotes(pacotes);
+		Collection<Pacote> pacotes = this.pacoteDAO.values();
+		Map<Integer,Componente> compsNotInPacotes = this.componentesNotInPacotes();
 		for (Pacote p:pacotes) {
-			Collection<Componente> c = p.getComponentes().values();
-			if(compsNotInPacotes.containsAll(c)){
-				c.removeAll(c);
+			Collection<Componente> comps = p.getComponentes().values();
+			boolean containsPacote = true;
+			for (Componente c:comps) {
+				containsPacote = containsPacote && compsNotInPacotes.containsKey(c.getId());
+			}
+			System.out.println("STUFF");
+			if(containsPacote){
 				try {
-					this.adicionarPacote(p.getId(),p);
+					for (Componente c:comps) compsNotInPacotes.remove(c.getId());
+					this.adicionarPacote(p.getId(),null);
 				} catch (PacoteJaAdicionadoException e) {
 					e.printStackTrace();
 				}
@@ -278,7 +283,7 @@ public class Configuracao {
 		}
 	}
 
-	public Collection<Componente> componentesNotInPacotes(){
+	public Map<Integer, Componente> componentesNotInPacotes(){
 		Map<Integer,Componente> componentes = this.consultarComponentes();
 		Map<Integer,Pacote> pacotes = this.consultarPacotes();
 		for (Pacote p:pacotes.values()) {
@@ -286,7 +291,7 @@ public class Configuracao {
 				componentes.remove(c.getId());
 			}
 		}
-		return componentes.values();
+		return componentes;
 	}
 
 	private Collection<Componente> componentesNotInPacotes(Collection<Pacote> pacotes){
