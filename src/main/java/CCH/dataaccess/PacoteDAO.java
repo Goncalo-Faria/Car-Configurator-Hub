@@ -1,5 +1,6 @@
 package CCH.dataaccess;
 
+import CCH.business.ClasseComponente;
 import CCH.business.Componente;
 import CCH.business.Pacote;
 import java.sql.ResultSet;
@@ -9,9 +10,10 @@ import java.util.*;
 public class PacoteDAO extends GenericDAOClass<Integer> {
 
     private ComponenteDAO componenteDAO = new ComponenteDAO();
+    private ClasseComponenteDAO classeComponenteDAO = new ClasseComponenteDAO();
 
     public PacoteDAO () {
-        super("Pacote", new Pacote(0,0.0),
+        super("Pacote", new Pacote(),
                 Arrays.asList(new String[]{"id","desconto"}));
     }
 

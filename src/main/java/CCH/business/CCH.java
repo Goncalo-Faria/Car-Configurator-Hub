@@ -86,8 +86,9 @@ public class CCH {
 	}
 
 	public Pacote criarPacote() {
-		Pacote pacote = new Pacote();
-		pacote = pacoteDAO.put(pacote.getId(), pacote);
+		int id = pacoteDAO.getNextId();
+		Pacote pacote = new Pacote(id, 0);
+		pacote = pacoteDAO.put(id, pacote);
 		return pacote;
 	}
 

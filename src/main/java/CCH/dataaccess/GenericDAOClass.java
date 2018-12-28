@@ -40,7 +40,7 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
             Statement stm = conn.createStatement();
             String sql = "SELECT " + this.colname.get(0) + " FROM " +
                     this.tablename + " WHERE " +
-                        this.colname.get(0) + " = " + key + " ;";
+                        this.colname.get(0) + " = '" + key + "' ;";
             ResultSet rs = stm.executeQuery(sql);
             return rs.next();
         }
@@ -50,15 +50,15 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
     public RemoteClass<K> get(Object key) {
         try {
             Statement stm = conn.createStatement();
-            String sql = "SELECT * FROM " + this.tablename + " WHERE " + this.colname.get(0) + " = " + key + " ;";
+            String sql = "SELECT * FROM " + this.tablename + " WHERE " + this.colname.get(0) + " = '" + key + "' ;";
             ResultSet rs = stm.executeQuery(sql);
 
-            List<String> row = new LinkedList<>();
-            int col = rs.getMetaData().getColumnCount();
-            for( int i = 1; i<= col; i++)
-                row.add(rs.getString(i));
-
             if (rs.next()) {
+                List<String> row = new LinkedList<>();
+                int col = rs.getMetaData().getColumnCount();
+                for(int i = 1; i <= col; i++)
+                    row.add(rs.getString(i));
+
                 return token.fromRow(row);
             }
 
@@ -79,12 +79,12 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
 
 
             for(int i = 1; i < (this.colname.size()-1) ; i++){
-                sql.append(this.colname.get(i) + " = " + row.get(i) +" , ");
+                sql.append(this.colname.get(i) + " = '" + row.get(i) +"' , ");
             }
 
             sql.append(this.colname.get(this.colname.size()-1) + " = " +
                     row.get(this.colname.size()-1) + " WHERE " +
-                        this.colname.get(0) + " = " + key + ";");
+                        this.colname.get(0) + " = '" + key + "';");
 
             stm.executeUpdate(sql.toString());
 
@@ -109,10 +109,9 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
             List<String> l = value.toRow();
 
             for( int i = 0; i < (l.size()-1); i++ ) {
-                sql.append(l.get(i) + ",");
+                sql.append("'" + l.get(i) + "'" + ",");
             }
-            sql.append(l.get(l.size()-1)+");");
-
+            sql.append("'" + l.get(l.size()-1) + "');");
 
             stm.executeUpdate(sql.toString());
 
@@ -125,7 +124,7 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
         try {
             RemoteClass<K> al = this.get(key);
             Statement stm = conn.createStatement();
-            String sql = "DELETE FROM " + this.tablename + " WHERE " + this.colname.get(0) + " = " + key + " ;";
+            String sql = "DELETE FROM " + this.tablename + " WHERE " + this.colname.get(0) + " = '" + key + "' ;";
             int i  = stm.executeUpdate(sql);
             return al;
         }
@@ -192,10 +191,10 @@ public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
 
 
             for(int i = 0; i < (this.colname.size()-1) ; i++){
-               sql.append(this.colname.get(i) + " = " + row.get(i) +" and ");
+               sql.append(this.colname.get(i) + " = '" + row.get(i) + "' and ");
             }
 
-            sql.append(this.colname.get(this.colname.size()-1) + " = " + row.get(this.colname.size()-1) + " ; ");
+            sql.append(this.colname.get(this.colname.size()-1) + " = '" + row.get(this.colname.size()-1) + "' ; ");
 
             ResultSet rs = stm.executeQuery(sql.toString());
 

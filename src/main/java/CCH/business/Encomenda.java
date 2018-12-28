@@ -17,6 +17,14 @@ public class Encomenda implements RemoteClass<Integer> {
 	private final String paisCliente;
 	private final String emailCliente;
 
+	public Encomenda() {
+		nomeCliente = null;
+		numeroDeIdentificacaoCliente = null;
+		moradaCliente = null;
+		paisCliente = null;
+		emailCliente = null;
+	}
+
 	public Map<Integer, Componente> getComponentes() {
 		return componentes;
 	}

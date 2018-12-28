@@ -10,8 +10,7 @@ public class UtilizadorDAO extends GenericDAOClass<Integer> {
 
     public UtilizadorDAO () {
         super("Utilizador",
-                new Utilizador(0,"hey",
-                        "hey",TipoUtilizador.withValue(0)),
+                new Utilizador(),
                 Arrays.asList(new String[]{"id","nome","password","TipoUtilizador"}));
     }
 
@@ -44,12 +43,11 @@ public class UtilizadorDAO extends GenericDAOClass<Integer> {
     public void updatePassword(Utilizador utilizador) {
         try {
             Statement stm = conn.createStatement();
-            stm.executeUpdate("UPDATE Utilizador SET password = " +
+            stm.executeUpdate("UPDATE Utilizador SET password = '" +
                     utilizador.getPassword() +
-                    " WHERE id = " +
+                    "' WHERE id = " +
                     utilizador.getId() +
                     ";");
-
         } catch (Exception e) {
             throw new NullPointerException(e.getMessage());
         }

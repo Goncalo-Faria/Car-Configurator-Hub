@@ -17,15 +17,13 @@ import java.util.*;
 
 import ilog.concert.IloException;
 
-import java.util.*;
-
 public class Configuracao implements RemoteClass<Integer> {
-	private final int id;
+	private int id;
 	private double preco;
 	private double desconto;
 
-	private PacoteDAO pacoteDAO = new PacoteDAO();
-	private ConfiguracaoDAO configuracaoDAO = new ConfiguracaoDAO();
+	private PacoteDAO pacoteDAO = null;
+	private ConfiguracaoDAO configuracaoDAO = null;
 
 	public int getId() {
 		return this.id;
@@ -39,7 +37,6 @@ public class Configuracao implements RemoteClass<Integer> {
 
 	@Override
 	public List<String> toRow() {
-
 		List<String> l = new LinkedList<>();
 		l.add(String.valueOf(this.id));
         l.add(String.valueOf(this.preco));
@@ -60,18 +57,19 @@ public class Configuracao implements RemoteClass<Integer> {
 	}
 
 	public Configuracao(int id, double preco, double desconto) {
+		this.pacoteDAO = new PacoteDAO();
+		this.configuracaoDAO = new ConfiguracaoDAO();
 		this.id = id;
 		this.preco = preco;
 		this.desconto = desconto;
 	}
 
 	public Configuracao() {
-		this.id = configuracaoDAO.getNextId();
-		this.preco = 0;
-		this.desconto = 0;
 	}
 
 	public Configuracao(List<String> rs){
+		this.pacoteDAO = new PacoteDAO();
+		this.configuracaoDAO = new ConfiguracaoDAO();
 	    this.id =Integer.valueOf(rs.get(0));
 	    this.preco=Double.valueOf(rs.get(1));
 	    this.desconto=Double.valueOf(rs.get(2));
@@ -117,7 +115,7 @@ public class Configuracao implements RemoteClass<Integer> {
 
 		Componente componente = configuracaoDAO.addComponente(id, componenteId);
 		this.preco += componente.getPreco();
-		configuracaoDAO.put(id, this);
+		configuracaoDAO.update(id, this);
 
 		return componente;
 	}
@@ -179,7 +177,7 @@ public class Configuracao implements RemoteClass<Integer> {
 			}
 		});
 
-		configuracaoDAO.put(id, this);
+		configuracaoDAO.update(id, this);
 
 		return null;
 	}

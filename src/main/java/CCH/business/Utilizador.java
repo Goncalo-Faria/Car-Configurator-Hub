@@ -9,12 +9,15 @@ import java.util.List;
 
 public class Utilizador implements RemoteClass<Integer> {
 
-	private final TipoUtilizador tipoUtilizador;
-	private final int id;
-	private final String nome;
-	private final String password;
+	private int id;
+	private String nome;
+	private String password;
+	private TipoUtilizador tipoUtilizador;
 
-	private UtilizadorDAO utilizadorDAO = new UtilizadorDAO();
+	private UtilizadorDAO utilizadorDAO;
+
+	public Utilizador() {
+	}
 
 	/**
 	 *
@@ -22,6 +25,7 @@ public class Utilizador implements RemoteClass<Integer> {
 	 * @param password
 	 */
 	public Utilizador(String nome, String password) {
+		this.utilizadorDAO = new UtilizadorDAO();
 		this.id = utilizadorDAO.getNextId();
 		this.nome = nome;
 		this.password = password;
@@ -33,6 +37,7 @@ public class Utilizador implements RemoteClass<Integer> {
 		this.nome = nome;
 		this.password = password;
 		this.tipoUtilizador = tipoUtilizador;
+		this.utilizadorDAO = new UtilizadorDAO();
 	}
 
 	public Utilizador(List<String> rs) {
@@ -40,6 +45,7 @@ public class Utilizador implements RemoteClass<Integer> {
 		this.nome = rs.get(1);
 		this.password = rs.get(2);
 		this.tipoUtilizador = TipoUtilizador.withValue(Integer.valueOf(rs.get(3)));
+		this.utilizadorDAO = new UtilizadorDAO();
 	}
 
 	public int getId() {
@@ -69,18 +75,30 @@ public class Utilizador implements RemoteClass<Integer> {
 		return new Utilizador(row);
 	}
 
-	public String getNome() {
-		return this.nome;
-	}
-
-
-	public String getPassword() {
-		return this.password;
-	}
-
-
 	public TipoUtilizador getTipoUtilizador() {
 		return tipoUtilizador;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setTipoUtilizadorValue(int value) {
+		TipoUtilizador tipoUtilizador = TipoUtilizador.values()[value];
+
+		this.tipoUtilizador = tipoUtilizador;
 	}
 
 	/**

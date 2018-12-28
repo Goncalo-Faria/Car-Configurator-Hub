@@ -95,9 +95,7 @@ public class ComponentesController {
                     alert.setContentText("Esta configuração já contém o " + novoComponente.getFullName() + ".");
 
                     alert.showAndWait();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                } catch (Exception e) { }
             });
             return row;
         });

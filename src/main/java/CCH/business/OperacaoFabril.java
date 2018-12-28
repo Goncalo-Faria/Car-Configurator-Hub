@@ -17,11 +17,11 @@ public class OperacaoFabril {
 	}
 
 	public List<Componente> consultarComponentes() {
-		return new ArrayList<>(componenteDAO.values());
+		return new ArrayList<>(componenteDAO.getAllComponente().values());
 	}
 
 	public Encomenda consultarProximaEncomenda() throws SemEncomendasDisponiveisException {
-		Collection<Encomenda> sorted = new TreeMap<>(encomendaDAO.getAll()).values();
+		Collection<Encomenda> sorted = new TreeMap<>(encomendaDAO.getAllEncomenda()).values();
 
 		for (Encomenda encomenda : sorted) {
 			boolean available = true;

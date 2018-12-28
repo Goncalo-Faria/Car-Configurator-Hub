@@ -140,9 +140,7 @@ public class PacotesController {
                     alert.setContentText("Esta configuração já contém o " + novoPacote.getNome() + ".");
 
                     alert.showAndWait();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                } catch (Exception e) { }
             });
             return row;
         });

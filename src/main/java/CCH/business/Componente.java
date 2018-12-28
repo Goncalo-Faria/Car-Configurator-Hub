@@ -5,9 +5,7 @@ import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.RemoteClass;
 
 import java.util.List;
-import java.util.Map;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Componente implements RemoteClass<Integer> {
 
@@ -17,8 +15,11 @@ public class Componente implements RemoteClass<Integer> {
 	private double preco;
 	private String nome;
 
-	private final ComponenteDAO componenteDAO = new ComponenteDAO();
-	private final ClasseComponenteDAO classeComponenteDAO = new ClasseComponenteDAO();
+	private ComponenteDAO componenteDAO = null;
+	private ClasseComponenteDAO classeComponenteDAO = null;
+
+	public Componente() {
+	}
 
 	public Componente(int id, int stock, double preco, String nome, ClasseComponente classeComponente) {
 		this.id = id;
@@ -26,6 +27,8 @@ public class Componente implements RemoteClass<Integer> {
 		this.preco = preco;
 		this.nome = nome;
 		this.classeComponente = classeComponente;
+		this.componenteDAO = new ComponenteDAO();
+		this.classeComponenteDAO = new ClasseComponenteDAO();
 	}
 
 	public Componente(List<String> rs){
@@ -33,6 +36,8 @@ public class Componente implements RemoteClass<Integer> {
 	    this.stock = Integer.valueOf(rs.get(1));
 	    this.preco = Double.valueOf(rs.get(2));
 	    this.nome = rs.get(3);
+		this.componenteDAO = new ComponenteDAO();
+		this.classeComponenteDAO = new ClasseComponenteDAO();
 	    this.classeComponente = this.classeComponenteDAO.get(Integer.valueOf(rs.get(4)));
     }
 
@@ -58,10 +63,14 @@ public class Componente implements RemoteClass<Integer> {
 	public Integer key() {
 		return this.id;
 	}
+
     public Integer key(String k) {
         return Integer.valueOf(k);
     }
 
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getStock() {
 		return this.stock;
@@ -75,17 +84,38 @@ public class Componente implements RemoteClass<Integer> {
 		return this.preco;
 	}
 
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
 
 	public String getNome() {
 		return this.nome;
 	}
 
-	public ClasseComponente getClasseComponente() {
-		return this.classeComponente;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
+	public ClasseComponente getClasseComponente() {
+		return classeComponente;
+	}
+
+	public void setClasseComponente(ClasseComponente classeComponente) {
+		this.classeComponente = classeComponente;
+	}
+
+
+	public Map<Integer, Componente> getRequeridos() {
+		return componenteDAO.getComponentesRequeridos(id);
+	}
+
+	public Map<Integer, Componente> getIncompativeis() {
+		return componenteDAO.getComponentesIncompativeis(id);
+	}
+
+
 	public String getFullName() {
-		return this.classeComponente.getNome() + " " + this.nome;
+		return classeComponente.getNome() + " " + nome;
 	}
 
 	public String getStockString() {

@@ -1,27 +1,26 @@
 package CCH.business;
 
-import CCH.dataaccess.ComponenteDAO;
+import CCH.dataaccess.PacoteDAO;
 import CCH.dataaccess.RemoteClass;
+import CCH.exception.ComponenteIncompativelNoPacoteException;
+import CCH.exception.ComponenteJaExisteNoPacoteException;
 
-import java.rmi.Remote;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class Pacote implements RemoteClass<Integer> {
-	private final int id;
+	private int id;
 	private double desconto;
-	private PacoteDAO pacoteDAO = new PacoteDAO();
-	private ComponenteDAO componentes = new ComponenteDAO();
+	private PacoteDAO pacotes;
 
 	public Pacote(int id, double desconto) {
+		this.pacotes = new PacoteDAO();
 		this.id = id;
 		this.desconto = desconto;
 	}
 
 	public Pacote() {
-		this.id = pacoteDAO.getNextId();
-		this.desconto = 0.0;
-		this.id = 0;
 	}
 
 	public int getId() {
@@ -51,17 +50,19 @@ public class Pacote implements RemoteClass<Integer> {
 		return this.desconto;
 	}
 
-	public Map<Integer, Componente> getComponentes() {
-		return pacoteDAO.getComponentes(id);
+	public void setDesconto(double desconto) {
+		this.desconto = desconto;
 	}
 
-	public void setComponentes(ComponenteDAO componentes) {
-		this.componentes = componentes;
+	public Map<Integer, Componente> getComponentes() {
+		return pacotes.getComponentes(id);
 	}
+
 
 	public Pacote(List<String> rs){
 		this.id = Integer.valueOf(rs.get(0));
 		this.desconto = Double.valueOf(rs.get(1));
+		this.pacotes = new PacoteDAO();
 	}
 
 	/**
@@ -69,17 +70,17 @@ public class Pacote implements RemoteClass<Integer> {
 	 * @param componenteId
 	 */
 	public void adicionaComponente(int componenteId) throws ComponenteJaExisteNoPacoteException, ComponenteIncompativelNoPacoteException {
-		boolean alreadyHas = pacoteDAO.getAllIdsComponentesNoPacote(this.id).contains(componenteId);
+		boolean alreadyHas = pacotes.getAllIdsComponentesNoPacote(this.id).contains(componenteId);
 		if (alreadyHas)
 			throw new ComponenteJaExisteNoPacoteException();
 
-		for (Componente c : pacoteDAO.getAllComponentesNoPacote(this.id)) {
+		for (Componente c : pacotes.getAllComponentesNoPacote(this.id)) {
 			if (c.getIncompativeis() != null && c.getIncompativeis().containsKey(componenteId))
 				throw new ComponenteIncompativelNoPacoteException(c.getFullName());
 
 		}
 
-		pacoteDAO.adicionaComponente(this.id, componenteId);
+		pacotes.adicionaComponente(this.id, componenteId);
 	}
 
 	/**
@@ -87,7 +88,7 @@ public class Pacote implements RemoteClass<Integer> {
 	 * @param componenteId
 	 */
 	public void removeComponente(int componenteId) {
-		pacoteDAO.removeComponente(this.id, componenteId);
+		pacotes.removeComponente(this.id, componenteId);
 	}
 
 	public String getNome() {
@@ -99,6 +100,14 @@ public class Pacote implements RemoteClass<Integer> {
 	}
 
 	public void atualizarDesconto(Pacote pacote) {
-		pacoteDAO.updateDesconto(pacote);
+		pacotes.updateDesconto(pacote);
+	}
+
+	@Override
+	public String toString() {
+		return "Pacote{" +
+				"id=" + id +
+				", desconto=" + desconto +
+				'}';
 	}
 }

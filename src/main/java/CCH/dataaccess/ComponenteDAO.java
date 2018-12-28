@@ -1,19 +1,16 @@
 package CCH.dataaccess;
 
-import CCH.business.ClasseComponente;
 import CCH.business.Componente;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ComponenteDAO extends GenericDAOClass<Integer> {
 
     public ComponenteDAO () {
         super("Componente",
-                new Componente(0,0,0.0,"lol",null),
+                new Componente(),
                 Arrays.asList(new String[]{"id","stock","preco","nome","ClasseComponente_id"}));
     }
 
@@ -29,6 +26,12 @@ public class ComponenteDAO extends GenericDAOClass<Integer> {
         return (Componente)super.remove(key);
     }
 
+    public Map<Integer,Componente> getAllComponente() {
+        Map<Integer, RemoteClass<Integer>> a = super.getAll();
+        Map<Integer, Componente> r = new HashMap<>();
+        a.forEach((k,v) -> r.put(k, (Componente) v));
+        return r;
+    }
 
     public Map<Integer, Componente> getComponentesIncompativeis(Integer componenteId) {
         try {

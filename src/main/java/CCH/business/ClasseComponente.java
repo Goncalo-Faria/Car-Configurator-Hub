@@ -49,6 +49,12 @@ public class ClasseComponente implements RemoteClass<Integer> {
 		return eObrigatorio;
 	}
 
+	public ClasseComponente() {
+		tipoComponente = null;
+		id = -1;
+		eObrigatorio = false;
+		nome = null;
+	}
 
 	public ClasseComponente(int id, boolean eObrigatorio, String nome, TipoComponente tipoComponente) {
 		this.tipoComponente = tipoComponente;

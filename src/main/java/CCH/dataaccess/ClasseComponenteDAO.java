@@ -12,8 +12,7 @@ public class ClasseComponenteDAO extends GenericDAOClass<Integer> {
 
     public ClasseComponenteDAO () {
         super("ClasseComponente",
-                new ClasseComponente(0, true, "lol",
-                        TipoComponente.withValue(0)),
+                new ClasseComponente(),
                 Arrays.asList(new String[]{"id","eObrigatorio","nome","TipoComponente_id"}));
     }
 

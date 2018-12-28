@@ -4,7 +4,6 @@ import CCH.business.Componente;
 import CCH.business.Configuracao;
 import CCH.business.Encomenda;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;
@@ -13,15 +12,22 @@ public class EncomendaDAO extends GenericDAOClass<Integer> {
 
 
     public EncomendaDAO () {
-        super("Encomenda",new Encomenda(0,null,
-                null,null,null,null),
+        super("Encomenda",
+                new Encomenda(),
                 Arrays.asList(new String[]{"id","nomeCliente",
                         "numeroDeIdentificaoCliente","moradaCliente","paisCliente",
                         "emailCliente","emailCliente","preco"}));
     }
 
-    public Configuracao get(Object key) {
-        return (Configuracao)super.get(key);
+    public Encomenda get(Object key) {
+        return (Encomenda)super.get(key);
+    }
+
+    public Map<Integer,Encomenda> getAllEncomenda() {
+        Map<Integer, RemoteClass<Integer>> a = super.getAll();
+        Map<Integer, Encomenda> r = new HashMap<>();
+        a.forEach((k,v) -> r.put(k, (Encomenda) v));
+        return r;
     }
 
     public Encomenda put(Integer key, Encomenda value){
