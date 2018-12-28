@@ -270,7 +270,7 @@ public class Configuracao {
 			for (Componente c:comps) {
 				containsPacote = containsPacote && compsNotInPacotes.containsKey(c.getId());
 			}
-			if(containsPacote){
+			if(containsPacote && comps.size()!=0){
 				try {
 					for (Componente c:comps) compsNotInPacotes.remove(c.getId());
 					this.adicionarPacote(p.getId(),null);
