@@ -100,7 +100,6 @@ public class Configuracao {
 		Componente componente = configuracaoDAO.addComponente(id, componenteId);
 		this.preco += componente.getPreco();
 		configuracaoDAO.put(id, this);
-		checkforPacotesInConfiguration();
 		return componente;
 	}
 
