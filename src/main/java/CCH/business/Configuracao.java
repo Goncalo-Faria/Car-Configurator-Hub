@@ -292,4 +292,13 @@ public class Configuracao {
 		}
 		return componentes;
 	}
+
+	public void removerPacote(int pacoteId){
+		if (pacoteDAO.containsKey(pacoteId)){
+			Pacote p = pacoteDAO.get(pacoteId);
+			this.preco += p.getDesconto();
+			configuracaoDAO.removePacote(this.id,pacoteId);
+			configuracaoDAO.put(this.id,this);
+		}
+	}
 }
