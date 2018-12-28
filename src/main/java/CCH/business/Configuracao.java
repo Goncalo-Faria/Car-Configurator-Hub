@@ -97,11 +97,10 @@ public class Configuracao {
 		if (configuracaoDAO.getComponentes(id).containsKey(componenteId)) {
 			throw new ComponenteJaAdicionadoException();
 		}
-
 		Componente componente = configuracaoDAO.addComponente(id, componenteId);
 		this.preco += componente.getPreco();
 		configuracaoDAO.put(id, this);
-
+		checkforPacotesInConfiguration();
 		return componente;
 	}
 
@@ -179,7 +178,6 @@ public class Configuracao {
 
 		return null;
 	}
-
 
 	public String getNome() {
 		return "Configuração " + id;
@@ -264,5 +262,40 @@ public class Configuracao {
 		return requeridos;
 	}
 
+	public void checkforPacotesInConfiguration(){
+		Collection<Pacote> pacotes = this.consultarPacotes().values();
+		Collection<Componente> compsNotInPacotes = this.componentesNotInPacotes(pacotes);
+		for (Pacote p:pacotes) {
+			Collection<Componente> c = p.getComponentes().values();
+			if(compsNotInPacotes.containsAll(c)){
+				c.removeAll(c);
+				try {
+					this.adicionarPacote(p.getId(),p);
+				} catch (PacoteJaAdicionadoException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
+	public Collection<Componente> componentesNotInPacotes(){
+		Map<Integer,Componente> componentes = this.consultarComponentes();
+		Map<Integer,Pacote> pacotes = this.consultarPacotes();
+		for (Pacote p:pacotes.values()) {
+			for (Componente c:p.getComponentes().values()) {
+				componentes.remove(c.getId());
+			}
+		}
+		return componentes.values();
+	}
+
+	private Collection<Componente> componentesNotInPacotes(Collection<Pacote> pacotes){
+		Map<Integer,Componente> componentes = this.consultarComponentes();
+		for (Pacote p:pacotes) {
+			for (Componente c:p.getComponentes().values()) {
+				componentes.remove(c.getId());
+			}
+		}
+		return componentes.values();
+	}
 }
