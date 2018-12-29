@@ -3,10 +3,7 @@ package CCH.business;
 import CCH.dataaccess.ClasseComponenteDAO;
 import CCH.dataaccess.ConfiguracaoDAO;
 import CCH.dataaccess.PacoteDAO;
-import CCH.exception.ComponenteJaAdicionadoException;
-import CCH.exception.EncomendaRequerOutrosComponentes;
-import CCH.exception.EncomendaTemComponentesIncompativeis;
-import CCH.exception.PacoteJaAdicionadoException;
+import CCH.exception.*;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -193,11 +190,12 @@ public class Configuracao {
 				'}';
 	}
 
-	public Map<Integer, Componente> verificaValidade() throws EncomendaTemComponentesIncompativeis, EncomendaRequerOutrosComponentes {
+	public Map<Integer, Componente> verificaValidade() throws EncomendaTemComponentesIncompativeis, EncomendaRequerOutrosComponentes, EncomendaRequerObrigatoriosException {
 		Map<Integer, Componente> componentes = configuracaoDAO.getComponentes(id);
 		temIncompativeis(componentes);
 		requerOutros(componentes);
-
+		if(!this.temComponentesObrigatorios())
+			throw new EncomendaRequerObrigatoriosException();
 		return componentes;
 	}
 

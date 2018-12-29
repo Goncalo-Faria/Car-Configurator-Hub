@@ -50,8 +50,6 @@ public class GestaoDeConfiguracao {
 				String emailCliente
 	) throws EncomendaRequerOutrosComponentes, EncomendaTemComponentesIncompativeis, EncomendaRequerObrigatoriosException {
 		Map<Integer, Componente> componentes = configuracao.verificaValidade();
-		if (!configuracao.temComponentesObrigatorios())
-			throw new EncomendaRequerObrigatoriosException();
 		int id = encomendas.getNextId();
 		Encomenda encomenda = new Encomenda(componentes, id, configuracao.getPreco(), nomeCliente, numeroDeIdentificacaoCliente, moradaCliente, paisCliente, emailCliente);
 		encomendas.put(id, encomenda);
