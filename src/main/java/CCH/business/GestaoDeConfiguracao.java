@@ -60,8 +60,14 @@ public class GestaoDeConfiguracao {
 			throw new NoOptimalConfigurationException("Negative Value");
 		}
 
-		if(!configuracao.temComponentesObrigatorios())
+		try {
+			configuracao.verificaValidade();
+		} catch (EncomendaTemComponentesIncompativeis encomendaTemComponentesIncompativeis) {
+			throw new NoOptimalConfigurationException();
+		} catch (EncomendaRequerOutrosComponentes encomendaRequerOutrosComponentes) {
+		} catch (EncomendaRequerObrigatoriosException e) {
 			throw new ConfiguracaoNaoTemObrigatoriosException();
+		}
 
 		ConfiguracaoOtima c = new ConfiguracaoOtima();
     
