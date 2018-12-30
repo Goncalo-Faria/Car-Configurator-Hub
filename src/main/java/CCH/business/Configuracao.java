@@ -387,7 +387,7 @@ public class Configuracao {
 			}
 		}
 	}
-	
+
 	public Map<Integer, Componente> componentesNotInPacotes() {
 		Map<Integer,Componente> componentes = this.consultarComponentes();
 		Map<Integer,Pacote> pacotes = this.consultarPacotes();

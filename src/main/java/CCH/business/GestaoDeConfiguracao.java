@@ -25,6 +25,9 @@ public class GestaoDeConfiguracao {
 	private ConfiguracaoDAO configuracoes;
 	private EncomendaDAO encomendas;
 
+    /**
+     * Construtor por omissão da GestaoDeConfiguracao.
+     */
 	public GestaoDeConfiguracao() {
 		this.configuracoes = new ConfiguracaoDAO();
 		this.encomendas = new EncomendaDAO();

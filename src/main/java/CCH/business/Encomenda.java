@@ -18,6 +18,35 @@ public class Encomenda {
 	private String paisCliente;
 	private String emailCliente;
 
+	/**
+	 *
+	 * @param id
+	 * @param nomeCliente
+	 * @param numeroDeIdentificacaoCliente
+	 * @param moradaCliente
+	 * @param paisCliente
+	 * @param emailCliente
+	 */
+	public Encomenda(int id, String nomeCliente, String numeroDeIdentificacaoCliente, String moradaCliente, String paisCliente, String emailCliente) {
+		this.id = id;
+		this.nomeCliente = nomeCliente;
+		this.numeroDeIdentificacaoCliente = numeroDeIdentificacaoCliente;
+		this.moradaCliente = moradaCliente;
+		this.paisCliente = paisCliente;
+		this.emailCliente = emailCliente;
+	}
+
+	public Encomenda(Map<Integer, Componente> componentes, int id, double preco, String nomeCliente, String numeroDeIdentificacaoCliente, String moradaCliente, String paisCliente, String emailCliente) {
+		this.componentes = componentes;
+		this.id = id;
+		this.preco = preco;
+		this.nomeCliente = nomeCliente;
+		this.numeroDeIdentificacaoCliente = numeroDeIdentificacaoCliente;
+		this.moradaCliente = moradaCliente;
+		this.paisCliente = paisCliente;
+		this.emailCliente = emailCliente;
+	}
+
 	public Map<Integer, Componente> getComponentes() {
 		return componentes;
 	}
@@ -79,35 +108,6 @@ public class Encomenda {
 	}
 
 	public void setEmailCliente(String emailCliente) {
-		this.emailCliente = emailCliente;
-	}
-
-	/**
-	 *
-	 * @param id
-	 * @param nomeCliente
-	 * @param numeroDeIdentificacaoCliente
-	 * @param moradaCliente
-	 * @param paisCliente
-	 * @param emailCliente
-	 */
-	public Encomenda(int id, String nomeCliente, String numeroDeIdentificacaoCliente, String moradaCliente, String paisCliente, String emailCliente) {
-		this.id = id;
-		this.nomeCliente = nomeCliente;
-		this.numeroDeIdentificacaoCliente = numeroDeIdentificacaoCliente;
-		this.moradaCliente = moradaCliente;
-		this.paisCliente = paisCliente;
-		this.emailCliente = emailCliente;
-	}
-
-	public Encomenda(Map<Integer, Componente> componentes, int id, double preco, String nomeCliente, String numeroDeIdentificacaoCliente, String moradaCliente, String paisCliente, String emailCliente) {
-		this.componentes = componentes;
-		this.id = id;
-		this.preco = preco;
-		this.nomeCliente = nomeCliente;
-		this.numeroDeIdentificacaoCliente = numeroDeIdentificacaoCliente;
-		this.moradaCliente = moradaCliente;
-		this.paisCliente = paisCliente;
 		this.emailCliente = emailCliente;
 	}
 }
