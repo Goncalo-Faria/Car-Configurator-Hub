@@ -2,8 +2,13 @@ package CCH.business;
 
 import java.util.Map;
 
-public class Encomenda {
+/**
+ * Classe que representa uma encomenda.
+ *
+ * @version 20181229
+ */
 
+public class Encomenda {
 	private Map<Integer, Componente> componentes;
 	private int id;
 	private double preco;

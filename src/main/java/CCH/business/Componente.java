@@ -148,7 +148,7 @@ public class Componente {
 
 	/**
 	 * Devolve o nome completo do componente (com o nome da classe a que ele
-	 * pertence inclusivé)
+	 * pertence inclusivé).
 	 *
 	 * @return nome completo do componente
 	 */

@@ -1,17 +1,21 @@
 package CCH.business;
 
-import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.PacoteDAO;
 import CCH.exception.ComponenteIncompativelNoPacoteException;
 import CCH.exception.ComponenteJaExisteNoPacoteException;
 
 import java.util.Map;
 
+/**
+ * Classe que simboliza o pacote, que agrega vários componentes e confere um desconto.
+ *
+ * @version 20181229
+ */
+
 public class Pacote {
 	private int id;
 	private double desconto;
 	private PacoteDAO pacoteDAO = new PacoteDAO();
-
 
 	public Pacote(int id, double desconto) {
 		this.id = id;

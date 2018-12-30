@@ -1,5 +1,11 @@
 package CCH.business;
 
+/**
+ * Classe que armazena os diferentes tipos de componentes.
+ *
+ * @version 20181229
+ */
+
 public enum TipoComponente {
 	Pintura(0),
 	JantesEPneus(1),

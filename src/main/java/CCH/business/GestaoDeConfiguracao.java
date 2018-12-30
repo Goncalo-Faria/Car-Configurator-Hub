@@ -2,10 +2,24 @@ package CCH.business;
 
 import CCH.dataaccess.ConfiguracaoDAO;
 import CCH.dataaccess.EncomendaDAO;
-import CCH.exception.*;
+import CCH.exception.EncomendaRequerOutrosComponentes;
+import CCH.exception.EncomendaTemComponentesIncompativeis;
+import CCH.exception.EncomendaRequerObrigatoriosException;
+import CCH.exception.NoOptimalConfigurationException;
+import CCH.exception.ConfiguracaoNaoTemObrigatoriosException;
 import ilog.concert.IloException;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+
+/**
+ * Classe que representa as informações essenciais para que
+ * uma configuração possa progredir.
+ *
+ * @version 20181229
+ */
 
 public class GestaoDeConfiguracao {
 	private ConfiguracaoDAO configuracoes;
@@ -51,7 +65,10 @@ public class GestaoDeConfiguracao {
 	) throws EncomendaRequerOutrosComponentes, EncomendaTemComponentesIncompativeis, EncomendaRequerObrigatoriosException {
 		Map<Integer, Componente> componentes = configuracao.verificaValidade();
 		int id = encomendas.getNextId();
-		Encomenda encomenda = new Encomenda(componentes, id, configuracao.getPreco(), nomeCliente, numeroDeIdentificacaoCliente, moradaCliente, paisCliente, emailCliente);
+		Encomenda encomenda = new Encomenda(componentes, id,
+											configuracao.getPreco(), nomeCliente,
+											numeroDeIdentificacaoCliente, moradaCliente,
+											paisCliente, emailCliente);
 		encomendas.put(id, encomenda);
 	}
 
@@ -92,6 +109,4 @@ public class GestaoDeConfiguracao {
 			configuracoes.updateDesconto(configuracaoId, descontoAtualizado);
 		}
 	}
-
-
 }

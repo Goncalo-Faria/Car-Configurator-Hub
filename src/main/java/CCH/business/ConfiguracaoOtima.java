@@ -1,10 +1,18 @@
 package CCH.business;
 
+import java.util.Collection;
+import java.util.Set;
+import java.util.HashMap;
+import java.util.ArrayList;
+
 import ilog.concert.*;
 import ilog.cplex.IloCplex;
 
-import java.util.*;
-
+/**
+ * Classe que gera uma configuração ótima para um determinado valor máximo.
+ *
+ * @version 20181229
+ */
 
 public class ConfiguracaoOtima {
 

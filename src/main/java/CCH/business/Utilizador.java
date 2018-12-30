@@ -3,8 +3,13 @@ package CCH.business;
 import CCH.dataaccess.UtilizadorDAO;
 import CCH.exception.TipoUtilizadorInexistenteException;
 
-public class Utilizador {
+/**
+ * Classe utilizador, que representa o ator que interage com a aplicação.
+ *
+ * @version 20181229
+ */
 
+public class Utilizador {
 	private TipoUtilizador tipoUtilizador;
 	private int id;
 	private String nome;
@@ -113,5 +118,4 @@ public class Utilizador {
 	public void atualizarTipo(Utilizador utilizador) {
 		utilizadorDAO.updateTipo(utilizador);
 	}
-
 }

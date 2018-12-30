@@ -4,10 +4,19 @@ import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.EncomendaDAO;
 import CCH.exception.SemEncomendasDisponiveisException;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.TreeMap;
+
+/**
+ * Operação Fabril representa as informações que os
+ * funcionários da fábrica necessitam de conhecer.
+ *
+ * @version 20181229
+ */
 
 public class OperacaoFabril {
-
 	private EncomendaDAO encomendaDAO;
 	private ComponenteDAO componenteDAO;
 
