@@ -325,7 +325,7 @@ public class Configuracao implements RemoteClass<Integer> {
 				filter(ClasseComponente :: getEObrigatorio).
 				map(ClasseComponente:: getId).collect(Collectors.toList());
 		Collection<Integer> idsTiposNaClasse = this.consultarComponentes().values().stream().
-				map(c -> ((Componente)c).getClasseComponente().getId()).collect(Collectors.toSet());
+				map(c -> c.getClasseComponente().getId()).collect(Collectors.toSet());
 		return idsTiposNaClasse.containsAll(idsTiposObrigatorios);
 	}
 }

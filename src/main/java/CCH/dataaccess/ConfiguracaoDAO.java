@@ -41,14 +41,19 @@ public class ConfiguracaoDAO extends GenericDAOClass<Integer> {
             Configuracao al = this.get(key);
             Statement stm = conn.createStatement();
 
-            String sql = "DELETE FROM Configuracao_has_Componente WHERE Configuracao_id = " + key;
-            int i  = stm.executeUpdate(sql);
+            String sql = "BEGIN TRANSACTION;";
 
-            sql = "DELETE FROM Configuracao_has_Pacote WHERE Configuracao_id = " + key;
-            i  = stm.executeUpdate(sql);
+            sql = sql + "DELETE FROM Configuracao_has_Componente WHERE Configuracao_id = " + key + ";";
 
-            sql = "DELETE FROM Configuracao WHERE id = " + key;
-            i  = stm.executeUpdate(sql);
+
+            sql = sql +"DELETE FROM Configuracao_has_Pacote WHERE Configuracao_id = " + key + ";";
+
+
+            sql = sql + "DELETE FROM Configuracao WHERE id = " + key + ";";
+
+            sql = sql + "COMMIT;";
+
+            stm.execute(sql);
 
             return al;
         }
@@ -56,7 +61,10 @@ public class ConfiguracaoDAO extends GenericDAOClass<Integer> {
     }
 
     public Configuracao put(Integer key, Configuracao value){
-        return (Configuracao)super.put(key,value);
+        if(containsKey(key))
+            return update(key,value);
+        else
+            return (Configuracao)super.put(key,value);
     }
 
     public Map<Integer, Pacote> getPacotes(Integer configuracaoId) {
