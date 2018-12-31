@@ -130,8 +130,8 @@ public class CCH {
 	}
 
 	public Configuracao ConfiguracaoOtima(Configuracao configuracao, double valor) throws NoOptimalConfigurationException, ConfiguracaoNaoTemObrigatoriosException {
-		Collection<Pacote> pacs = pacoteDAO.values();
-		Collection<Componente> comps = componenteDAO.values();
+		Collection<Pacote> pacs = pacoteDAO.values().stream().map(p -> (Pacote)p).collect(Collectors.toList());
+		Collection<Componente> comps = componenteDAO.values().stream().map(p -> (Componente)p).collect(Collectors.toList());
 		return gestaoDeConfiguracao.configuracaoOtima(comps,pacs,configuracao,valor);
 	}
 
