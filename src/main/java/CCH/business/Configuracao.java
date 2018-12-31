@@ -3,6 +3,7 @@ package CCH.business;
 import CCH.dataaccess.ClasseComponenteDAO;
 import CCH.dataaccess.ConfiguracaoDAO;
 import CCH.dataaccess.PacoteDAO;
+import CCH.dataaccess.RemoteClass;
 import CCH.exception.*;
 
 
@@ -278,9 +279,10 @@ public class Configuracao implements RemoteClass<Integer> {
 	}
 
 	public void checkforPacotesInConfiguration(){
-		Collection<Pacote> pacotes = this.pacoteDAO.values();
+		Collection<RemoteClass<Integer>> pacotes = this.pacoteDAO.values();
 		Map<Integer,Componente> compsNotInPacotes = this.componentesNotInPacotes();
-		for (Pacote p:pacotes) {
+		for (RemoteClass r:pacotes) {
+			Pacote p = (Pacote)r;
 			Collection<Componente> comps = p.getComponentes().values();
 			boolean containsPacote = true;
 			for (Componente c:comps) {
@@ -319,8 +321,11 @@ public class Configuracao implements RemoteClass<Integer> {
 
 	public boolean temComponentesObrigatorios() {
 		ClasseComponenteDAO cdao = new ClasseComponenteDAO();
-		List<Integer> idsTiposObrigatorios = cdao.values().stream().filter(p -> p.getEObrigatorio()).map(p -> p.getId()).collect(Collectors.toList());
-		Collection<Integer> idsTiposNaClasse = this.consultarComponentes().values().stream().map(c -> c.getClasseComponente().getId()).collect(Collectors.toSet());
+		List<Integer> idsTiposObrigatorios = cdao.values().stream().map(p -> (ClasseComponente)p).
+				filter(ClasseComponente :: getEObrigatorio).
+				map(ClasseComponente:: getId).collect(Collectors.toList());
+		Collection<Integer> idsTiposNaClasse = this.consultarComponentes().values().stream().
+				map(c -> ((Componente)c).getClasseComponente().getId()).collect(Collectors.toSet());
 		return idsTiposNaClasse.containsAll(idsTiposObrigatorios);
 	}
 }
