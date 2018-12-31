@@ -4,9 +4,14 @@ import CCH.business.Componente;
 import CCH.business.Configuracao;
 import CCH.business.Encomenda;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collection;
+import java.util.Set;
+import java.util.HashSet;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.*;
 
 public class EncomendaDAO extends GenericDAOClass<Integer> {
 
@@ -46,7 +51,7 @@ public class EncomendaDAO extends GenericDAOClass<Integer> {
             ResultSet rs = stm.executeQuery(sql);
 
             ComponenteDAO componenteDAO = new ComponenteDAO();
-            if (rs.next()) {
+            while (rs.next()) {
                 Componente componente = componenteDAO.get(rs.getInt(2));
                 componentes.put(componente.getId(), componente);
             }
@@ -58,4 +63,14 @@ public class EncomendaDAO extends GenericDAOClass<Integer> {
         }
     }
 
+    public void putComponente (int idEncomenda, int idComponente) {
+        try {
+            System.out.println("estou a pôr o " + idComponente);
+            Statement stm = conn.createStatement();
+            String sql = "INSERT INTO Encomenda_has_Componente VALUES ('" +
+                    idEncomenda + "','" + idComponente + "');";
+            stm.executeUpdate(sql);
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+    }
 }

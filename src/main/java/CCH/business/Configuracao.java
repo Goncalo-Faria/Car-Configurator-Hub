@@ -1,12 +1,10 @@
 package CCH.business;
 
+import CCH.dataaccess.ClasseComponenteDAO;
 import CCH.dataaccess.ConfiguracaoDAO;
 import CCH.dataaccess.PacoteDAO;
-import CCH.exception.ComponenteJaAdicionadoException;
-import CCH.dataaccess.RemoteClass;
-import CCH.exception.EncomendaRequerOutrosComponentes;
-import CCH.exception.EncomendaTemComponentesIncompativeis;
-import CCH.exception.PacoteJaAdicionadoException;
+import CCH.exception.*;
+
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import ilog.concert.IloException;
 
@@ -112,11 +111,9 @@ public class Configuracao implements RemoteClass<Integer> {
 		if (configuracaoDAO.getComponentes(id).containsKey(componenteId)) {
 			throw new ComponenteJaAdicionadoException();
 		}
-
 		Componente componente = configuracaoDAO.addComponente(id, componenteId);
 		this.preco += componente.getPreco();
-		configuracaoDAO.update(id, this);
-
+		configuracaoDAO.put(id, this);
 		return componente;
 	}
 
@@ -196,7 +193,6 @@ public class Configuracao implements RemoteClass<Integer> {
 		return null;
 	}
 
-
 	public String getNome() {
 		return "Configuração " + id;
 	}
@@ -210,11 +206,12 @@ public class Configuracao implements RemoteClass<Integer> {
 				'}';
 	}
 
-	public Map<Integer, Componente> verificaValidade() throws EncomendaTemComponentesIncompativeis, EncomendaRequerOutrosComponentes {
+	public Map<Integer, Componente> verificaValidade() throws EncomendaTemComponentesIncompativeis, EncomendaRequerOutrosComponentes, EncomendaRequerObrigatoriosException {
 		Map<Integer, Componente> componentes = configuracaoDAO.getComponentes(id);
 		temIncompativeis(componentes);
 		requerOutros(componentes);
-
+		if(!this.temComponentesObrigatorios())
+			throw new EncomendaRequerObrigatoriosException();
 		return componentes;
 	}
 
@@ -280,5 +277,50 @@ public class Configuracao implements RemoteClass<Integer> {
 		return requeridos;
 	}
 
+	public void checkforPacotesInConfiguration(){
+		Collection<Pacote> pacotes = this.pacoteDAO.values();
+		Map<Integer,Componente> compsNotInPacotes = this.componentesNotInPacotes();
+		for (Pacote p:pacotes) {
+			Collection<Componente> comps = p.getComponentes().values();
+			boolean containsPacote = true;
+			for (Componente c:comps) {
+				containsPacote = containsPacote && compsNotInPacotes.containsKey(c.getId());
+			}
+			if(containsPacote && comps.size()!=0){
+				try {
+					for (Componente c:comps) compsNotInPacotes.remove(c.getId());
+					this.adicionarPacote(p.getId(),null);
+				} catch (PacoteJaAdicionadoException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
+	public Map<Integer, Componente> componentesNotInPacotes(){
+		Map<Integer,Componente> componentes = this.consultarComponentes();
+		Map<Integer,Pacote> pacotes = this.consultarPacotes();
+		for (Pacote p:pacotes.values()) {
+			for (Componente c:p.getComponentes().values()) {
+				componentes.remove(c.getId());
+			}
+		}
+		return componentes;
+	}
+  
+	public void removerPacote(int pacoteId){
+		if (pacoteDAO.containsKey(pacoteId)){
+			Pacote p = pacoteDAO.get(pacoteId);
+			this.preco += p.getDesconto();
+			configuracaoDAO.removePacote(this.id,pacoteId);
+			configuracaoDAO.put(this.id,this);
+		}
+	}
+
+	public boolean temComponentesObrigatorios() {
+		ClasseComponenteDAO cdao = new ClasseComponenteDAO();
+		List<Integer> idsTiposObrigatorios = cdao.values().stream().filter(p -> p.getEObrigatorio()).map(p -> p.getId()).collect(Collectors.toList());
+		Collection<Integer> idsTiposNaClasse = this.consultarComponentes().values().stream().map(c -> c.getClasseComponente().getId()).collect(Collectors.toSet());
+		return idsTiposNaClasse.containsAll(idsTiposObrigatorios);
+	}
 }
