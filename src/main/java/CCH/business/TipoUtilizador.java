@@ -13,10 +13,20 @@ public enum TipoUtilizador {
 
 	private final int value;
 
+	/**
+	 * Construtor parametrizado de TipoUtilizador.
+	 *
+	 * @param value Valor do tipo de utilizador
+	 */
 	private TipoUtilizador(int value) {
 		this.value = value;
 	}
 
+	/**
+	 * Devolve o valor correspondente ao tipo de utilizador.
+	 *
+	 * @return value
+	 */
 	public int getValue() {
 		return value;
 	}

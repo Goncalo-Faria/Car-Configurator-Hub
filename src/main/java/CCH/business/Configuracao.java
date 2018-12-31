@@ -296,6 +296,21 @@ public class Configuracao {
 		return "Configuração " + id;
 	}
 
+	/**
+	 * Verifica se a configuração se encontra válida e pronta para ser encomendada,
+	 * ou seja, se tem todos os componentes obrigatórios, se não tem componentes
+	 * incompatíveis nem faltam componentes que outros requerem.
+	 * Se a configuração estiver válida retorna todos os componentes da mesma,
+	 * se estiver inválida lança a devida exceção.
+	 *
+	 * @return Map<Integer, Componente> todos os componentes que constituem a configuração
+	 * @throws EncomendaTemComponentesIncompativeis Se a configuração tem componentes
+	 * incompatíveis
+	 * @throws EncomendaRequerOutrosComponentes Se existem componentes na configuração
+	 * que requerem outros componentes que não estão presentes na mesma
+	 * @throws EncomendaRequerObrigatoriosException Se a configuração não tem todos
+	 * os componentes obrigatórios
+	 */
 	public Map<Integer, Componente> verificaValidade() throws EncomendaTemComponentesIncompativeis,
                                                               EncomendaRequerOutrosComponentes,
                                                               EncomendaRequerObrigatoriosException {
@@ -309,6 +324,14 @@ public class Configuracao {
 		return componentes;
 	}
 
+	/**
+	 * Verifica se a configuração tem componentes incompatíveis. Em caso afirmativo,
+	 * lança a devida exceção.
+	 *
+	 * @param componentes Componentes presentes na configuração
+	 * @throws EncomendaTemComponentesIncompativeis Se a configuração tem componentes
+	 * incompatíveis
+	 */
 	private void temIncompativeis(Map<Integer, Componente> componentes) throws EncomendaTemComponentesIncompativeis {
 		Map<Integer, Componente> incompativeis = new HashMap<>();
 
@@ -327,6 +350,15 @@ public class Configuracao {
 		}
 	}
 
+	/**
+	 * Verifica se estão presentes na configuração todos os componentes
+	 * que os componentes que fazem parte da configuração requerem.
+	 * Em caso afirmativo, lança a devida exceção.
+	 *
+	 * @param componentes Componentes presentes na configuração
+	 * @throws EncomendaRequerOutrosComponentes Se existem componentes na configuração
+	 * que requerem outros componentes que não estão presentes na mesma
+	 */
 	private void requerOutros(Map<Integer, Componente> componentes) throws EncomendaRequerOutrosComponentes {
 		Map<Integer, Componente> requeridos = new HashMap<>();
 		componentes.forEach((k,c) ->
@@ -343,6 +375,12 @@ public class Configuracao {
 		}
 	}
 
+	/**
+	 * Devolve a lista dos componentes presentes na configuração que são
+	 * incompatíveis com o componente passado como parâmetro.
+	 *
+	 * @param componente Componente que se pretende analisar
+	 */
 	public List<Componente> componentesIncompativeisNaConfig (Componente componente) {
 		List<Componente> incompativeis = new ArrayList<>();
 
@@ -355,6 +393,12 @@ public class Configuracao {
 		return incompativeis;
 	}
 
+	/**
+	 * Devolve a lista dos componentes que ainda não estão na configuração
+	 * mas que o componente passado como parâmetro também requer.
+	 *
+	 * @param componente Componente que se pretende analisar
+	 */
 	public List<Componente> componentesRequeridosQueNaoEstaoConfig (Componente componente) {
 		List<Componente> requeridos = new ArrayList<>();
 
