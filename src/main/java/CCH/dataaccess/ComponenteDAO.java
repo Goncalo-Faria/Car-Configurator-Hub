@@ -38,21 +38,24 @@ public class ComponenteDAO extends GenericDAOClass<Integer> {
             Map<Integer, Componente> componentes = new HashMap<>();
             Statement stm = conn.createStatement();
 
-            String sql = "SELECT * FROM Componente_incompativel_Componente WHERE " +
-                    "Componente_id=" + componenteId + " OR " +
-                    "Componente_id1=" + componenteId + ";";
+            String sql = "SELECT C.* FROM Componente_incompativel_Componente as CC, Componente as C WHERE " +
+                    "(CC.Componente_id=" + componenteId + " and C.id = CC.Componente_id1) OR " +
+                    "(CC.Componente_id = C.id and CC.Componente_id1=" + componenteId + ");";
 
             ResultSet rs = stm.executeQuery(sql);
 
+            List<String> row;
+            int col = rs.getMetaData().getColumnCount();
+            Componente token = new Componente();
+
             while (rs.next()) {
-                Componente componente;
 
-                if (rs.getInt(1) == componenteId)
-                    componente = get(rs.getInt(2));
-                else
-                    componente = get(rs.getInt(1));
+                row = new ArrayList<>();
+                for( int i = 1; i<= col; i++)
+                    row.add(rs.getString(i));
 
-                componentes.put(componente.getId(), componente);
+                Componente n = token.fromRow(row);
+                componentes.put(n.key(),n);
             }
 
             return componentes;
@@ -67,12 +70,22 @@ public class ComponenteDAO extends GenericDAOClass<Integer> {
         try {
             Map<Integer, Componente> componentes = new HashMap<>();
             Statement stm = conn.createStatement();
-            String sql = "SELECT * FROM Componente_requer_Componente WHERE Componente_id=" + componenteId;
+            String sql = "SELECT C.* FROM Componente_requer_Componente as CC," +
+                    " Componente as C WHERE CC.Componente_id=" + componenteId + " and CC.Componente_id1 = C.id ;";
             ResultSet rs = stm.executeQuery(sql);
 
+            List<String> row;
+            int col = rs.getMetaData().getColumnCount();
+            Componente token = new Componente();
+
             while (rs.next()) {
-                Componente componente = get(rs.getInt(2));
-                componentes.put(componente.getId(), componente);
+
+                row = new ArrayList<>();
+                for( int i = 1; i<= col; i++)
+                    row.add(rs.getString(i));
+
+                Componente n = token.fromRow(row);
+                componentes.put(n.key(),n);
             }
 
             return componentes;
