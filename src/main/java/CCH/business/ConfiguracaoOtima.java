@@ -16,6 +16,17 @@ import ilog.cplex.IloCplex;
 
 public class ConfiguracaoOtima {
 
+    /**
+     * Método que constrói as restrições relativas aos componentes.
+     *
+     * @param cplex Modelo que está a ser construído
+     * @param componentesObrigatorios Componentes que fazem parte da
+     * configuração que se pretende otimizar
+     * @param componentes Todos os componentes presentes no sistema
+     * @param comps ...
+     * @throws IloException Caso a restrição que se pretende adicionar ao modelo
+     * não vá de encontro ao CPLEX
+     */
     private void restricaoComponentes(IloCplex cplex, Collection<Componente> componentesObrigatorios, Collection<Componente> componentes, HashMap<Integer, IloIntVar> comps) throws IloException {
         for (Componente c : componentes) {
             IloIntVar value = comps.get(c.getId());
@@ -51,7 +62,17 @@ public class ConfiguracaoOtima {
         }
     }
 
-    private void restricaoPacotes(IloCplex cplex, Collection<Pacote> pacotes, Collection<Componente> componentes, HashMap<Integer, IloIntVar> comps, HashMap<Integer, IloIntVar> pacs) throws IloException{
+    /**
+     * Método que constrói as restrições relativas aos pacotes.
+     *
+     * @param cplex Modelo que está a ser construído
+     * @param pacotes Todos os pacotes presentes no sistema
+     * @param comps ...
+     * @param pacs ...
+     * @throws IloException Caso a restrição que se pretende adicionar ao modelo
+     * não vá de encontro ao CPLEX
+     */
+    private void restricaoPacotes(IloCplex cplex, Collection<Pacote> pacotes, HashMap<Integer, IloIntVar> comps, HashMap<Integer, IloIntVar> pacs) throws IloException{
         HashMap<Integer,IloNumExpr> overlap= new HashMap<>();
 
         for (Pacote p : pacotes) {
@@ -80,7 +101,20 @@ public class ConfiguracaoOtima {
             cplex.addLe(exp,1);//apenas um pacote pode conter um componente
     }
 
-
+    /**
+     * Método que gera a configuração ótima, ou seja, uma configuração que tenta
+     * maximizar a utilização do dinheiro previsto. Este método constrói o modelo
+     * de otimização de programação inteira recorrendo ao CPLEX para obter a
+     * solução.
+     *
+     * @param componentesObrigatorios Componentes que já faziam parte da
+     * configuração que se pretende otimizar
+     * @param componentes Todos os componentes presentes no sistema
+     * @param pacotes Todos os pacotes presentes no sistema
+     * @param money Valor máximo disponível
+     * @return Configuracao ótima gerada
+     * @throws IloException Caso não exista solução para o modelo gerado
+     */
     public Configuracao configuracaoOtima(
             Collection<Componente> componentesObrigatorios,
             Collection<Componente> componentes,
@@ -114,7 +148,7 @@ public class ConfiguracaoOtima {
 
         //restrições de pacotes e componentes
         restricaoComponentes(cplex,componentesObrigatorios,componentes,comps);
-        restricaoPacotes(cplex,pacotes,componentes,comps,pacs);
+        restricaoPacotes(cplex,pacotes,comps,pacs);
 
         //restrição de preço
         cplex.addLe(cplex.sum(compsPreco,cplex.prod(-1,pacsDesconto)),money);
