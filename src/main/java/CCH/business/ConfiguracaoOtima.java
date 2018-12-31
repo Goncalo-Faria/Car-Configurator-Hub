@@ -23,7 +23,7 @@ public class ConfiguracaoOtima {
      * @param componentesObrigatorios Componentes que fazem parte da
      * configuração que se pretende otimizar
      * @param componentes Todos os componentes presentes no sistema
-     * @param comps ...
+     * @param comps HashMap com o id do componente como chave e a variável de decisão como valor
      * @throws IloException Caso a restrição que se pretende adicionar ao modelo
      * não vá de encontro ao CPLEX
      */
@@ -67,8 +67,8 @@ public class ConfiguracaoOtima {
      *
      * @param cplex Modelo que está a ser construído
      * @param pacotes Todos os pacotes presentes no sistema
-     * @param comps ...
-     * @param pacs ...
+     * @param comps HashMap com o id do componente como chave e a variável de decisão como valor
+     * @param pacs HashMap com o id do pacote como chave e a variável de decisão como valor
      * @throws IloException Caso a restrição que se pretende adicionar ao modelo
      * não vá de encontro ao CPLEX
      */
