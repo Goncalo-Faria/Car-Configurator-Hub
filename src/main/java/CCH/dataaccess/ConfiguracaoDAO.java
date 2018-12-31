@@ -135,12 +135,22 @@ public class ConfiguracaoDAO extends GenericDAOClass<Integer> {
         try {
             Map<Integer, Componente> componentes = new HashMap<>();
             Statement stm = conn.createStatement();
-            String sql = "SELECT * FROM Configuracao_has_Componente WHERE Configuracao_id=" + configuracaoId;
+            String sql = "SELECT C.* FROM Configuracao_has_Componente as CC, Componente as C " +
+                    " WHERE CC.Configuracao_id=" + configuracaoId + "and CC.componente_id = C.id;";
             ResultSet rs = stm.executeQuery(sql);
 
+            List<String> row;
+            int col = rs.getMetaData().getColumnCount();
+            Componente token = new Componente();
+
             while (rs.next()) {
-                Componente componente = componenteDAO.get(rs.getInt(2));
-                componentes.put(componente.getId(), componente);
+
+                row = new ArrayList<>();
+                for( int i = 1; i<= col; i++)
+                    row.add(rs.getString(i));
+
+                Componente n = token.fromRow(row);
+                componentes.put(n.key(),n);
             }
 
             return componentes;
