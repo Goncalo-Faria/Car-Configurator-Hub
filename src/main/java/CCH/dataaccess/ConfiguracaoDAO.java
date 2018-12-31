@@ -136,7 +136,7 @@ public class ConfiguracaoDAO extends GenericDAOClass<Integer> {
             Map<Integer, Componente> componentes = new HashMap<>();
             Statement stm = conn.createStatement();
             String sql = "SELECT C.* FROM Configuracao_has_Componente as CC, Componente as C " +
-                    " WHERE CC.Configuracao_id=" + configuracaoId + "and CC.componente_id = C.id;";
+                    " WHERE CC.Configuracao_id=" + configuracaoId + " and CC.componente_id = C.id;";
             ResultSet rs = stm.executeQuery(sql);
 
             List<String> row;
