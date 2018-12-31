@@ -411,10 +411,15 @@ public class Configuracao {
 		return requeridos;
 	}
 
+	/**
+	 * Averigua se os componentes presentes na configuração constituem um
+	 * pacote. Em caso afirmativo, substitui os componentes isolados pelo
+	 * pacote.
+	 */
 	public void checkforPacotesInConfiguration() {
 		Collection<Pacote> pacotes = this.pacoteDAO.values();
 		Map<Integer,Componente> compsNotInPacotes = this.componentesNotInPacotes();
-		for (Pacote p:pacotes) {
+		for (Pacote p : pacotes) {
 			Collection<Componente> comps = p.getComponentes().values();
 			boolean containsPacote = true;
 			for (Componente c : comps) {
@@ -432,6 +437,12 @@ public class Configuracao {
 		}
 	}
 
+	/**
+	 * Método que devolve os componentes que fazem parte da configuração mas
+	 * que não fazem parte de nenhum pacote contido na configuração.
+	 *
+	 * @return Map<Integer, Componente> componentes
+	 */
 	public Map<Integer, Componente> componentesNotInPacotes() {
 		Map<Integer,Componente> componentes = this.consultarComponentes();
 		Map<Integer,Pacote> pacotes = this.consultarPacotes();
