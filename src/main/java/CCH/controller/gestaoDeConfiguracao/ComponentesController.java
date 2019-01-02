@@ -74,6 +74,7 @@ public class ComponentesController {
                         List<Componente> incompativeis = configuracao.componentesIncompativeisNaConfig(novoComponente);
                         List<Componente> requeridos = configuracao.componentesRequeridosQueNaoEstaoConfig(novoComponente);
                         boolean flag = true;
+                        boolean adquiriu = true;
 
                         if (incompativeis.size() != 0) {
                             flag = temIncompativeis(incompativeis);
@@ -84,7 +85,16 @@ public class ComponentesController {
 
                         if (flag) {
                             configuracao.adicionarComponente(novoComponente.getId());
-                            configuracao.checkforPacotesInConfiguration();
+                            adquiriu = configuracao.checkforPacotesInConfiguration();
+                        }
+
+                        if (adquiriu) {
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Informação");
+                            alert.setHeaderText("Pacote adquirido!");
+                            alert.setContentText("O componente que adicionou formou um pacote na configuração.");
+
+                            alert.showAndWait();
                         }
 
                         ((Stage) back.getScene().getWindow()).close();

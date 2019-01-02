@@ -230,7 +230,7 @@ public class ConfiguracaoController {
 
                             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                             alert.setTitle("Aviso");
-                            alert.setHeaderText("Os componentes do " + pacote.getNome() + "não serão removidos.");
+                            alert.setHeaderText("Os componentes do " + pacote.getNome() + " não serão removidos.");
                             alert.setContentText("Pretende continuar ?");
 
                             Optional<ButtonType> result = alert.showAndWait();

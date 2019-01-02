@@ -261,24 +261,28 @@ public class Configuracao {
 		return requeridos;
 	}
 
-	public void checkforPacotesInConfiguration(){
+	public boolean checkforPacotesInConfiguration() {
 		Collection<Pacote> pacotes = this.pacoteDAO.values();
 		Map<Integer,Componente> compsNotInPacotes = this.componentesNotInPacotes();
-		for (Pacote p:pacotes) {
+		for (Pacote p : pacotes) {
 			Collection<Componente> comps = p.getComponentes().values();
 			boolean containsPacote = true;
-			for (Componente c:comps) {
+			for (Componente c : comps) {
 				containsPacote = containsPacote && compsNotInPacotes.containsKey(c.getId());
 			}
-			if(containsPacote && comps.size()!=0){
+			if(containsPacote && comps.size()!=0) {
 				try {
-					for (Componente c:comps) compsNotInPacotes.remove(c.getId());
+					for (Componente c : comps)
+						compsNotInPacotes.remove(c.getId());
 					this.adicionarPacote(p.getId(),null);
+					return true;
 				} catch (PacoteJaAdicionadoException e) {
 					e.printStackTrace();
 				}
 			}
 		}
+
+		return false;
 	}
 
 	public Map<Integer, Componente> componentesNotInPacotes(){
