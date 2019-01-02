@@ -3,6 +3,7 @@ package CCH.business;
 import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.EncomendaDAO;
 import CCH.exception.SemEncomendasDisponiveisException;
+import CCH.exception.StockInvalidoException;
 
 import java.util.*;
 
@@ -50,7 +51,9 @@ public class OperacaoFabril {
 		encomendaDAO.remove(id);
 	}
 
-	public Encomenda atualizarStock(Componente componente) throws SemEncomendasDisponiveisException  {
+	public Encomenda atualizarStock(Componente componente) throws SemEncomendasDisponiveisException, StockInvalidoException {
+		if (componente.getStock() < 0)
+			throw new StockInvalidoException();
 		componenteDAO.updateStock(componente);
 		return consultarProximaEncomenda();
 	}
