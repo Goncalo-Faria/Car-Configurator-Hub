@@ -177,13 +177,13 @@ public class PacotesController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmação");
         if (tipo.equals("i")) {
-            alert.setHeaderText("O componente que pretende adicionar é incompatível com o " +
+            alert.setHeaderText("O pacote que pretende adicionar tem componentes incompatíveis com o " +
                     str);
         } else {
-            alert.setHeaderText("O componente que pretende adicionar requer o " +
+            alert.setHeaderText("O pacote que pretende adicionar possui componentes que requerem o " +
                     str);
         }
-        alert.setContentText("Pretende adicionar o componente na mesma?");
+        alert.setContentText("Pretende adicionar o pacote na mesma?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
