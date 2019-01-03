@@ -48,6 +48,9 @@ public class OperacaoFabril {
 	 * @param id
 	 */
 	public void removerEncomenda(Integer id) {
+		for (Componente c : encomendaDAO.getComponentes(id).values())
+			c.decrementaStock();
+
 		encomendaDAO.remove(id);
 	}
 
@@ -55,6 +58,7 @@ public class OperacaoFabril {
 		if (componente.getStock() < 0)
 			throw new StockInvalidoException();
 		componenteDAO.updateStock(componente);
+
 		return consultarProximaEncomenda();
 	}
 }

@@ -67,9 +67,14 @@ public class IndexController {
                 new PropertyValueFactory<Componente, Double>("preco")
         );
 
-        ObservableList<Componente> componenteList = FXCollections.observableArrayList();
-        componenteList.addAll(operacaoFabril.consultarComponentes());
-        table.setItems(componenteList);
+        table.setItems(getComponentes());
+}
+
+    private ObservableList<Componente> getComponentes() {
+        ObservableList<Componente> componentesList = FXCollections.observableArrayList();
+        componentesList.addAll(operacaoFabril.consultarComponentes());
+
+        return componentesList;
     }
 
     @FXML
@@ -85,6 +90,8 @@ public class IndexController {
         } catch (SemEncomendasDisponiveisException e) {
             idEncomenda.setText("Nenhuma encomenda disponível");
         }
+
+        table.setItems(getComponentes());
     }
 
     @FXML

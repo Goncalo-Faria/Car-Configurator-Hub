@@ -5,7 +5,6 @@ import CCH.dataaccess.ComponenteDAO;
 import java.util.Map;
 
 public class Componente {
-
 	private ClasseComponente classeComponente;
 	private int id;
 	private int stock;
@@ -62,7 +61,6 @@ public class Componente {
 		this.classeComponente = classeComponente;
 	}
 
-
 	public Map<Integer, Componente> getRequeridos() {
 		return componenteDAO.getComponentesRequeridos(id);
 	}
@@ -70,7 +68,6 @@ public class Componente {
 	public Map<Integer, Componente> getIncompativeis() {
 		return componenteDAO.getComponentesIncompativeis(id);
 	}
-
 
 	public String getFullName() {
 		return classeComponente.getNome() + " " + nome;
@@ -88,5 +85,10 @@ public class Componente {
 		}
 
 		return "Indisponível";
+	}
+
+	public void decrementaStock() {
+		setStock(getStock() - 1);
+		componenteDAO.updateStock(this);
 	}
 }
