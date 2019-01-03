@@ -237,24 +237,27 @@ public class Configuracao {
 		return preco-desconto;
 	}
 
-	public List<Componente> componentesIncompativeisNaConfig (Componente componente) {
+	public List<Componente> componentesIncompativeisNaConfig (Map<Integer,Componente> componentes) {
 		List<Componente> incompativeis = new ArrayList<>();
 
-		for(Componente componenteIncomp : componente.getIncompativeis().values()) {
-			if (this.consultarComponentes().containsKey(componenteIncomp.getId())) {
-				incompativeis.add(componenteIncomp);
+		for (Componente c : componentes.values()) {
+			for (Componente componenteIncomp : c.getIncompativeis().values()) {
+				if (this.consultarComponentes().containsKey(componenteIncomp.getId())) {
+					incompativeis.add(componenteIncomp);
+				}
 			}
 		}
-
 		return incompativeis;
 	}
 
-	public List<Componente> componentesRequeridosQueNaoEstaoConfig (Componente componente) {
+	public List<Componente> componentesRequeridosQueNaoEstaoConfig (Map<Integer,Componente> componentes) {
 		List<Componente> requeridos = new ArrayList<>();
 
-		for(Componente componenteRequerido : componente.getRequeridos().values()) {
-			if (!this.consultarComponentes().containsKey(componenteRequerido.getId())) {
-				requeridos.add(componenteRequerido);
+		for (Componente c : componentes.values()) {
+			for (Componente componenteRequerido : c.getRequeridos().values()) {
+				if (!this.consultarComponentes().containsKey(componenteRequerido.getId())) {
+					requeridos.add(componenteRequerido);
+				}
 			}
 		}
 
