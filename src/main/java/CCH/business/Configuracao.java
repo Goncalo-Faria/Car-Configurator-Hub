@@ -237,7 +237,7 @@ public class Configuracao {
 		return preco-desconto;
 	}
 
-	public List<Componente> componentesIncompativeisNaConfig (Map<Integer,Componente> componentes) {
+	public List<Componente> componentesIncompativeisNaConfig(Map<Integer,Componente> componentes) {
 		List<Componente> incompativeis = new ArrayList<>();
 
 		for (Componente c : componentes.values()) {
@@ -250,7 +250,7 @@ public class Configuracao {
 		return incompativeis;
 	}
 
-	public List<Componente> componentesRequeridosQueNaoEstaoConfig (Map<Integer,Componente> componentes) {
+	public List<Componente> componentesRequeridosQueNaoEstaoConfig(Map<Integer,Componente> componentes) {
 		List<Componente> requeridos = new ArrayList<>();
 
 		for (Componente c : componentes.values()) {
@@ -259,6 +259,17 @@ public class Configuracao {
 					requeridos.add(componenteRequerido);
 				}
 			}
+		}
+
+		return requeridos;
+	}
+
+	public List<Componente> componentesRequeremMeNaConfig(int componenteId) {
+		List<Componente> requeridos = new ArrayList<>();
+
+		for (Componente componenteRequerMe : this.consultarComponentes().values()) {
+			if (componenteRequerMe.getRequeridos().containsKey(componenteId))
+				requeridos.add(componenteRequerMe);
 		}
 
 		return requeridos;
