@@ -114,7 +114,10 @@ public class CCH {
 	 * @return Utilizador criado
 	 */
 	public Utilizador criarUtilizador() {
-		Utilizador utilizador = new Utilizador("empty", "empty");
+
+
+		Integer id = utilizadorDAO.getNextId();
+		Utilizador utilizador = new Utilizador(id,"empty", "empty");
 		utilizador = utilizadorDAO.put(utilizador.getId(), utilizador);
 		return utilizador;
 	}
@@ -342,6 +345,10 @@ public class CCH {
 
 	public void loadConfigAtual(int id) {
 		gestaoDeConfiguracao.loadConfigAtual(id);
+	}
+
+	public void atualizarUser(Utilizador u){
+		this.utilizadorDAO.update(u.key(),u);
 	}
 
 }

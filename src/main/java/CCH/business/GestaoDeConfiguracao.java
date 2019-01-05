@@ -29,25 +29,6 @@ public class GestaoDeConfiguracao {
 		this.encomendas = new EncomendaDAO();
 	}
 
-	/**
-	 * Devolve o DAO que contém as informações de todas as configurações
-	 * presentes no sistema.
-	 *
-	 * @return ConfiguracaoDAO
-	 */
-	public ConfiguracaoDAO getConfiguracoes() {
-		return configuracoes;
-	}
-
-	/**
-	 * Atualiza o DAO que contém as informações de todas as configurações
-	 * 	 * presentes no sistema.
-	 *
-	 * @param configuracoes Novo DAO das configurações
-	 */
-	public void setConfiguracoes(ConfiguracaoDAO configuracoes) {
-		this.configuracoes = configuracoes;
-	}
 
 	/**
 	 * Método que cria uma nova configuração, com as informações default, no
