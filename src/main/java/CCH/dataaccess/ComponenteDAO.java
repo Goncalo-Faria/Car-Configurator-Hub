@@ -55,7 +55,7 @@ public class ComponenteDAO extends GenericDAOClass<Integer> {
 
             List<String> row;
             int col = rs.getMetaData().getColumnCount();
-            Componente token = new Componente();
+            Componente token = (Componente)getToken();
 
             while (rs.next()) {
 
@@ -86,7 +86,7 @@ public class ComponenteDAO extends GenericDAOClass<Integer> {
             ResultSet rs = stm.executeQuery(sql);
             List<String> row;
             int col = rs.getMetaData().getColumnCount();
-            Componente token = new Componente();
+            Componente token = (Componente)getToken();
 
             while (rs.next()) {
 
@@ -132,7 +132,7 @@ public class ComponenteDAO extends GenericDAOClass<Integer> {
 
             List<String> row;
             int col = rs.getMetaData().getColumnCount();
-            Componente token = new Componente();
+            Componente token = (Componente)getToken();
 
             while (rs.next()) {
 
