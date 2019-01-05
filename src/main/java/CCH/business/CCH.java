@@ -2,6 +2,7 @@ package CCH.business;
 
 import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.PacoteDAO;
+import CCH.dataaccess.RemoteClass;
 import CCH.dataaccess.UtilizadorDAO;
 import CCH.exception.*;
 
@@ -227,8 +228,15 @@ public class CCH {
 	 */
 
 	public Configuracao ConfiguracaoOtima(double valor) throws NoOptimalConfigurationException, ConfiguracaoNaoTemObrigatoriosException {
-		Collection<Pacote> pacs = consultarPacotes();
-		Collection<Componente> comps = consultarComponentes();
+		Collection<RemoteClass<Integer>> pacsIds = pacoteDAO.values();
+		Collection<RemoteClass<Integer>> compsIds = componenteDAO.values();
+
+		ArrayList<Pacote> pacs = new ArrayList<>();
+		pacsIds.forEach(id -> pacs.add(pacoteDAO.get(id.key())));
+
+		ArrayList<Componente> comps = new ArrayList<>();
+		compsIds.forEach(id -> comps.add(componenteDAO.get(id.key())));
+
 		return gestaoDeConfiguracao.configuracaoOtima(comps,pacs,valor);
 	}
 
