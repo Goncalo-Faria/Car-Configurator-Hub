@@ -15,6 +15,14 @@ public class ComponenteDAO extends GenericDAOClass<Integer> {
                 Arrays.asList(new String[]{"id","stock","preco","nome","ClasseComponente_id"}));
     }
 
+    public ComponenteDAO ( Componente c) {
+        super("Componente",
+                c,
+                Arrays.asList(new String[]{"id","stock","preco","nome","ClasseComponente_id"}));
+    }
+
+
+
     public Componente get(Object key) {
         return (Componente)super.get(key);
     }
