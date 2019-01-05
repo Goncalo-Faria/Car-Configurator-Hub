@@ -351,5 +351,9 @@ public class CCH {
 		this.utilizadorDAO.update(u.key(),u);
 	}
 
+	public void atualizarDesconto(Pacote p){
+		this.pacoteDAO.updateDesconto(p);
+	}
+
 }
 
