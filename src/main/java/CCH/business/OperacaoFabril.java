@@ -5,9 +5,9 @@ import CCH.dataaccess.EncomendaDAO;
 import CCH.exception.SemEncomendasDisponiveisException;
 import CCH.exception.StockInvalidoException;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.TreeMap;
 
 /**
@@ -30,6 +30,15 @@ public class OperacaoFabril {
 	}
 
 	/**
+	 * Devolve todos os componentes do sistema.
+	 *
+	 * @return List<Componente> lista com todos os componentes presentes no sistema
+	 */
+	public List<Componente> consultarComponentes() {
+		return new ArrayList<>(componenteDAO.getAllComponente().values());
+	}
+
+	/**
 	 * Devolve a próxima encomenda que está pronta a ser produzida (existindo
 	 * em stock todos os componentes necessários para a produção da encomenda).
 	 *
@@ -39,7 +48,7 @@ public class OperacaoFabril {
 	 * se não houver em stock algum dos componentes necessários para a encomenda
 	 */
 	public Encomenda consultarProximaEncomenda() throws SemEncomendasDisponiveisException {
-		Collection<Encomenda> sorted = new TreeMap<>(encomendaDAO.getAll()).values();
+		Collection<Encomenda> sorted = new TreeMap<>(encomendaDAO.getAllEncomenda()).values();
 
 		for (Encomenda encomenda : sorted) {
 			boolean available = true;

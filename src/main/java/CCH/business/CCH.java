@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 
 /**
  * Classe principal da aplicação Car Configurator Hub.
@@ -157,8 +159,9 @@ public class CCH {
 	 * @return Pacote criado
 	 */
 	public Pacote criarPacote() {
-		Pacote pacote = new Pacote();
-		pacote = pacoteDAO.put(pacote.getId(), pacote);
+		int id = pacoteDAO.getNextId();
+		Pacote pacote = new Pacote(id, 0);
+		pacote = pacoteDAO.put(id, pacote);
 		return pacote;
 	}
 
@@ -173,6 +176,7 @@ public class CCH {
 		pacoteDAO.removeAllComponentes(pacoteId);
 		pacoteDAO.remove(pacoteId);
 	}
+
 
 	/**
 	 * Método que cria um novo utilizador no sistema.
@@ -191,7 +195,7 @@ public class CCH {
 	 * @param utilizadorId Id do utilizador que se pretende eliminar
 	 */
 	public void removerUtilizador(int utilizadorId) {
-		utilizadorDAO.remove(utilizadorId);
+		this.utilizadorDAO.remove(utilizadorId);
 	}
 
 	/**
@@ -200,7 +204,8 @@ public class CCH {
 	 * @return List<Utilizador> Lista de todos os utilizadores no sistema
 	 */
 	public List<Utilizador> consultarFuncionarios() {
-		return new ArrayList<>(utilizadorDAO.values());
+		return this.utilizadorDAO.values().stream().
+                    map(l -> (Utilizador)l).collect(Collectors.toList());
 	}
 
 	/**
@@ -209,7 +214,8 @@ public class CCH {
 	 * @return List<Pacote> Lista de todos os pacotes no sistema
 	 */
 	public List<Pacote> consultarPacotes() {
-		return new ArrayList<>(pacoteDAO.values());
+		return this.pacoteDAO.values().stream().
+                    map(l -> (Pacote) l).collect(Collectors.toList());
 	}
 
 	/**
@@ -218,14 +224,17 @@ public class CCH {
 	 * @return List<Componente> Lista de todos os componentes no sistema
 	 */
 	public List<Componente> consultarComponentes() {
-		return new ArrayList<>(componenteDAO.values());
+		return this.componenteDAO.values().stream().
+                    map(l -> (Componente)l).collect(Collectors.toList());
 	}
+
 
 	/**
 	 * Método que devolve todos as configurações no sistema.
 	 *
 	 * @return List<Configurações> Lista de todos as configurações no sistema
 	 */
+  
 	public List<Configuracao> consultarConfiguracoes() {
 		return gestaoDeConfiguracao.consultarConfiguracoes();
 	}
@@ -247,7 +256,6 @@ public class CCH {
 	public void removerConfiguracao(int configuracaoId) {
 		gestaoDeConfiguracao.removerConfiguracao(configuracaoId);
 	}
-
 	/**
 	 * Método que devolve os componentes dentro de um determinado pacote.
 	 *

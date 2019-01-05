@@ -5,9 +5,9 @@ import CCH.dataaccess.EncomendaDAO;
 import CCH.exception.*;
 import ilog.concert.IloException;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,6 +53,7 @@ public class GestaoDeConfiguracao {
 	 * Método que cria uma nova configuração, com as informações default, no
 	 * sistema.
 	 */
+
 	public void criarConfiguracao() {
 		Configuracao configuracao = new Configuracao(configuracoes.getNextId(), 0, 0);
 		configuracoes.put(configuracao.getId(), configuracao);
@@ -74,7 +75,7 @@ public class GestaoDeConfiguracao {
 	 * @return List<Configuracao> Lista com todas as configurações no sistema
 	 */
 	public List<Configuracao> consultarConfiguracoes() {
-		return new ArrayList<>(configuracoes.values());
+		return new ArrayList<>(configuracoes.getAllConfiguracao().values());
 	}
 
 	/**
@@ -136,6 +137,7 @@ public class GestaoDeConfiguracao {
 		}
 
 		ConfiguracaoOtima c = new ConfiguracaoOtima();
+
     
 		Collection<Componente> componentesObrigatorios = configuracoes.getComponentes(configuracaoatual.getId()).values();
 
@@ -204,4 +206,5 @@ public class GestaoDeConfiguracao {
 	public void loadConfigAtual(int id) {
 		configuracaoatual = configuracoes.get(id);
 	}
+
 }

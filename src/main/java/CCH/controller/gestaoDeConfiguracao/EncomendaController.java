@@ -3,6 +3,8 @@ package CCH.controller.gestaoDeConfiguracao;
 import CCH.CarConfiguratorHubApplication;
 import CCH.business.CCH;
 import CCH.business.Configuracao;
+
+import CCH.business.GestaoDeConfiguracao;
 import CCH.exception.EncomendaRequerObrigatoriosException;
 import CCH.exception.EncomendaRequerOutrosComponentes;
 import CCH.exception.EncomendaTemComponentesIncompativeis;
