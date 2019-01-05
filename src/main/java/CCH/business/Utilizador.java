@@ -4,7 +4,6 @@ import CCH.dataaccess.RemoteClass;
 import CCH.dataaccess.UtilizadorDAO;
 import CCH.exception.TipoUtilizadorInexistenteException;
 
-
 import java.util.LinkedList;
 import java.util.List;
 

@@ -1,13 +1,11 @@
 package CCH.dataaccess;
 
 import CCH.business.Componente;
-import CCH.business.Configuracao;
 import CCH.business.Encomenda;
 
-import java.util.*;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.*;
 
 public class EncomendaDAO extends GenericDAOClass<Integer> {
 

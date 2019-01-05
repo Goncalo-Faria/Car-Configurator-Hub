@@ -1,16 +1,9 @@
 package CCH.dataaccess;
 
 import CCH.business.Utilizador;
-import CCH.business.TipoUtilizador;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Collection;
-import java.util.Set;
-import java.util.HashSet;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Arrays;
 
 public class UtilizadorDAO extends GenericDAOClass<Integer> {
 

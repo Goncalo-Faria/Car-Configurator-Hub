@@ -4,27 +4,11 @@ import CCH.dataaccess.ClasseComponenteDAO;
 import CCH.dataaccess.ConfiguracaoDAO;
 import CCH.dataaccess.PacoteDAO;
 import CCH.dataaccess.RemoteClass;
-
-import CCH.exception.ComponenteJaAdicionadoException;
-import CCH.exception.PacoteJaAdicionadoException;
-import CCH.exception.EncomendaTemComponentesIncompativeis;
-import CCH.exception.EncomendaRequerOutrosComponentes;
-import CCH.exception.EncomendaRequerObrigatoriosException;
-
-
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
+import CCH.exception.*;
+import ilog.concert.IloException;
 
 import java.util.*;
-
-import java.util.Set;
-
 import java.util.stream.Collectors;
-import ilog.concert.IloException;
 
 /**
  * Classe que caracteriza uma configuração, com todas as informações da mesma.
@@ -416,7 +400,7 @@ public class Configuracao implements RemoteClass<Integer> {
 	 * Devolve a lista dos componentes presentes na configuração que são
 	 * incompatíveis com o componente passado como parâmetro.
 	 *
-	 * @param componente Componente que se pretende analisar
+	 * @param componentes Componente que se pretende analisar
 	 */
 	public List<Componente> componentesIncompativeisNaConfig(Map<Integer,Componente> componentes) {
 		List<Componente> incompativeis = new ArrayList<>();
@@ -435,7 +419,7 @@ public class Configuracao implements RemoteClass<Integer> {
 	 * Devolve a lista dos componentes que ainda não estão na configuração
 	 * mas que o componente passado como parâmetro também requer.
 	 *
-	 * @param componente Componente que se pretende analisar
+	 * @param componentes Componente que se pretende analisar
 	 */
 	public List<Componente> componentesRequeridosQueNaoEstaoConfig(Map<Integer,Componente> componentes) {
 		List<Componente> requeridos = new ArrayList<>();
@@ -473,7 +457,7 @@ public class Configuracao implements RemoteClass<Integer> {
 	 * pacote. Em caso afirmativo, substitui os componentes isolados pelo
 	 * pacote.
 	 */
-	public void checkforPacotesInConfiguration(){
+	public boolean checkforPacotesInConfiguration(){
 		Collection<RemoteClass<Integer>> pacotes = this.pacoteDAO.values();
 		Map<Integer,Componente> compsNotInPacotes = this.componentesNotInPacotes();
 		for (RemoteClass r:pacotes) {
@@ -506,8 +490,8 @@ public class Configuracao implements RemoteClass<Integer> {
 	 * @return Map<Integer, Componente> componentes
 	 */
 	public Map<Integer, Componente> componentesNotInPacotes() {
-		Map<Integer,Componente> componentes = this.consultarComponentes();
-		Map<Integer,Pacote> pacotes = this.consultarPacotes();
+		Map<Integer, Componente> componentes = this.consultarComponentes();
+		Map<Integer, Pacote> pacotes = this.consultarPacotes();
 
 		for (Pacote p : pacotes.values()) {
 			for (Componente c : p.getComponentes().values()) {
@@ -516,6 +500,7 @@ public class Configuracao implements RemoteClass<Integer> {
 		}
 
 		return componentes;
+	}
 
     /**
      * Indica se a configuração tem todos os componentes básicos (obrigatórios).

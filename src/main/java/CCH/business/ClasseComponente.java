@@ -73,8 +73,6 @@ public class ClasseComponente implements RemoteClass<Integer> {
 		return l;
 	}
 
-	public String getNome() {
-		return this.nome;
 	/**
 	 * Atualiza o id da classe do componente.
 	 *

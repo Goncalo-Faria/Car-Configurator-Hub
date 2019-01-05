@@ -1,10 +1,10 @@
 package CCH.dataaccess;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
-import java.sql.ResultSet;
 
 public abstract class GenericDAOClass<K> implements Map<K, RemoteClass<K>> {
 

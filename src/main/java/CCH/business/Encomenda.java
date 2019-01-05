@@ -17,11 +17,11 @@ public class Encomenda implements RemoteClass<Integer> {
 	private Map<Integer, Componente> componentes;
 	private int id;
 	private double preco;
-	private final String nomeCliente;
-	private final String numeroDeIdentificacaoCliente;
-	private final String moradaCliente;
-	private final String paisCliente;
-	private final String emailCliente;
+	private String nomeCliente;
+	private String numeroDeIdentificacaoCliente;
+	private String moradaCliente;
+	private String paisCliente;
+	private String emailCliente;
 
 	public Encomenda() {
 		nomeCliente = null;

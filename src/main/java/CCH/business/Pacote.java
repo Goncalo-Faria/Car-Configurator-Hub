@@ -36,7 +36,7 @@ public class Pacote implements RemoteClass<Integer> {
 	 * @param desconto Desconto associado ao pacote
 	 */
 	public Pacote(int id, double desconto) {
-		this.pacotes = new PacoteDAO();
+		this.pacoteDAO = new PacoteDAO();
 		this.id = id;
 		this.desconto = desconto;
 	}
@@ -68,6 +68,7 @@ public class Pacote implements RemoteClass<Integer> {
 		l.add(String.valueOf(this.id));
 		l.add(String.valueOf(this.desconto));
 		return l;
+	}
 
 	/**
 	 * Atualiza o id do pacote.
@@ -103,14 +104,14 @@ public class Pacote implements RemoteClass<Integer> {
 	 * no pacote
 	 */
 	public Map<Integer, Componente> getComponentes() {
-		return pacotes.getComponentes(id);
+		return pacoteDAO.getComponentes(id);
 	}
 
 
 	public Pacote(List<String> rs){
 		this.id = Integer.valueOf(rs.get(0));
 		this.desconto = Double.valueOf(rs.get(1));
-		this.pacotes = new PacoteDAO();
+		this.pacoteDAO = new PacoteDAO();
 	}
 
 	/**
@@ -129,13 +130,13 @@ public class Pacote implements RemoteClass<Integer> {
 		if (alreadyHas)
 			throw new ComponenteJaExisteNoPacoteException();
 
-		for (Componente c : pacotes.getAllComponentesNoPacote(this.id)) {
+		for (Componente c : pacoteDAO.getAllComponentesNoPacote(this.id)) {
 			if (c.getIncompativeis() != null && c.getIncompativeis().containsKey(componenteId))
 				throw new ComponenteIncompativelNoPacoteException(c.getFullName());
 
 		}
 
-		pacotes.adicionaComponente(this.id, componenteId);
+		pacoteDAO.adicionaComponente(this.id, componenteId);
 	}
 
 	/**
@@ -144,7 +145,7 @@ public class Pacote implements RemoteClass<Integer> {
 	 * @param componenteId Id do componente que se pretende remover
 	 */
 	public void removeComponente(int componenteId) {
-		pacotes.removeComponente(this.id, componenteId);
+		pacoteDAO.removeComponente(this.id, componenteId);
 	}
 
 	/**
@@ -171,7 +172,7 @@ public class Pacote implements RemoteClass<Integer> {
 	 * @param pacote Objeto pacote já com as informações novas
 	 */
 	public void atualizarDesconto(Pacote pacote) {
-		pacotes.updateDesconto(pacote);
+		pacoteDAO.updateDesconto(pacote);
 	}
 
 	@Override

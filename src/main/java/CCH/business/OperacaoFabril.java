@@ -5,9 +5,9 @@ import CCH.dataaccess.EncomendaDAO;
 import CCH.exception.SemEncomendasDisponiveisException;
 import CCH.exception.StockInvalidoException;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.TreeMap;
 
 /**

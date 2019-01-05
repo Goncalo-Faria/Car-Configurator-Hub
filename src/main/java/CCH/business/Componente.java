@@ -4,8 +4,9 @@ import CCH.dataaccess.ClasseComponenteDAO;
 import CCH.dataaccess.ComponenteDAO;
 import CCH.dataaccess.RemoteClass;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
 
 public class Componente implements RemoteClass<Integer> {
 

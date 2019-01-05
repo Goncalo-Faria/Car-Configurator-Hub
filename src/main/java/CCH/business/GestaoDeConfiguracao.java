@@ -2,16 +2,12 @@ package CCH.business;
 
 import CCH.dataaccess.ConfiguracaoDAO;
 import CCH.dataaccess.EncomendaDAO;
-import CCH.exception.EncomendaRequerOutrosComponentes;
-import CCH.exception.EncomendaTemComponentesIncompativeis;
-import CCH.exception.EncomendaRequerObrigatoriosException;
-import CCH.exception.NoOptimalConfigurationException;
-import CCH.exception.ConfiguracaoNaoTemObrigatoriosException;
+import CCH.exception.*;
 import ilog.concert.IloException;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
