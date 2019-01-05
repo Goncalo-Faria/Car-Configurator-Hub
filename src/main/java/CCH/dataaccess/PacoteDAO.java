@@ -18,31 +18,6 @@ public class PacoteDAO extends GenericDAOClass<Integer> {
                 Arrays.asList(new String[]{"id","desconto"}));
     }
 
-    public int getNextId() {
-        try {
-            Statement stm = conn.createStatement();
-            String sql = "SELECT id FROM Pacote ORDER BY id DESC LIMIT 1;";
-            ResultSet rs = stm.executeQuery(sql);
-
-            if (rs.next()) {
-                return rs.getInt(1) + 1;
-            }
-
-            return 0;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
-
-    public boolean containsKey(Object key) throws NullPointerException {
-        try {
-            Statement stm = conn.createStatement();
-            String sql = "SELECT id FROM Pacote WHERE ID = " + key;
-            ResultSet rs = stm.executeQuery(sql);
-            return rs.next();
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
-
     public Pacote get(Object key) {
         return (Pacote)super.get(key);
     }
