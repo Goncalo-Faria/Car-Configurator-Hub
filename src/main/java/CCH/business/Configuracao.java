@@ -21,14 +21,14 @@ public class Configuracao implements RemoteClass<Integer> {
 	private double preco;
 	private double desconto;
 
-	private PacoteDAO pacoteDAO = new PacoteDAO();
-	private ConfiguracaoDAO configuracaoDAO = new ConfiguracaoDAO();
+	private PacoteDAO pacoteDAO;
+	private ConfiguracaoDAO configuracaoDAO;
 
     /**
      * Construtor por omissão da Configuração.
      */
     public Configuracao() {
-        this.id = configuracaoDAO.getNextId();
+        this.id = 0;
         this.preco = 0;
         this.desconto = 0;
     }

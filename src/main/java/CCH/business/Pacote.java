@@ -17,14 +17,14 @@ import java.util.Map;
 public class Pacote implements RemoteClass<Integer> {
 	private int id;
 	private double desconto;
-	private PacoteDAO pacoteDAO = new PacoteDAO();
+	private PacoteDAO pacoteDAO;
 
 	/**
 	 * Construtor por omissão do Pacote.
 	 */
    
 	public Pacote() {
-		this.id = pacoteDAO.getNextId();
+		this.id = 0;
 		this.desconto = 0.0;
 	}
 

@@ -39,13 +39,7 @@ public class ConfiguracaoDAO extends GenericDAOClass<Integer> {
             Configuracao al = this.get(key);
             Statement stm = conn.createStatement();
 
-            String sql = "BEGIN TRANSACTION;";
-
-            sql = sql + "DELETE FROM Configuracao_has_Componente WHERE Configuracao_id = " + key + ";";
-
-
-            sql = sql +"DELETE FROM Configuracao_has_Pacote WHERE Configuracao_id = " + key + ";";
-
+            String sql = "START TRANSACTION;";
 
             sql = sql + "DELETE FROM Configuracao WHERE id = " + key + ";";
 
