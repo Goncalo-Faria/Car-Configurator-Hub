@@ -70,7 +70,6 @@ public class EncomendaDAO extends GenericDAOClass<Integer> {
 
     public void putComponente (int idEncomenda, int idComponente) {
         try {
-            System.out.println("estou a pôr o " + idComponente);
             Statement stm = conn.createStatement();
             String sql = "INSERT INTO Encomenda_has_Componente VALUES ('" +
                     idEncomenda + "','" + idComponente + "');";

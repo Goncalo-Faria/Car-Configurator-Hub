@@ -4,11 +4,21 @@ import CCH.dataaccess.RemoteClass;
 import CCH.dataaccess.UtilizadorDAO;
 import CCH.exception.TipoUtilizadorInexistenteException;
 
+
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Classe utilizador, que representa o ator que interage com a aplicação.
+ *
+ * @version 20181229
+ */
 public class Utilizador implements RemoteClass<Integer> {
-
+/**
+ * Classe utilizador, que representa o ator que interage com a aplicação.
+ *
+ * @version 20181229
+ */
 	private int id;
 	private String nome;
 	private String password;
@@ -20,9 +30,10 @@ public class Utilizador implements RemoteClass<Integer> {
 	}
 
 	/**
+	 * Construtor parametrizado da Utilizador.
 	 *
-	 * @param nome
-	 * @param password
+	 * @param nome Nome do utilizador
+	 * @param password Password do utilizador
 	 */
 	public Utilizador(String nome, String password) {
 		this.utilizadorDAO = new UtilizadorDAO();
@@ -32,6 +43,14 @@ public class Utilizador implements RemoteClass<Integer> {
 		this.tipoUtilizador = TipoUtilizador.STAND; //default
 	}
 
+	/**
+	 * Construtor parametrizado da Utilizador.
+	 *
+	 * @param nome Nome do utilizador
+	 * @param password Password do utilizador
+	 * @param tipoUtilizador Tipo do utilizador (poderá ser admin, funcionário da
+	 * fábrica ou do stand)
+	 */
 	public Utilizador(int id, String nome, String password, TipoUtilizador tipoUtilizador) {
 		this.id = id;
 		this.nome = nome;
@@ -48,14 +67,18 @@ public class Utilizador implements RemoteClass<Integer> {
 		this.utilizadorDAO = new UtilizadorDAO();
 	}
 
+	/**
+	 * Devolve o id do utilizador.
+	 *
+	 * @return id
+	 */
 	public int getId() {
 		return this.id;
 	}
 
-    public Integer key(String k) {
-        return Integer.valueOf(k);
-    }
-
+  public Integer key(String k) {
+    return Integer.valueOf(k);
+  }
 
 	public Integer key(){ return this.id; }
 	
@@ -75,25 +98,76 @@ public class Utilizador implements RemoteClass<Integer> {
 		return new Utilizador(row);
 	}
 
-	public TipoUtilizador getTipoUtilizador() {
-		return tipoUtilizador;
+	/**
+	 * Atualiza o id do utilizador.
+	 *
+	 * @param id Id do utilizador
+	 */
+	public void setId(int id) {
+		this.id = id;
+
 	}
 
+	/**
+	 * Devolve o nome do utilizador.
+	 *
+	 * @return nome
+	 */
 	public String getNome() {
 		return nome;
 	}
 
+	/**
+	 * Atualiza o nome do utilizador.
+	 *
+	 * @param nome Nome do utilizador
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
+	/**
+	 * Devolve a password do utilizador.
+	 *
+	 * @return password
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Atualiza a password do utilizador.
+	 *
+	 * @param password Password do utilizador
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	/**
+	 * Devolve o Tipo de Utilizador do utilizador.
+	 *
+	 * @return TipoUtilizador
+	 */
+	public TipoUtilizador getTipoUtilizador() {
+		return tipoUtilizador;
+	}
+
+	/**
+	 * Atualiza o Tipo de Utilizador do utilizador.
+	 *
+	 * @param tipoUtilizador Tipo de Utilizador do utilizador
+	 */
+	public void setTipoUtilizador(TipoUtilizador tipoUtilizador) {
+		this.tipoUtilizador = tipoUtilizador;
+	}
+
+	/**
+	 * Atualiza o Tipo de Utilizador através do seu valor inteiro correspondente
+	 * (0, 1 ou 2).
+	 *
+	 * @param value Valor inteiro correspondente ao tipo de utilizador
+	 */
 
 	public void setTipoUtilizadorValue(int value) {
 		TipoUtilizador tipoUtilizador = TipoUtilizador.values()[value];
@@ -102,18 +176,32 @@ public class Utilizador implements RemoteClass<Integer> {
 	}
 
 	/**
+	 * Verifica se o id e a password fornecidos correspondem ao id e à
+	 * password do utilizador.
 	 *
-	 * @param id
-	 * @param password
+	 * @param id Id do utilizador
+	 * @param password Password do utilizador
+	 * @return true se corresponderem, false caso contrário
 	 */
 	public boolean validarCredenciais(int id, String password) {
 		return this.id == id && this.password.equals(password);
 	}
 
+	/**
+	 * Devolve a string "Utilizador" + o seu determinado id.
+	 *
+	 * @return string
+	 */
 	public String getNomeUtilizador() {
 		return "Utilizador " + id;
 	}
 
+	/**
+	 * Devolve o nome do tipo de utilizador (função do utilizador na empresa:
+	 * administrador, fábrica ou stand).
+	 *
+	 * @return string
+	 */
 	public String getNomeTipoUtilizador() {
 		if (tipoUtilizador == TipoUtilizador.ADMIN)
 			return "Admin";
@@ -123,6 +211,15 @@ public class Utilizador implements RemoteClass<Integer> {
 			return "Stand";
 	}
 
+	/**
+	 * Devolve o valor inteiro correspondente ao tipo de utilizador passado como
+	 * parâmetro (0 -> admin, 1 -> funcionário da fábrica, 2 -> funcionário
+	 * do stand).
+	 *
+	 * @return int Valor inteiro correspondente ao tipo de utilizador
+	 * @throws TipoUtilizadorInexistenteException Caso o tipo de utilizador passado
+	 * como parâmetro não existir
+	 */
 	public int parseNomeTipoToValue(String nomeTipo) throws TipoUtilizadorInexistenteException {
 		if (nomeTipo.equals("Admin"))
 			return 0;
@@ -134,14 +231,29 @@ public class Utilizador implements RemoteClass<Integer> {
 			throw new TipoUtilizadorInexistenteException();
 	}
 
+	/**
+	 * Atualiza o nome do utilizador (incluindo na base de dados).
+	 *
+	 * @param utilizador Objeto utilizador já com as informações novas
+	 */
 	public void atualizarUser(Utilizador utilizador) {
 		utilizadorDAO.updateUser(utilizador);
 	}
 
+	/**
+	 * Atualiza a password do utilizador (incluindo na base de dados).
+	 *
+	 * @param utilizador Objeto utilizador já com as informações novas
+	 */
 	public void atualizarPassword(Utilizador utilizador) {
 		utilizadorDAO.updatePassword(utilizador);
 	}
 
+	/**
+	 * Atualiza o tipo do utilizador (incluindo na base de dados).
+	 *
+	 * @param utilizador Objeto utilizador já com as informações novas
+	 */
 	public void atualizarTipo(Utilizador utilizador) {
 		utilizadorDAO.updateTipo(utilizador);
 	}
