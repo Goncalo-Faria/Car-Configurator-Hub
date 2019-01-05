@@ -8,7 +8,9 @@ import CCH.exception.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
 
 /**
  * Classe principal da aplicação Car Configurator Hub.
@@ -59,76 +61,6 @@ public class CCH {
 	 * encomendas.
 	 *
 	 * @return OperacaoFabril
-	 */
-	public OperacaoFabril getOperacaoFabril() {
-		return operacaoFabril;
-	}
-
-	/**
-	 * Atualiza a OperacaoFabril do sistema.
-	 *
-	 * @param operacaoFabril OperacaoFabril com as informações dos componentes e encomendas
-	 */
-	public void setOperacaoFabril(OperacaoFabril operacaoFabril) {
-		this.operacaoFabril = operacaoFabril;
-	}
-
-	/**
-	 * Devolve o UtilizadorDAO, que permite aceder às
-	 * informações dos utilizadores na base de dados.
-	 *
-	 * @return UtilizadorDAO
-	 */
-	public UtilizadorDAO getUtilizadorDAO() {
-		return utilizadorDAO;
-	}
-
-	/**
-	 * Atualiza o UtilizadorDAO do sistema.
-	 *
-	 * @param utilizadorDAO UtilizadorDAO com os devidos métodos para aceder à base de dados.
-	 */
-	public void setUtilizadorDAO(UtilizadorDAO utilizadorDAO) {
-		this.utilizadorDAO = utilizadorDAO;
-	}
-
-	/**
-	 * Devolve o PacoteDAO, que permite aceder às
-	 * informações dos pacotes na base de dados.
-	 *
-	 * @return PacoteDAO
-	 */
-	public PacoteDAO getPacoteDAO() {
-		return pacoteDAO;
-	}
-
-	/**
-	 * Atualiza o PacoteDAO do sistema.
-	 *
-	 * @param pacoteDAO PacoteDAO com os devidos métodos para aceder à base de dados.
-	 */
-	public void setPacoteDAO(PacoteDAO pacoteDAO) {
-		this.pacoteDAO = pacoteDAO;
-	}
-
-	/**
-	 * Devolve o ComponenteDAO, que permite aceder às
-	 * informações dos componentes na base de dados.
-	 *
-	 * @return ComponenteDAO
-	 */
-	public ComponenteDAO getComponenteDAO() {
-		return componenteDAO;
-	}
-
-	/**
-	 * Atualiza o ComponenteDAO do sistema.
-	 *
-	 * @param componenteDAO ComponenteDAO com os devidos métodos para aceder à base de dados.
-	 */
-	public void setComponenteDAO(ComponenteDAO componenteDAO) {
-		this.componenteDAO = componenteDAO;
-	}
 
 	/**
 	 * Método que permite que o utilizador aceda à aplicação.
@@ -232,6 +164,7 @@ public class CCH {
 	 *
 	 * @return List<Configurações> Lista de todos as configurações no sistema
 	 */
+
 	public List<Configuracao> consultarConfiguracoes() {
 		return gestaoDeConfiguracao.consultarConfiguracoes();
 	}
@@ -279,8 +212,9 @@ public class CCH {
 	 * Método que gera uma configuração ótima, ou seja, uma configuração que tenta
 	 * maximizar a utilização do dinheiro previsto.
 	 *
-	 * @param configuracao Configuração com o ponto de partida para se gerar a
+
 	 * configuração ótima
+
 	 * @param valor Valor máximo que o cliente está disposto a gastar
 	 * @return Configuracao ótima gerada
 	 * @throws NoOptimalConfigurationException Caso não exista nenhuma configuração
@@ -288,10 +222,11 @@ public class CCH {
 	 * @throws ConfiguracaoNaoTemObrigatoriosException Caso a configuração não
 	 * contenha os componentes básicos (obrigatórios)
 	 */
-	public Configuracao ConfiguracaoOtima(Configuracao configuracao, double valor) throws NoOptimalConfigurationException, ConfiguracaoNaoTemObrigatoriosException {
-		Collection<Pacote> pacs = pacoteDAO.values().stream().map(p -> (Pacote)p).collect(Collectors.toList());
-		Collection<Componente> comps = componenteDAO.values().stream().map(p -> (Componente)p).collect(Collectors.toList());
-		return gestaoDeConfiguracao.configuracaoOtima(comps,pacs,configuracao,valor);
+
+	public Configuracao ConfiguracaoOtima(double valor) throws NoOptimalConfigurationException, ConfiguracaoNaoTemObrigatoriosException {
+		Collection<Pacote> pacs = consultarPacotes();
+		Collection<Componente> comps = consultarComponentes();
+		return gestaoDeConfiguracao.configuracaoOtima(comps,pacs,valor);
 	}
 
 	/**
@@ -311,7 +246,7 @@ public class CCH {
 	/**
 	 * Método que cria uma nova encomenda no sistema.
 	 *
-	 * @param configuracao Configuração que se pretende encomendar
+
 	 * @param nomeCliente Nome do cliente a que a encomenda corresponde
 	 * @param numeroDeIdentificacaoCliente Número de Identificação do cliente
 	 * @param moradaCliente Morada do cliente
@@ -325,14 +260,13 @@ public class CCH {
 	 * os componentes obrigatórios
 	 */
 	public void criarEncomenda(
-			Configuracao configuracao,
 			String nomeCliente,
 			String numeroDeIdentificacaoCliente,
 			String moradaCliente,
 			String paisCliente,
 			String emailCliente
 	) throws EncomendaRequerOutrosComponentes, EncomendaTemComponentesIncompativeis, EncomendaRequerObrigatoriosException {
-		gestaoDeConfiguracao.criarEncomenda(configuracao, nomeCliente, numeroDeIdentificacaoCliente, moradaCliente,
+		gestaoDeConfiguracao.criarEncomenda(nomeCliente, numeroDeIdentificacaoCliente, moradaCliente,
 											  paisCliente, emailCliente);
 	}
 
@@ -370,8 +304,45 @@ public class CCH {
 		return operacaoFabril.atualizarStock(componente);
 	}
 
-	public void atualizarDesconto(Pacote pacote) {
-		pacoteDAO.updateDesconto(pacote);
+	public boolean checkforPacotesInConfiguration() {
+		return gestaoDeConfiguracao.checkforPacotesInConfiguration();
 	}
+
+	public void adicionarComponente(int id) throws ComponenteJaAdicionadoException{
+		gestaoDeConfiguracao.adicionarComponente(id);
+	}
+
+	public List<Componente> componentesIncompativeisNaConfig(Map<Integer, Componente> comps) {
+		return this.gestaoDeConfiguracao.componentesIncompativeisNaConfig(comps);
+	}
+
+	public List<Componente> componentesRequeridosQueNaoEstaoConfig(Map<Integer, Componente> comps) {
+		return gestaoDeConfiguracao.componentesRequeridosQueNaoEstaoConfig(comps);
+	}
+
+	public Pacote adicionarPacote(int id, Pacote p) throws PacoteJaAdicionadoException{
+		return gestaoDeConfiguracao.adicionarPacote(id, p);
+	}
+
+	public Configuracao getConfigAtual() {
+		return gestaoDeConfiguracao.getConfigAtual();
+	}
+
+	public List<Componente> componentesRequeremMeNaConfig(int id) {
+		return gestaoDeConfiguracao.componentesRequeremMeNaConfig(id);
+	}
+
+	public void removerComponente(int id) {
+		gestaoDeConfiguracao.removerComponente(id);
+	}
+
+	public void removerPacoteConfig(int id) {
+		gestaoDeConfiguracao.removerPacoteConfig(id);
+	}
+
+	public void loadConfigAtual(int id) {
+		gestaoDeConfiguracao.loadConfigAtual(id);
+	}
+
 }
 
