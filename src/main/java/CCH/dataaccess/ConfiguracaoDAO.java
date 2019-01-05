@@ -34,24 +34,6 @@ public class ConfiguracaoDAO extends GenericDAOClass<Integer> {
         return (Configuracao)super.update(key,value);
     }
 
-    public Configuracao remove(Object key) {
-        try {
-            Configuracao al = this.get(key);
-            Statement stm = conn.createStatement();
-
-            String sql = "START TRANSACTION;";
-
-            sql = sql + "DELETE FROM Configuracao WHERE id = " + key + ";";
-
-            sql = sql + "COMMIT;";
-
-            stm.execute(sql);
-
-            return al;
-        }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
-    }
-
     public Configuracao put(Integer key, Configuracao value){
         if(containsKey(key))
             return update(key,value);
