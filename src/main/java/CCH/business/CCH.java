@@ -228,6 +228,54 @@ public class CCH {
 
 
 	/**
+	 * Método que devolve todos as configurações no sistema.
+	 *
+	 * @return List<Configurações> Lista de todos as configurações no sistema
+	 */
+	public List<Configuracao> consultarConfiguracoes() {
+		return gestaoDeConfiguracao.consultarConfiguracoes();
+	}
+
+	/**
+	 * Método que cria uma nova configuração.
+	 *
+	 */
+	public void criarConfiguracao() {
+		gestaoDeConfiguracao.criarConfiguracao();
+	}
+
+	/**
+	 * Método que remove a configuração com o id passado como parâmetro
+	 * do sistema.
+	 *
+	 * @param configuracaoId Id da configuração que se pretende remover
+	 */
+	public void removerConfiguracao(int configuracaoId) {
+		gestaoDeConfiguracao.removerConfiguracao(configuracaoId);
+	}
+	/**
+	 * Método que devolve os componentes dentro de um determinado pacote.
+	 *
+	 * @param pacote_id Id do pacote em questão
+	 * @return List<Componente> Lista dos componentes no pacote
+	 */
+	public List<Componente> consultarComponentesNoPacote(int pacote_id) {
+
+		Pacote p = pacoteDAO.get(pacote_id);
+		return new ArrayList<>(p.getComponentes().values());
+	}
+
+	/**
+	 * Método que remove um determinado componente de um determinado pacote.
+	 *
+	 * @param pacote Pacote em questão
+	 * @param componente_id Id do componente que se pretende eliminar do pacote
+	 */
+	public void removerComponenteDoPacote(Pacote pacote, int componente_id) {
+		pacote.removeComponente(componente_id);
+	}
+
+	/**
 	 * Método que gera uma configuração ótima, ou seja, uma configuração que tenta
 	 * maximizar a utilização do dinheiro previsto.
 	 *
@@ -240,30 +288,10 @@ public class CCH {
 	 * @throws ConfiguracaoNaoTemObrigatoriosException Caso a configuração não
 	 * contenha os componentes básicos (obrigatórios)
 	 */
-
 	public Configuracao ConfiguracaoOtima(Configuracao configuracao, double valor) throws NoOptimalConfigurationException, ConfiguracaoNaoTemObrigatoriosException {
 		Collection<Pacote> pacs = pacoteDAO.values().stream().map(p -> (Pacote)p).collect(Collectors.toList());
 		Collection<Componente> comps = componenteDAO.values().stream().map(p -> (Componente)p).collect(Collectors.toList());
 		return gestaoDeConfiguracao.configuracaoOtima(comps,pacs,configuracao,valor);
-	}
-	/**
-	 * Método que devolve os componentes dentro de um determinado pacote.
-	 *
-	 * @param pacote_id Id do pacote em questão
-	 * @return List<Componente> Lista dos componentes no pacote
-	 */
-	public List<Componente> consultarComponentesNoPacote(int pacote_id) {
-		return new ArrayList<>(pacoteDAO.getAllComponentesNoPacote(pacote_id));
-	}
-
-	/**
-	 * Método que remove um determinado componente de um determinado pacote.
-	 *
-	 * @param pacote Pacote em questão
-	 * @param componente_id Id do componente que se pretende eliminar do pacote
-	 */
-	public void removerComponenteDoPacote(Pacote pacote, int componente_id) {
-		pacote.removeComponente(componente_id);
 	}
 
 	/**
@@ -278,6 +306,72 @@ public class CCH {
 	 */
 	public void adicionarComponenteAoPacote(Pacote pacote, int componente_id) throws ComponenteJaExisteNoPacoteException, ComponenteIncompativelNoPacoteException {
 		pacote.adicionaComponente(componente_id);
+	}
+
+	/**
+	 * Método que cria uma nova encomenda no sistema.
+	 *
+	 * @param configuracao Configuração que se pretende encomendar
+	 * @param nomeCliente Nome do cliente a que a encomenda corresponde
+	 * @param numeroDeIdentificacaoCliente Número de Identificação do cliente
+	 * @param moradaCliente Morada do cliente
+	 * @param paisCliente País do cliente
+	 * @param emailCliente E-mail do cliente
+	 * @throws EncomendaTemComponentesIncompativeis Se a configuração tem componentes
+	 * incompatíveis
+	 * @throws EncomendaRequerOutrosComponentes Se existem componentes na configuração
+	 * que requerem outros componentes que não estão presentes na mesma
+	 * @throws EncomendaRequerObrigatoriosException Se a configuração não tem todos
+	 * os componentes obrigatórios
+	 */
+	public void criarEncomenda(
+			Configuracao configuracao,
+			String nomeCliente,
+			String numeroDeIdentificacaoCliente,
+			String moradaCliente,
+			String paisCliente,
+			String emailCliente
+	) throws EncomendaRequerOutrosComponentes, EncomendaTemComponentesIncompativeis, EncomendaRequerObrigatoriosException {
+		gestaoDeConfiguracao.criarEncomenda(configuracao, nomeCliente, numeroDeIdentificacaoCliente, moradaCliente,
+											  paisCliente, emailCliente);
+	}
+
+	/**
+	 * Devolve a próxima encomenda que está pronta a ser produzida (existindo
+	 * em stock todos os componentes necessários para a produção da encomenda).
+	 *
+	 * @return Encomenda pronta a produzir
+	 * @throws SemEncomendasDisponiveisException Caso não exista nenhuma encomenda disponível,
+	 * por exemplo, se simplesmente não existir nenhuma encomenda para produzir ou
+	 * se não houver em stock algum dos componentes necessários para a encomenda
+	 */
+	public Encomenda consultarProximaEncomenda() throws SemEncomendasDisponiveisException {
+		return operacaoFabril.consultarProximaEncomenda();
+	}
+
+	/**
+	 * Método que remove uma encomenda (incluindo da base de dados).
+	 *
+	 * @param id Id da encomenda que se pretende remover
+	 */
+	public void removerEncomenda(Integer id) {
+		operacaoFabril.removerEncomenda(id);
+	}
+
+	/**
+	 * Atualiza o stock de um determinado componente (incluindo na base de dados),
+	 * por exemplo, caso algum componente se parta ou esteja esquecido na Fábrica.
+	 *
+	 * @param componente Objeto componente já com as informações novas
+	 * @throws SemEncomendasDisponiveisException Caso esta atualização não altere
+	 * as encomendas disponíveis a produzir.
+	 */
+	public Encomenda atualizarStock(Componente componente) throws SemEncomendasDisponiveisException, StockInvalidoException {
+		return operacaoFabril.atualizarStock(componente);
+	}
+
+	public void atualizarDesconto(Pacote pacote) {
+		pacoteDAO.updateDesconto(pacote);
 	}
 }
 
